@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const app = express();
 const bodyParser = require('body-parser');
 const Registration_cnxt = require('./contexts/TestQuery')
-
+const prompt = require('prompt-sync')();
 
 app.use(bodyParser.json());
 
@@ -28,8 +28,13 @@ app.on('connection', (stream) => {
 
 
 
-const PORT = 6900
 
+const PORT = 6900
 app.listen(PORT, (e) => {
-    console.log("PORT is running on " + PORT);
+    console.log("********************************************************");
+    console.log("*                                                      *");
+    console.log("*                PORT is running on " + PORT + "               *");
+    console.log("*                                                      *");
+    console.log("********************************************************");
+
 });
