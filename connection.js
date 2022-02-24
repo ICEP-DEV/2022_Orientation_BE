@@ -19,10 +19,12 @@ mariadb.query('SELECT "test"', function(err, rows, fields) {
         if (rows[0].test == "test") {
             console.log("********************Server is ready********************")
         }
-    let command = prompt("For Help input -help : ")
-    if (command == "-help") {
-        console.log("Help instructions")
-    }
+        //Stop the main thread making the API to stop listerning 
+
+        // let command = prompt("For Help input -help : ")
+        // if (command == "-help") {
+        //     console.log("Help instructions")
+        // }
 })
 
 module.exports = mariadb;
