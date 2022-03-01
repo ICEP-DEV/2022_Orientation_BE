@@ -12,8 +12,8 @@ app.use(bodyParser.json());
 
 Router.post('/', (req, res, next) => {
 
-
-    if (!req.body) {
+    //console.log(req.body)
+    if (Object.keys(req.body).length == 0) {
         res.send({
             error: true,
             code: "R001",
@@ -22,11 +22,19 @@ Router.post('/', (req, res, next) => {
         return
     }
 
-    if (!req.body.names) {
+    if (!req.body.fname) {
         res.send({
             error: true,
             code: "R002",
-            message: "Names were not found"
+            message: "first name was not found"
+        });
+        return
+    }
+    if (!req.body.lname) {
+        res.send({
+            error: true,
+            code: "R002",
+            message: "last name was not found"
         });
         return
     }
@@ -38,19 +46,11 @@ Router.post('/', (req, res, next) => {
         });
         return
     }
-    if (!req.body.stnumber) {
+    if (!req.body.studNum) {
         res.send({
             error: true,
             code: "R002",
             message: "student number was not found"
-        });
-        return
-    }
-    if (!req.body.phoneNum) {
-        res.send({
-            error: true,
-            code: "R002",
-            message: "phone number was not found"
         });
         return
     }
@@ -67,7 +67,7 @@ Router.post('/', (req, res, next) => {
     var ciphertext = CryptoJS.AES.encrypt(req.body.password, "123").toString();
 
     try {
-        mariadb.query(`INSERT INTO user VALUES ( DEFAULT, "${req.body.names}", "${ciphertext}", "${req.body.phoneNum}","${req.body.stnumber}", "${req.body.email}", "${0}");`, (err, rows, fields) => {
+        mariadb.query(`INSERT INTO student VALUES ( DEFAULT,"${req.body.studNum}","${req.body.fname}","${req.body.lname}", "${req.body.email}", "${ciphertext}", "${0}");`, (err, rows, fields) => {
             if (!err) {
                 res.send(rows);
                 console.log("A user successfully registered")

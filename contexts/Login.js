@@ -16,14 +16,14 @@ Router.get('/', (req, res, next) => {
     let password;
 
     //Checking of body elements 
-    if (req.body) {
+    if (Object.keys(req.body).length != 0) {
         if (req.body.email) {
             email = req.body.email
         } else {
             res.send({
                 "error": true,
                 "code": "L003",
-                "message": "Error user username not supplied",
+                "message": "Error student email not supplied",
             })
             return
         }
@@ -33,7 +33,7 @@ Router.get('/', (req, res, next) => {
             res.send({
                 "error": true,
                 "code": "L002",
-                "message": "Error user password not supplied",
+                "message": "Error student password not supplied",
             })
             return
         }
@@ -41,7 +41,7 @@ Router.get('/', (req, res, next) => {
         res.send({
             "error": true,
             "code": "L001",
-            "message": "Error user credintial were not supplied",
+            "message": "Error student credintials were not supplied",
         })
         return
     }
@@ -49,7 +49,7 @@ Router.get('/', (req, res, next) => {
 
 
 
-    mariadb.query(`SELECT * FROM user WHERE email = "${req.body.email}"`, (err, rows, fields) => {
+    mariadb.query(`SELECT * FROM student WHERE email = "${req.body.email}"`, (err, rows, fields) => {
         if (!err) {
             if (rows.length < 1) {
                 res.send({
@@ -60,7 +60,7 @@ Router.get('/', (req, res, next) => {
                 return
             }
 
-            mariadb.query(`SELECT * FROM user WHERE email = "${req.body.email}" `, (err, rows, fields) => {
+            mariadb.query(`SELECT * FROM student WHERE email = "${req.body.email}" `, (err, rows, fields) => {
                 var bytes = CryptoJS.AES.decrypt(rows[0].password, '123');
                 var originalText = bytes.toString(CryptoJS.enc.Utf8);
 
@@ -77,7 +77,7 @@ Router.get('/', (req, res, next) => {
                             res.send({
                                 "error": true,
                                 "code": "L006",
-                                "message": "User is not verified",
+                                "message": "Student is not verified",
                             })
                             return
                         }
@@ -89,10 +89,6 @@ Router.get('/', (req, res, next) => {
                     }
                 }
             });
-
-
-
-
         } else {
             console.log(err);
         }

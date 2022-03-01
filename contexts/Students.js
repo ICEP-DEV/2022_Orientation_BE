@@ -10,53 +10,112 @@ app.use(bodyParser.json());
 
 // Get Method For Students 
 Router.get('/', (req, res, next) => {
-    if (!req.body) {
+    if (Object.keys(req.body).length == 0) {
         res.send({
             error: true,
-            code: "C001",
+            code: "C001_GET",
             message: "body parameters were not found"
         });
         return
     }
+
     if (req.body.id) {
         if (req.body.id == "*") {
-            mariadb.query('SELECT * from user', (err, rows) => {
+            mariadb.query('SELECT * from student', (err, rows) => {
                 if (!err) {
-                    res.send(rows)
+                    res.send({
+                        error: false,
+                        data: rows
+                    });
                 } else {
-                    console.log(err)
+                    res.send({
+                        error: true,
+                        code: "C001_SQL_GET",
+                        message: err
+                    });
+                    return
                 }
             })
         } else {
-            mariadb.query(`SELECT * FROM user WHERE user_id = ${req.body.id}`, (err, rows) => {
+            mariadb.query(`SELECT * FROM student WHERE id = ${req.body.id}`, (err, rows) => {
                 if (!err) {
-                    res.send(rows)
+                    res.send({
+                        error: false,
+                        data: rows
+                    })
                 } else {
-                    console.log(err)
+                    res.send({
+                        error: true,
+                        code: "C002_SQL_GET",
+                        message: err
+                    });
+                    return
                 }
             })
         }
+    } else {
+        res.send({
+            error: true,
+            code: "C002_GET",
+            message: "Id was not recieved from body arguements"
+        });
+        return
     }
 });
 
 // Delete Method For Students
 Router.delete('/', (req, res) => {
+    if (Object.keys(req.body).length == 0) {
+        res.send({
+            error: true,
+            code: "C001_DELETE",
+            message: "body parameters were not found"
+        });
+        return
+    }
+
+    if (!req.body.id) {
+        res.send({
+            error: true,
+            code: "C002_DELETE",
+            message: "Id body parameters was not recieved"
+        });
+        return
+    }
+
     if (req.body.id == "*") {
         //Delete All if body with element id is equal to * else
-        mariadb.query(`DELETE FROM user `, (err, rows) => {
+        mariadb.query(`DELETE FROM student `, (err, rows) => {
             if (!err) {
-                res.send(`All Students has been deleted.`)
+                res.send({
+                    error: false,
+                    message: `All Students have been deleted.`
+                })
             } else {
-                console.log(err)
+                res.send({
+                    error: true,
+                    code: "C001_SQL_DELETE",
+                    message: err
+                });
+                return
             }
         })
     } else {
         //delete the metioned id
-        mariadb.query(`DELETE FROM user WHERE user_id = ${req.body.id}`, (err, rows) => {
+        mariadb.query(`DELETE FROM student WHERE id = ${req.body.id}`, (err, rows) => {
             if (!err) {
-                res.send(`Student with the student ID: ${req.body.id} has been deleted.`)
+                res.send({
+                    error: false,
+                    data: `Student with the student ID: ${req.body.id} has been deleted.`
+                })
+                return
             } else {
-                console.log(err)
+                res.send({
+                    error: true,
+                    code: "C002_SQL_DELETE",
+                    message: err
+                });
+                return
             }
         })
     }
@@ -65,32 +124,80 @@ Router.delete('/', (req, res) => {
 
 //Post Method For Student
 Router.post('', (req, res) => {
-    console.log(req.body)
-    const { studNum, name, surname, email, password, phoneNumber } = req.body;
-    //`user_id`, `firstname_lastname`, `password`, `phoneNumber`, `stNumber`, `email`, `isVerified`
-    mariadb.query(`INSERT INTO user VALUES(DEFAULT,'${name +" "+ surname}','${password}','${phoneNumber}','${studNum}','${email}',${1} )`, (err, rows) => {
+    if (Object.keys(req.body).length == 0) {
+        res.send({
+            error: true,
+            code: "C001_POST",
+            message: "body parameters were not found"
+        });
+        return
+    }
+    const { studNum, firstname, lastname, email, password, isVerified } = req.body;
+    if (studNum == null || firstname == null || lastname == null || email == null || password == null || isVerified == null) {
+        res.send({
+            error: true,
+            message: "One or many of the requred body arguements is missing",
+            code: "C002_POST"
+        })
+        return
+    }
+    mariadb.query(`INSERT INTO student VALUES(DEFAULT,'${studNum}','${firstname}','${lastname}','${email}','${password}',${isVerified} )`, (err, rows) => {
         if (!err) {
-            res.send(`Student with the name: ${name} has been added.`)
+            res.send({
+                error: false,
+                data: `Student with the name: ${firstname} has been added.`
+            })
+            return
         } else {
-            console.log(err)
+            res.send({
+                error: true,
+                message: err,
+                code: "C001_SQL_POST"
+            })
+            return
         }
     })
 })
 
 //Put Method For Student
 Router.put('/', (req, res) => {
-    const { id, studNum, name, surname, email, password } = req.body
 
-    mariadb.query('UPDATE student SET name = ?,surname = ?, studNum = ?, email = ?, password = ? WHERE user_id = ?', [name, surname, studNum, email, password, id], (err, rows) => {
+    if (Object.keys(req.body).length == 0) {
+        res.send({
+            error: true,
+            code: "C001_PUT",
+            message: "body parameters were not found"
+        });
+        return
+    }
+
+    const { id, studNum, firstname, lastname, email, password, isVerified } = req.body
+
+    if (id == null || studNum == null || firstname == null || lastname == null || email == null || password == null || isVerified == null) {
+        res.send({
+            error: true,
+            message: "One or many of the requred body arguements is missing",
+            code: "C002_PUT"
+        })
+        return
+    }
+
+    mariadb.query('UPDATE student SET firstname = ?,lastname = ?, studNum = ?, email = ?, password = ?, isVerified = ? WHERE id = ?', [firstname, lastname, studNum, email, password, isVerified, id], (err, rows) => {
         if (!err) {
-            res.send(`Student with the name: ${name} has been added.`)
+            res.send({
+                error: false,
+                data: `Student with the name: ${firstname} has been added.`
+            })
+            return
         } else {
-            console.log(err)
+            res.send({
+                error: true,
+                message: err,
+                code: "C001_SQL_PUT"
+            })
+            return
         }
-
     })
-
-    console.log(req.body)
 })
 
 
