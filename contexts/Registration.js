@@ -69,13 +69,16 @@ Router.post('/', (req, res, next) => {
     try {
         mariadb.query(`INSERT INTO student VALUES ( DEFAULT,"${req.body.studNum}","${req.body.fname}","${req.body.lname}", "${req.body.email}", "${ciphertext}", "${0}");`, (err, rows, fields) => {
             if (!err) {
-                res.send(rows);
-                console.log("A user successfully registered")
+                res.send({
+                    error: false,
+                    data: rows
+                });
+                console.log("A student successfully registered")
+                return
             } else {
-                console.log(err.sqlMessage);
                 res.send({
                     error: true,
-                    message: err.sqlMessage,
+                    message: err,
                     code: "R003"
                 });
                 return

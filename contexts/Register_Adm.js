@@ -16,48 +16,23 @@ Router.post('/', (req, res, next) => {
     if (Object.keys(req.body).length == 0) {
         res.send({
             error: true,
-            code: "R001",
+            code: "R001_ADMIN",
             message: "body parameters were not found"
-        });
-        return
-    }
-
-    if (!req.body.fname) {
-        res.send({
-            error: true,
-            code: "R002",
-            message: "first name was not found"
-        });
-        return
-    }
-    if (!req.body.lname) {
-        res.send({
-            error: true,
-            code: "R002",
-            message: "last name was not found"
         });
         return
     }
     if (!req.body.password) {
         res.send({
             error: true,
-            code: "R002",
+            code: "R002_ADMIN",
             message: "password were not found"
-        });
-        return
-    }
-    if (!req.body.studNum) {
-        res.send({
-            error: true,
-            code: "R002",
-            message: "student number was not found"
         });
         return
     }
     if (!req.body.email) {
         res.send({
             error: true,
-            code: "R002",
+            code: "R002_ADMIN",
             message: "email was not found"
         });
         return
@@ -67,16 +42,19 @@ Router.post('/', (req, res, next) => {
     var ciphertext = CryptoJS.AES.encrypt(req.body.password, "123").toString();
 
     try {
-        mariadb.query(`INSERT INTO student VALUES ( DEFAULT,"${req.body.studNum}","${req.body.fname}","${req.body.lname}", "${req.body.email}", "${ciphertext}", "${0}");`, (err, rows, fields) => {
+        mariadb.query(`INSERT INTO admin VALUES ( DEFAULT, "${req.body.email}", "${ciphertext}");`, (err, rows, fields) => {
             if (!err) {
-                res.send(rows);
-                console.log("A user successfully registered")
+                res.send({
+                    error: false,
+                    data: rows
+                });
+                console.log("A admin successfully registered")
+                return
             } else {
-                console.log(err.sqlMessage);
                 res.send({
                     error: true,
-                    message: err.sqlMessage,
-                    code: "R003"
+                    message: err,
+                    code: "R003_ADMIN"
                 });
                 return
             }
