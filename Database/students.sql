@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2022 at 10:49 AM
+-- Generation Time: Mar 01, 2022 at 12:42 PM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -25,6 +25,18 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `student`
 --
 
@@ -34,20 +46,27 @@ CREATE TABLE `student` (
   `name` varchar(200) NOT NULL,
   `surname` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
-  `password` varchar(100) NOT NULL
+  `password` varchar(100) NOT NULL,
+  `isVerified` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`id`, `studNum`, `name`, `surname`, `email`, `password`) VALUES
-(2, 221145478, 'Nteli', 'nkuna', 'nteli@gmail.com', '25896'),
-(3, 147845478, 'mbuyelo', 'mabunda', 'mbuyelo@gmail.com', '86459');
+INSERT INTO `student` (`id`, `studNum`, `name`, `surname`, `email`, `password`, `isVerified`) VALUES
+(2, 221145478, 'Nteli', 'nkuna', 'nteli@gmail.com', '25896', 0),
+(3, 147845478, 'mbuyelo', 'mabunda', 'mbuyelo@gmail.com', '86459', 0);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `student`
@@ -58,6 +77,12 @@ ALTER TABLE `student`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `student`
