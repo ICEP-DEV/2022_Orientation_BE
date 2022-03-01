@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "e12824ac-e994-4053-8d7b-3592e330ba1d",
+		"name": "MainmanReqs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "MailPhpSender",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"otp\":\"12324\",\r\n    \"firstname\":\"Cebolenkosi\",\r\n    \"lastname\":\"Shezi\",\r\n    \"email\":\"cbshezi5@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost/mailman/sendEmail.php",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"mailman",
+						"sendEmail.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
