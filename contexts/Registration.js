@@ -33,7 +33,7 @@ Router.post('/', (req, res, next) => {
     if (!req.body.lname) {
         res.send({
             error: true,
-            code: "R002",
+            code: "R003",
             message: "last name was not found"
         });
         return
@@ -41,7 +41,7 @@ Router.post('/', (req, res, next) => {
     if (!req.body.password) {
         res.send({
             error: true,
-            code: "R002",
+            code: "R004",
             message: "password were not found"
         });
         return
@@ -49,7 +49,7 @@ Router.post('/', (req, res, next) => {
     if (!req.body.studNum) {
         res.send({
             error: true,
-            code: "R002",
+            code: "R005",
             message: "student number was not found"
         });
         return
@@ -57,7 +57,7 @@ Router.post('/', (req, res, next) => {
     if (!req.body.email) {
         res.send({
             error: true,
-            code: "R002",
+            code: "R006",
             message: "email was not found"
         });
         return
@@ -73,13 +73,13 @@ Router.post('/', (req, res, next) => {
                     error: false,
                     data: rows
                 });
-                console.log("A student successfully registered")
+                console.log(new Date() + " - A student successfully registered " + req.body.email)
                 return
             } else {
                 res.send({
                     error: true,
                     message: err,
-                    code: "R003"
+                    code: "R001_SQL"
                 });
                 return
             }

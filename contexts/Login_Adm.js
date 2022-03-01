@@ -21,8 +21,8 @@ Router.get('/', (req, res, next) => {
         } else {
             res.send({
                 "error": true,
-                "code": "L003",
-                "message": "Error student email not supplied",
+                "code": "L003_ADMIN",
+                "message": "Error admin email not supplied",
             })
             return
         }
@@ -31,16 +31,16 @@ Router.get('/', (req, res, next) => {
         } else {
             res.send({
                 "error": true,
-                "code": "L002",
-                "message": "Error student password not supplied",
+                "code": "L002_ADMIN",
+                "message": "Error admin password not supplied",
             })
             return
         }
     } else {
         res.send({
             "error": true,
-            "code": "L001",
-            "message": "Error student credintials were not supplied",
+            "code": "L001_ADMIN",
+            "message": "Error admin credintials were not supplied",
         })
         return
     }
@@ -48,18 +48,18 @@ Router.get('/', (req, res, next) => {
 
 
 
-    mariadb.query(`SELECT * FROM student WHERE email = "${req.body.email}"`, (err, rows, fields) => {
+    mariadb.query(`SELECT * FROM admin WHERE email = "${req.body.email}"`, (err, rows, fields) => {
         if (!err) {
             if (rows.length < 1) {
                 res.send({
                     "error": true,
-                    "code": "L004",
+                    "code": "L004_ADMIN",
                     "message": "Email doesn't exist on the system",
                 })
                 return
             }
 
-            mariadb.query(`SELECT * FROM student WHERE email = "${req.body.email}" `, (err, rows, fields) => {
+            mariadb.query(`SELECT * FROM admin WHERE email = "${req.body.email}" `, (err, rows, fields) => {
                 var bytes = CryptoJS.AES.decrypt(rows[0].password, '123');
                 var originalText = bytes.toString(CryptoJS.enc.Utf8);
 
@@ -67,24 +67,24 @@ Router.get('/', (req, res, next) => {
                     if (originalText != req.body.password) {
                         res.send({
                             "error": true,
-                            "code": "L005",
+                            "code": "L005_ADMIN",
                             "message": "Password is incorrect",
                         })
                         return
                     } else {
-                        if (!rows[0].isVerified) {
-                            res.send({
-                                "error": true,
-                                "code": "L006",
-                                "message": "Student is not verified",
-                            })
-                            return
-                        }
+                        // if (!rows[0].isVerified) {
+                        //     res.send({
+                        //         "error": true,
+                        //         "code": "L006",
+                        //         "message": "Admin is not verified",
+                        //     })
+                        //     return
+                        // }
                         res.send({
                             "error": false,
                             "data": rows,
                         });
-                        console.log("A user logged in")
+                        console.log(new Date() + " -  A admin logged in " + rows[0].email)
                     }
                 }
             });

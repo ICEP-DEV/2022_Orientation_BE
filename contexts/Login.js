@@ -84,7 +84,7 @@ Router.get('/', (req, res, next) => {
                             "error": false,
                             "data": rows,
                         });
-                        console.log("A user logged in")
+                        console.log(new Date() + " - A user logged in " + rows[0].email)
                     }
                 }
             });

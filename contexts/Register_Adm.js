@@ -48,7 +48,7 @@ Router.post('/', (req, res, next) => {
                     error: false,
                     data: rows
                 });
-                console.log("A admin successfully registered")
+                console.log(new Date() + " - A admin successfully registered " + req.body.email)
                 return
             } else {
                 res.send({

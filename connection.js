@@ -18,6 +18,8 @@ mariadb.query('SELECT "test"', function(err, rows, fields) {
     if (rows[0])
         if (rows[0].test == "test") {
             console.log("********************Server is ready********************")
+            console.log("")
+            console.log("System Log: ")
         }
 })
 
