@@ -4,6 +4,7 @@ const mysql = require('mysql');
 const app = express();
 const bodyParser = require('body-parser');
 const prompt = require('prompt-sync')();
+const socket = require('socket.io')
 
 //Context file object
 //Student
@@ -39,11 +40,30 @@ app.use('/Registration_Admin', RegistrationAdm_cnxt);
 app.use('/Login_Admin', LoginAdm_cnxt);
 
 const PORT = 6900
-app.listen(PORT, (e) => {
+var server = app.listen(PORT, (e) => {
     console.log("********************************************************");
-    console.log("*                                                      *");
+    console.log("* DB: localhost:3306 DBname:'orientation_db_schema'    *");
     console.log("*                PORT is running on " + PORT + "               *");
     console.log("*                 http://localhost:6900                *");
     console.log("********************************************************");
 
 });
+
+
+
+
+/* Note for Shezi */
+
+//Counting of current live (Realtime) users on the On the system
+//Backend Code
+// var socketIO = socket(server);
+
+// socketIO.on('connection', (socket) => {
+//     console.log("user connected")
+// })
+
+//Frontend Code
+//Service
+//import * socketIo from 'socket.io-client'
+//-Declare
+//private clientSocket = socketIo.connect(backendUrl)
