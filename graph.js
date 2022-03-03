@@ -16,6 +16,9 @@ const Student_cnxt = require("./contexts/Students")
 const RegistrationAdm_cnxt = require('./contexts/Register_Adm')
 const LoginAdm_cnxt = require("./contexts/Login_Adm")
 
+//common
+const Stats_cnxt = require('./contexts/Stats')
+
 
 app.use(bodyParser.json());
 
@@ -38,6 +41,9 @@ app.use('/Login', Login_cnxt);
 //context channelling Admin
 app.use('/Registration_Admin', RegistrationAdm_cnxt);
 app.use('/Login_Admin', LoginAdm_cnxt);
+
+//context to common entities
+app.use('/Stats', Stats_cnxt);
 
 const PORT = 6900
 var server = app.listen(PORT, (e) => {
