@@ -50,17 +50,62 @@ Router.get('/', (req, res, next) => {
         } else {
             res.send({
                 error: true,
-                code: "T001_SQL",
+                code: "T001_SQL_GET",
                 message: "id element was not found as a body element",
                 sqlerror: err
             })
             return
         }
     });
+});
+//All a new activity upon event or requested
+Router.post('/', (req, res, next) => {
 
 
+    if (Object.keys(req.body).length == 0) {
+        res.send({
+            error: true,
+            code: "T001_POST",
+            message: "body parameters were not found"
+        })
+        return
+    }
 
 
+    if (req.body.userid && req.body.activity) {
+        mariadb.query(`INSERT INTO tracking VALUES( DEFAULT,'${req.body.userid}','${req.body.activity}',DEFAULT)`, (err, rows, fields) => {
+            if (!err) {
+                res.send({
+                    error: false,
+                    data: rows,
+                })
+                return
+            } else {
+                if (err.code == "ER_NO_REFERENCED_ROW_2") {
+                    res.send({
+                        error: true,
+                        code: "T001_SQL_POST",
+                        message: "User doesn't exist on the system",
+                    })
+                    return
+                }
+                res.send({
+                    error: true,
+                    code: "T002_SQL_POST",
+                    message: "Failed to successfully excute the SQL statement",
+                    sqlerror: err
+                })
+                return
+            }
+        });
+    } else {
+        res.send({
+            error: true,
+            code: "T002_POST",
+            message: "activity or user_id element was not found as a body element"
+        })
+        return
+    }
 });
 
 module.exports = Router;

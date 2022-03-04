@@ -14,7 +14,7 @@ Router.get('/', (req, res, next) => {
     if (Object.keys(req.body).length == 0) {
         res.send({
             error: true,
-            code: "S001",
+            code: "S001_GET",
             message: "body parameters were not found"
         })
         return
@@ -32,7 +32,7 @@ Router.get('/', (req, res, next) => {
             } else {
                 res.send({
                     error: true,
-                    code: "S001_SQL",
+                    code: "S001_SQL_GET",
                     message: "field element was not found as a body element"
                 })
                 return
@@ -41,14 +41,13 @@ Router.get('/', (req, res, next) => {
     } else {
         res.send({
             error: true,
-            code: "S002",
+            code: "S002_GET",
             message: "field element was not found as a body element"
         })
         return
     }
-
-
-
 });
+
+
 
 module.exports = Router;
