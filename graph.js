@@ -18,6 +18,7 @@ const LoginAdm_cnxt = require("./contexts/Login_Adm")
 
 //common
 const Stats_cnxt = require('./contexts/Stats')
+const Track_cnxt = require('./contexts/Tracking')
 
 app.use(bodyParser.json());
 
@@ -44,6 +45,7 @@ app.use('/Login_Admin', LoginAdm_cnxt);
 
 //context to common entities
 app.use('/Stats', Stats_cnxt);
+app.use('/Tracking', Track_cnxt)
 
 const PORT = 6900
 var server = app.listen(PORT, (e) => {

@@ -3,8 +3,6 @@ const app = express();
 const Router = express.Router();
 const mariadb = require('../connection');
 const bodyParser = require('body-parser');
-var CryptoJS = require("crypto-js");
-
 app.use(bodyParser.json());
 
 
