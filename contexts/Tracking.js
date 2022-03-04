@@ -31,10 +31,11 @@ Router.get('/', (req, res, next) => {
     if (req.body.activity) query += ` AND activity = "${req.body.activity}"`;
 
 
-    if (req.body.when != "lastest*" || req.body.when != "LASTEST*") {
+    if (req.body.when == "lastest*" || req.body.when == "LASTEST*") {
         query += ` GROUP BY "tracking.user_id" DESC`;
     }
-    if (req.body.when != "earliest*" || req.body.when != "EARLIEST*") {
+
+    if (req.body.when == "earliest*" || req.body.when == "EARLIEST*") {
         query += ` GROUP BY "tracking.user_id"`;
     }
 
