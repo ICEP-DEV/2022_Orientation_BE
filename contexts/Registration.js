@@ -22,22 +22,22 @@ Router.post('/', (req, res, next) => {
         return
     }
 
-    if (!req.body.fname) {
-        res.send({
-            error: true,
-            code: "R002",
-            message: "first name was not found"
-        });
-        return
-    }
-    if (!req.body.lname) {
-        res.send({
-            error: true,
-            code: "R003",
-            message: "last name was not found"
-        });
-        return
-    }
+    // if (!req.body.fname) {
+    //     res.send({
+    //         error: true,
+    //         code: "R002",
+    //         message: "first name was not found"
+    //     });
+    //     return
+    // }
+    // if (!req.body.lname) {
+    //     res.send({
+    //         error: true,
+    //         code: "R003",
+    //         message: "last name was not found"
+    //     });
+    //     return
+    // }
     if (!req.body.password) {
         res.send({
             error: true,
@@ -46,14 +46,14 @@ Router.post('/', (req, res, next) => {
         });
         return
     }
-    if (!req.body.studNum) {
-        res.send({
-            error: true,
-            code: "R005",
-            message: "student number was not found"
-        });
-        return
-    }
+    // if (!req.body.studNum) {
+    //     res.send({
+    //         error: true,
+    //         code: "R005",
+    //         message: "student number was not found"
+    //     });
+    //     return
+    // }
     if (!req.body.email) {
         res.send({
             error: true,
@@ -76,6 +76,24 @@ Router.post('/', (req, res, next) => {
                 console.log(new Date() + " - A student successfully registered " + req.body.email)
                 return
             } else {
+                if (err.code == 'ER_DUP_ENTRY') {
+
+                    if (err.sqlMessage.search("email") != -1) {
+                        res.send({
+                            error: true,
+                            message: "Email already exist in the system",
+                            code: "R001_SQL_DUP"
+                        });
+                        return
+                    } else {
+                        res.send({
+                            error: true,
+                            message: "Student Number is already existing on the system",
+                            code: "R002_SQL_DUP"
+                        });
+                        return
+                    }
+                }
                 res.send({
                     error: true,
                     message: err,
