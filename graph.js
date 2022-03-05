@@ -1,10 +1,10 @@
 //Module Importing
 const express = require('express');
-const mysql = require('mysql');
+//const mysql = require('mysql');
 const app = express();
 const bodyParser = require('body-parser');
-const prompt = require('prompt-sync')();
-const socket = require('socket.io')
+//const prompt = require('prompt-sync')();
+//const socket = require('socket.io')
 
 //Context file object
 //Student
@@ -16,18 +16,22 @@ const Student_cnxt = require("./contexts/Students")
 const RegistrationAdm_cnxt = require('./contexts/Register_Adm')
 const LoginAdm_cnxt = require("./contexts/Login_Adm")
 
+//common
+const Stats_cnxt = require('./contexts/Stats')
+const Track_cnxt = require('./contexts/Tracking')
 
 app.use(bodyParser.json());
 
 
-app.use(function(req, res, next) {
-    //Header allowences of METHODS
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-});
+
+// app.use(function(req, res, next) {
+//     //Header allowences of METHODS
+//     res.setHeader('Access-Control-Allow-Origin', '*');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
+//     res.setHeader('Access-Control-Allow-Credentials', true);
+//     next();
+// });
 
 //context channelling Student
 app.use('/TestQuery', TestQuery_cnxt);
@@ -38,6 +42,10 @@ app.use('/Login', Login_cnxt);
 //context channelling Admin
 app.use('/Registration_Admin', RegistrationAdm_cnxt);
 app.use('/Login_Admin', LoginAdm_cnxt);
+
+//context to common entities
+app.use('/Stats', Stats_cnxt);
+app.use('/Tracking', Track_cnxt)
 
 const PORT = 6900
 var server = app.listen(PORT, (e) => {

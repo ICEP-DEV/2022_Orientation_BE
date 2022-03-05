@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "1ee6138b-0b6c-43d5-992a-a03a0275e8dd",
+		"name": "StatsRequest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET_UserCount",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"field\":\"countusers\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6900/stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6900",
+					"path": [
+						"stats"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
