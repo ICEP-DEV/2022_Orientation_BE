@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 
 
 
-Router.get('/', (req, res, next) => {
+Router.post('/', (req, res, next) => {
 
 
     let query = "SELECT student.firstname, student.lastname, student.email, student.studNum, tracking.activity, tracking.datetime" +
