@@ -13,8 +13,7 @@ Router.post('/', (req, res, next) => {
 
     let email;
     let password;
-    console.log(req.params)
-    console.log(req.headers)
+
 
     //Checking of body elements 
     if (Object.keys(req.body).length != 0) {
