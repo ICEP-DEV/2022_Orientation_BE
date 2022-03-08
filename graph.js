@@ -1,10 +1,10 @@
 //Module Importing
 const express = require('express');
-const mysql = require('mysql');
+//const mysql = require('mysql');
 const app = express();
 const bodyParser = require('body-parser');
-const prompt = require('prompt-sync')();
-const socket = require('socket.io')
+//const prompt = require('prompt-sync')();
+//const socket = require('socket.io')
 
 //Context file object
 //Student
@@ -18,9 +18,10 @@ const LoginAdm_cnxt = require("./contexts/Login_Adm")
 
 //common
 const Stats_cnxt = require('./contexts/Stats')
-
+const Track_cnxt = require('./contexts/Tracking')
 
 app.use(bodyParser.json());
+
 
 
 app.use(function(req, res, next) {
@@ -44,6 +45,7 @@ app.use('/Login_Admin', LoginAdm_cnxt);
 
 //context to common entities
 app.use('/Stats', Stats_cnxt);
+app.use('/Tracking', Track_cnxt)
 
 const PORT = 6900
 var server = app.listen(PORT, (e) => {

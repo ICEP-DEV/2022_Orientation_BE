@@ -9,10 +9,11 @@ app.use(bodyParser.json());
 
 
 
-Router.get('/', (req, res, next) => {
+Router.post('/', (req, res, next) => {
 
     let email;
     let password;
+   
 
     //Checking of body elements 
     if (Object.keys(req.body).length != 0) {

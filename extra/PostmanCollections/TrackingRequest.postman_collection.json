@@ -1,0 +1,57 @@
+{
+	"info": {
+		"_postman_id": "2c500c78-3bd7-409d-ab47-90c3e1712bc3",
+		"name": "TrackingRequest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST_TrackingReq",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    // mandetory\r\n    \"userid\":1, \r\n    // mandetory\r\n    \"activity\":\"coding\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6900/tracking",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6900",
+					"path": [
+						"tracking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_TrackingReq",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    //all opt\r\n    \"email\":\"\",\r\n    \"firstname\":\"\",\r\n    \"lastname\":\"\",\r\n    \"studNum\":\"\",\r\n    \"when\":\"earliest*|lastest*\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				}
+			},
+			"response": []
+		}
+	]
+}
