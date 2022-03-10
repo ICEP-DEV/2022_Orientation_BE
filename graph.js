@@ -12,6 +12,7 @@ const TestQuery_cnxt = require('./contexts/TestQuery')
 const Registration_cnxt = require('./contexts/Registration')
 const Login_cnxt = require("./contexts/Login")
 const Student_cnxt = require("./contexts/Students")
+const Forgotten_cnxt = require("./contexts/Forgotten")
     //Admin
 const RegistrationAdm_cnxt = require('./contexts/Register_Adm')
 const LoginAdm_cnxt = require("./contexts/Login_Adm")
@@ -19,6 +20,7 @@ const LoginAdm_cnxt = require("./contexts/Login_Adm")
 //common
 const Stats_cnxt = require('./contexts/Stats')
 const Track_cnxt = require('./contexts/Tracking')
+
 
 app.use(bodyParser.json());
 
@@ -38,6 +40,7 @@ app.use('/TestQuery', TestQuery_cnxt);
 app.use('/Registration', Registration_cnxt);
 app.use('/Student', Student_cnxt);
 app.use('/Login', Login_cnxt);
+app.use('/Forgotten',Forgotten_cnxt)
 
 //context channelling Admin
 app.use('/Registration_Admin', RegistrationAdm_cnxt);
