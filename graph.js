@@ -88,9 +88,9 @@ socketIO.on('connection', (socket) => {
         
         connection.query(`UPDATE stats SET viewNumVisitors = ${connectionCount}`,function(err, rows, fields){
             if(err)
-        {
-            console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO disconnect err")
-        }
+            {
+                console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO disconnect err")
+            }
         })
     })
 })
