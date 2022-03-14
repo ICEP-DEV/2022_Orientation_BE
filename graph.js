@@ -69,23 +69,35 @@ connectionCount = 0
 //Backend Code
 var socketIO = socket(server);
 
+//Connection of IOSocket
 socketIO.on('connection', (socket) => {
-    console.log(new Date() + " -> user connected** io-socket")
-    connectionCount++
-    //console.log(socket)
+    console.log(new Date() + " -> user connected** io-socket\b")
+    connectionCount++;
+
+    for (let index = 0; index < 4; index++) {
+        console.log("\r"+index+"\r")
+        
+    }
+    
+    //Emttion of viewNumVisitors on connection of the client of IOSocket
     socketIO.emit('usercount',connectionCount)
- 
+    //Update the viewNumVisitors when client connection
     connection.query(`UPDATE stats SET viewNumVisitors = ${connectionCount}`,function(err, rows, fields){
         if(err)
         {
             console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO connection err")
         }
     })
+
+    //Disconnection of IOSocket
     socket.on('disconnect', function(){
         console.log(new Date() + " -> user disconnected** io-socket")
-        connectionCount--
+        connectionCount--;
+
+        //Emttion of viewNumVisitors for disconnection
         socketIO.emit('usercount',connectionCount)
-        
+
+        //Update the viewNumVisitors when client disconnect
         connection.query(`UPDATE stats SET viewNumVisitors = ${connectionCount}`,function(err, rows, fields){
             if(err)
             {
