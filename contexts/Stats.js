@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 
 
-Router.get('/', (req, res, next) => {
+Router.post('/', (req, res, next) => {
 
     let field;
 
