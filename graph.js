@@ -74,11 +74,7 @@ socketIO.on('connection', (socket) => {
     console.log(new Date() + " -> user connected** io-socket\b")
     connectionCount++;
 
-    for (let index = 0; index < 4; index++) {
-        console.log("\r"+index+"\r")
-        
-    }
-    
+   
     //Emttion of viewNumVisitors on connection of the client of IOSocket
     socketIO.emit('usercount',connectionCount)
     //Update the viewNumVisitors when client connection
