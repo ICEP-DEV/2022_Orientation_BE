@@ -70,7 +70,7 @@ connectionCount = 0
 var socketIO = socket(server);
 
 socketIO.on('connection', (socket) => {
-    console.log("user connected")
+    console.log(new Date() + " -> user connected** io-socket")
     connectionCount++
     //console.log(socket)
     socketIO.emit('usercount',connectionCount)
@@ -79,7 +79,7 @@ socketIO.on('connection', (socket) => {
         
     })
     socket.on('disconnect', function(){
-        console.log("user disconnected")
+        console.log(new Date() + " -> user disconnected** io-socket")
         connectionCount--
         socketIO.emit('usercount',connectionCount)
         
