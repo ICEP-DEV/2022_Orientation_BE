@@ -7,17 +7,18 @@ const bodyParser = require('body-parser');
 const socket = require('socket.io')
 const connection = require("./connection")
 //Context file object
+
 //Student
-const TestQuery_cnxt = require('./contexts/Common/TestQuery')
+const TestQuery_cnxt = require("./contexts/Common/TestQuery")
 const Registration_cnxt = require('./contexts/Authentication/Registration')
 const Login_cnxt = require("./contexts/Authentication/Login")
 const Student_cnxt = require("./contexts/Common/Students")
 const Forgotten_cnxt = require("./contexts/Authentication/Forgotten")
-    //Admin
+//Admin
 const RegistrationAdm_cnxt = require('./contexts/Authentication/Register_Adm')
 const LoginAdm_cnxt = require("./contexts/Authentication/Login_Adm")
 
-//common
+// //common
 const Stats_cnxt = require('./contexts/Statistics/Stats')
 const Track_cnxt = require('./contexts/Tracking/Tracking')
 
@@ -58,7 +59,6 @@ var server = app.listen(PORT, (e) => {
 
 });
 
-localhost:6900/Track/Tracking
 
 
 connectionCount = 0
