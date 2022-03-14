@@ -4,8 +4,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 //const prompt = require('prompt-sync')();
-//const socket = require('socket.io')
-
+const socket = require('socket.io')
+const connection = require("./connection")
 //Context file object
 //Student
 const TestQuery_cnxt = require('./contexts/TestQuery')
@@ -62,19 +62,31 @@ var server = app.listen(PORT, (e) => {
 
 
 
-
+connectionCount = 0
 /* Note for Shezi */
 
 //Counting of current live (Realtime) users on the On the system
 //Backend Code
-// var socketIO = socket(server);
+var socketIO = socket(server);
 
-// socketIO.on('connection', (socket) => {
-//     console.log("user connected")
-// })
+socketIO.on('connection', (socket) => {
+    console.log("user connected")
+    connectionCount++
+    //console.log(socket)
+    socketIO.emit('usercount',connectionCount)
+ 
+    connection.query(`UPDATE stats SET viewNumVisitors = ${connectionCount}`,function(err, rows, fields){
+        
+    })
+    socket.on('disconnect', function(){
+        console.log("user disconnected")
+        connectionCount--
+        socketIO.emit('usercount',connectionCount)
+        
+        connection.query(`UPDATE stats SET viewNumVisitors = ${connectionCount}`,function(err, rows, fields){
+            
+        })
+    })
+})
 
-//Frontend Code
-//Service
-//import * socketIo from 'socket.io-client'
-//-Declare
-//private clientSocket = socketIo.connect(backendUrl)
+
