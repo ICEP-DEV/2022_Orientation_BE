@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 Router.post('/', (req, res, next) => {
 
 
-    let query = "SELECT student.firstname, student.lastname, student.email, student.studNum, tracking.activity, tracking.datetime" +
+    let query = "SELECT student.firstname, student.lastname, student.email, student.studNum, tracking.activity, tracking.datetime, tracking.orientation_progress" +
         " FROM tracking, student" +
         " WHERE tracking.user_id = student.id"
 
