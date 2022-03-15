@@ -22,15 +22,10 @@ Router.post('/', (req, res, next) => {
     }
 
 
-    orientationProgress = 0;
-    if(req.body.oriProgress)
-    {
-        orientation_progress = req.body.oriProgress;
-    }
 
 
     if (req.body.userid && req.body.activity) {
-        mariadb.query(`INSERT INTO tracking VALUES( DEFAULT,'${req.body.userid}','${req.body.activity}',DEFAULT,orientationProgres)`, (err, rows, fields) => {
+        mariadb.query(`INSERT INTO tracking VALUES( DEFAULT,'${req.body.userid}','${req.body.activity}',DEFAULT)`, (err, rows, fields) => {
             if (!err) {
                 res.send({
                     error: false,

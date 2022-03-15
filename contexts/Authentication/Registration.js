@@ -67,7 +67,7 @@ Router.post('/', (req, res, next) => {
     var ciphertext = CryptoJS.AES.encrypt(req.body.password, "123").toString();
 
     try {
-        mariadb.query(`INSERT INTO student VALUES ( DEFAULT,"NULL","NULL","NULL", "${req.body.email}", "${ciphertext}", "${1}");`, (err, rows, fields) => {
+        mariadb.query(`INSERT INTO student VALUES ( DEFAULT,"NULL","NULL","NULL", "${req.body.email}", "${ciphertext}", "${1}",DEFAULT);`, (err, rows, fields) => {
             if (!err) {
                 res.send({
                     error: false,

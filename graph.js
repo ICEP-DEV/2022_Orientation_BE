@@ -22,6 +22,7 @@ const LoginAdm_cnxt = require("./contexts/Authentication/Login_Adm")
 const Stats_cnxt = require('./contexts/Statistics/Stats')
 const Track_Add_cnxt = require('./contexts/Tracking/TrackAdd')
 const Track_Get_cnxt = require('./contexts/Tracking/TrackGet')
+const Track_Prog_cnxt = require('./contexts/Tracking/Progress')
 
 app.use(bodyParser.json());
 
@@ -37,9 +38,10 @@ app.use(function(req, res, next) {
 //context channelling Student
 app.use('/Test/TestQuery', TestQuery_cnxt);
 app.use('/Auth/Registration', Registration_cnxt);
-app.use('/Auth/Student', Student_cnxt);
+app.use('/Stud/Student', Student_cnxt);
 app.use('/Auth/Login', Login_cnxt);
 app.use('/Auth/Forgotten',Forgotten_cnxt)
+app.use('/Track/Progress',Track_Prog_cnxt)
 
 //context channelling Admin
 app.use('/Auth/Registration_Admin', RegistrationAdm_cnxt);
@@ -49,6 +51,7 @@ app.use('/Auth/Login_Admin', LoginAdm_cnxt);
 app.use('/Stat/Stats', Stats_cnxt);
 app.use('/Track/New', Track_Add_cnxt)
 app.use('/Track/Query',Track_Get_cnxt)
+
 
 const PORT = 6900
 var server = app.listen(PORT, (e) => {
