@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2022 at 08:08 AM
+-- Generation Time: Mar 15, 2022 at 10:05 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -60,7 +60,7 @@ CREATE TABLE `stats` (
 --
 
 INSERT INTO `stats` (`countUsers`, `viewNumVisitors`, `uploadVideo`, `videoCounts`, `videoClicks`, `id`) VALUES
-(3, 0, 0, 0, 0, 1);
+(1, 0, 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -75,17 +75,17 @@ CREATE TABLE `student` (
   `lastname` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(60) NOT NULL,
-  `isVerified` tinyint(1) NOT NULL
+  `isVerified` tinyint(1) NOT NULL,
+  `orientation_progress` int(2) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`id`, `studNum`, `firstname`, `lastname`, `email`, `password`, `isVerified`) VALUES
-(1, 217070554, 'Cebolenkosi', 'Shezi', 'cbshezi5@gmail.com', 'U2FsdGVkX19MzgWjTo6AX0z/UXP3YC/KSX+j9eNk9QA=', 1),
-(2, 212214563, 'cee', 'mkhari', 'cm@gmail.com', '12345', 1),
-(3, 211452639, 'ntlhari', 'nkuna', 'nkunan@gmail.com', '36985', 1);
+INSERT INTO `student` (`id`, `studNum`, `firstname`, `lastname`, `email`, `password`, `isVerified`, `orientation_progress`) VALUES
+(21, 0, 'NULL', 'NULL', '218503624@tut4life.ac.za', 'U2FsdGVkX1/3bL5XVscbPcGP+ihJsh6CEZhR1ApnpVI=', 1, 1),
+(24, 0, 'NULL', 'NULL', 'cbshezi5@gmail.com', 'U2FsdGVkX1/8aYtdf9KM6R+LQ8ng5oaM8w3NmTc9vvk=', 1, 0);
 
 --
 -- Triggers `student`
@@ -115,6 +115,13 @@ CREATE TABLE `tracking` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `tracking`
+--
+
+INSERT INTO `tracking` (`id`, `user_id`, `activity`, `datetime`) VALUES
+(3, 21, 'coding', '2022-03-15 08:57:16');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -136,8 +143,7 @@ ALTER TABLE `stats`
 --
 ALTER TABLE `student`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `studNum` (`studNum`);
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `tracking`
@@ -166,13 +172,13 @@ ALTER TABLE `stats`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tracking`
 --
 ALTER TABLE `tracking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
