@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "02d075e2-9b4d-4a4b-af91-8810cb102784",
+		"_postman_id": "57d73e85-f8ad-4ada-b6e0-4ddbb0a0b8d1",
 		"name": "RegistrationRequest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -20,13 +20,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6900/registration",
+					"raw": "http://localhost:6900/auth/registration",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "6900",
 					"path": [
+						"auth",
 						"registration"
 					]
 				}
@@ -48,13 +49,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6900/registration",
+					"raw": "http://localhost:6900/auth/registration",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "6900",
 					"path": [
+						"auth",
 						"registration"
 					]
 				}
@@ -76,13 +78,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6900/registration",
+					"raw": "http://localhost:6900/auth/registration",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "6900",
 					"path": [
+						"auth",
 						"registration"
 					]
 				}
@@ -104,13 +107,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6900/registration",
+					"raw": "http://localhost:6900/auth/registration",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "6900",
 					"path": [
+						"auth",
 						"registration"
 					]
 				}
@@ -132,13 +136,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6900/registration",
+					"raw": "http://localhost:6900/auth/registration",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "6900",
 					"path": [
+						"auth",
 						"registration"
 					]
 				}
@@ -160,13 +165,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6900/registration",
+					"raw": "http://localhost:6900/auth/registration",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "6900",
 					"path": [
+						"auth",
 						"registration"
 					]
 				}
@@ -188,13 +194,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6900/registration",
+					"raw": "http://localhost:6900/auth/registration",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "6900",
 					"path": [
+						"auth",
 						"registration"
 					]
 				}

@@ -1,0 +1,62 @@
+{
+	"info": {
+		"_postman_id": "097e7097-a576-4cac-a941-19218e5f8ec0",
+		"name": "TrackProgress",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "reqGetProgressTrack",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:6900/Track/Progress?email=218503624@tut4life.ac.za",
+					"host": [
+						"localhost"
+					],
+					"port": "6900",
+					"path": [
+						"Track",
+						"Progress"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "218503624@tut4life.ac.za"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reqUpdateProgressTrack",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"218503624@tut4life.ac.za\",\r\n    \"progress\":1\r\n}\r\n\r\n//**Remove before use** Progress new value of tracking",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:6900/Track/Progress",
+					"host": [
+						"localhost"
+					],
+					"port": "6900",
+					"path": [
+						"Track",
+						"Progress"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

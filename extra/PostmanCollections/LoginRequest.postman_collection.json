@@ -1,17 +1,14 @@
 {
 	"info": {
-		"_postman_id": "bc3a766b-c1df-44c5-aced-10e90ad7ff91",
+		"_postman_id": "6983dea0-d038-42a8-ae28-630d2692d0aa",
 		"name": "LoginRequest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "LoginNoBody",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -23,13 +20,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6900/login",
+					"raw": "http://localhost:6900/auth/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "6900",
 					"path": [
+						"auth",
 						"login"
 					]
 				}
@@ -38,11 +36,8 @@
 		},
 		{
 			"name": "LoginNoPassword",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -54,13 +49,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6900/login",
+					"raw": "http://localhost:6900/auth/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "6900",
 					"path": [
+						"auth",
 						"login"
 					]
 				}
@@ -69,11 +65,8 @@
 		},
 		{
 			"name": "LoginEmailNoExist",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -85,13 +78,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6900/login",
+					"raw": "http://localhost:6900/auth/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "6900",
 					"path": [
+						"auth",
 						"login"
 					]
 				}
@@ -100,11 +94,8 @@
 		},
 		{
 			"name": "LoginPassIncorrect",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -116,13 +107,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6900/login",
+					"raw": "http://localhost:6900/auth/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "6900",
 					"path": [
+						"auth",
 						"login"
 					]
 				}
@@ -131,11 +123,8 @@
 		},
 		{
 			"name": "LoginVerificationOrSuccessful",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -147,13 +136,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6900/login",
+					"raw": "http://localhost:6900/auth/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "6900",
 					"path": [
+						"auth",
 						"login"
 					]
 				}
