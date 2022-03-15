@@ -20,8 +20,8 @@ const LoginAdm_cnxt = require("./contexts/Authentication/Login_Adm")
 
 // //common
 const Stats_cnxt = require('./contexts/Statistics/Stats')
-const Track_cnxt = require('./contexts/Tracking/Tracking')
-
+const Track_Add_cnxt = require('./contexts/Tracking/TrackAdd')
+const Track_Get_cnxt = require('./contexts/Tracking/TrackGet')
 
 app.use(bodyParser.json());
 
@@ -47,7 +47,8 @@ app.use('/Auth/Login_Admin', LoginAdm_cnxt);
 
 //context to common entities
 app.use('/Stat/Stats', Stats_cnxt);
-app.use('/Track/Tracking', Track_cnxt)
+app.use('/Track/New', Track_Add_cnxt)
+app.use('/Track/Query',Track_Get_cnxt)
 
 const PORT = 6900
 var server = app.listen(PORT, (e) => {
