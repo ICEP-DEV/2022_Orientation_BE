@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const Router = express.Router();
-const mariadb = require('../connection');
+const mariadb = require('../../connection');
 const bodyParser = require('body-parser');
 var CryptoJS = require("crypto-js");
 
@@ -56,7 +56,7 @@ Router.post('/', (req, res, next) => {
 Router.put('/', (req, res) => {
 
     let field;
-    let updateNum = 0;
+    let updateNum = 5;
   
     if (Object.keys(req.body).length == 0) {
         res.send({

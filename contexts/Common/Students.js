@@ -1,10 +1,9 @@
 const express = require('express');
 const app = express();
 const Router = express.Router();
-const mariadb = require('../connection');
+const mariadb = require('../../connection');
 const bodyParser = require('body-parser');
 const e = require('express');
-var CryptoJS = require("crypto-js");
 
 
 app.use(bodyParser.json());
@@ -133,8 +132,6 @@ Router.post('', (req, res) => {
         });
         return
     }
-
-    var ciphertext = CryptoJS.AES.encrypt(req.body.password, "123").toString();
     const { studNum, firstname, lastname, email, password, isVerified } = req.body;
     if (studNum == null || firstname == null || lastname == null || email == null || password == null || isVerified == null) {
         res.send({
@@ -144,7 +141,7 @@ Router.post('', (req, res) => {
         })
         return
     }
-    mariadb.query(`INSERT INTO student VALUES(DEFAULT,'${studNum}','${firstname}','${lastname}','${email}','${ciphertext}',${isVerified} )`, (err, rows) => {
+    mariadb.query(`INSERT INTO student VALUES(DEFAULT,'${studNum}','${firstname}','${lastname}','${email}','${password}',${isVerified} )`, (err, rows) => {
         if (!err) {
             res.send({
                 error: false,
@@ -184,8 +181,8 @@ Router.put('/', (req, res) => {
         })
         return
     }
-    var ciphertext = CryptoJS.AES.encrypt(req.body.password, "123").toString();
-    mariadb.query('UPDATE student SET firstname = ?,lastname = ?, studNum = ?, email = ?, password = ?, isVerified = ? WHERE id = ?', [firstname, lastname, studNum, email,ciphertext , isVerified, id], (err, rows) => {
+
+    mariadb.query('UPDATE student SET firstname = ?,lastname = ?, studNum = ?, email = ?, password = ?, isVerified = ? WHERE id = ?', [firstname, lastname, studNum, email, password, isVerified, id], (err, rows) => {
         if (!err) {
             res.send({
                 error: false,

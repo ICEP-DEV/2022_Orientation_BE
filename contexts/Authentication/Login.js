@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const Router = express.Router();
-const mariadb = require('../connection');
+const mariadb = require('../../connection');
 const bodyParser = require('body-parser');
 var CryptoJS = require("crypto-js");
 
@@ -13,7 +13,6 @@ Router.post('/', (req, res, next) => {
 
     let email;
     let password;
-   
 
     //Checking of body elements 
     if (Object.keys(req.body).length != 0) {
