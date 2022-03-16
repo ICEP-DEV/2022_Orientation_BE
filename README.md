@@ -4,4 +4,5 @@
 ### -Student Login Completed (28/02/2022)
 ### -Admin Login and Registration (01/03/2022)
 ### -SMTP Sender completed for registration (01/03/2022)
-
+### -IO Socket connection and disconnected event listeres completed (14/03/2022)
+### -Context Restructuring of the API completed (14/03/2022)
