@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 4.8.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2022 at 08:08 AM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 7.3.28
+-- Generation Time: Mar 15, 2022 at 08:36 AM
+-- Server version: 10.1.33-MariaDB
+-- PHP Version: 7.2.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -60,7 +61,7 @@ CREATE TABLE `stats` (
 --
 
 INSERT INTO `stats` (`countUsers`, `viewNumVisitors`, `uploadVideo`, `videoCounts`, `videoClicks`, `id`) VALUES
-(3, 0, 0, 0, 0, 1);
+(5, 5, 7, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -85,7 +86,9 @@ CREATE TABLE `student` (
 INSERT INTO `student` (`id`, `studNum`, `firstname`, `lastname`, `email`, `password`, `isVerified`) VALUES
 (1, 217070554, 'Cebolenkosi', 'Shezi', 'cbshezi5@gmail.com', 'U2FsdGVkX19MzgWjTo6AX0z/UXP3YC/KSX+j9eNk9QA=', 1),
 (2, 212214563, 'cee', 'mkhari', 'cm@gmail.com', '12345', 1),
-(3, 211452639, 'ntlhari', 'nkuna', 'nkunan@gmail.com', '36985', 1);
+(3, 211452639, 'ntlhari', 'nkuna', 'nkunan@gmail.com', '36985', 1),
+(4, 123654789, 'teck', 'nkuna', 'cheyezamlondo9@gmail.com', '98629862', 1),
+(5, 123654788, 'teckner', 'nkuna', 'cheyezamlondo55@gmail.com', 'U2FsdGVkX1+NUIoM8h0LdJOpVtpjtZZXlSseXwTXWHo=', 1);
 
 --
 -- Triggers `student`
@@ -111,7 +114,8 @@ CREATE TABLE `tracking` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `activity` varchar(25) NOT NULL,
-  `datetime` timestamp NOT NULL DEFAULT current_timestamp()
+  `datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `orientation_progress` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -160,7 +164,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `stats`
 --
 ALTER TABLE `stats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `student`
