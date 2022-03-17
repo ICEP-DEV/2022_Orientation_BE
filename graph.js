@@ -24,6 +24,7 @@ const Track_Add_cnxt = require('./contexts/Tracking/TrackAdd')
 const Track_Get_cnxt = require('./contexts/Tracking/TrackGet')
 const Track_Prog_cnxt = require('./contexts/Tracking/Progress')
 const Track_Survey_cnxt = require('./contexts/Tracking/Survey')
+const Track_Orientation_cnxt = require('./contexts/Tracking/Orientation')
 
 app.use(bodyParser.json());
 
@@ -55,6 +56,8 @@ app.use('/Track/New', Track_Add_cnxt)
 app.use('/Track/Query',Track_Get_cnxt)
 app.use('/Track/Progress',Track_Prog_cnxt)
 app.use('/Track/Survey',Track_Survey_cnxt)
+app.use('/Track/Orientation',Track_Orientation_cnxt)
+
 
 const PORT = 6900
 var server = app.listen(PORT, (e) => {
