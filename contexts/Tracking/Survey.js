@@ -110,8 +110,7 @@ Router.post('/', (req, res, next) => {
                     sqlErr = err.sql
                 })
             }
-            catch{}
-          
+            catch{} 
         }
 
     }
