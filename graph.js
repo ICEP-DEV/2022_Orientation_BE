@@ -22,6 +22,9 @@ const LoginAdm_cnxt = require("./contexts/Authentication/Login_Adm")
 const Stats_cnxt = require('./contexts/Statistics/Stats')
 const Track_cnxt = require('./contexts/Tracking/Tracking')
 
+//blog
+const blog_cnxt = require('./contexts/Blog/blog')
+
 
 app.use(bodyParser.json());
 
@@ -42,6 +45,7 @@ app.use('/Auth/Login', Login_cnxt);
 app.use('/Auth/Forgotten',Forgotten_cnxt);
 app.use('/profile/Update', Update_cnxt);
 
+
 //context channelling Admin
 app.use('/Auth/Registration_Admin', RegistrationAdm_cnxt);
 app.use('/Auth/Login_Admin', LoginAdm_cnxt);
@@ -49,6 +53,9 @@ app.use('/Auth/Login_Admin', LoginAdm_cnxt);
 //context to common entities
 app.use('/Stat/Stats', Stats_cnxt);
 app.use('/Track/Tracking', Track_cnxt)
+
+//context to blog entities
+app.use('/Blog/blog', blog_cnxt);
 
 const PORT = 6900
 var server = app.listen(PORT, (e) => {
