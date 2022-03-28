@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const socket = require('socket.io')
 const connection = require("./connection")
 //Context file object
+const cors = require('cors');
 
 //Student
 const TestQuery_cnxt = require("./contexts/Common/TestQuery")
@@ -28,6 +29,9 @@ const Track_Survey_cnxt = require('./contexts/Tracking/Survey')
 const Track_Orientation_cnxt = require('./contexts/Tracking/Orientation')
 
 app.use(bodyParser.json());
+
+app.use(cors({origin: '*'}));
+
 
 app.use(function(req, res, next) {
     //Header allowences of METHODS
@@ -98,7 +102,7 @@ socketIO.on('connection', (socket) => {
 
     //Disconnection of IOSocket
 
-    
+    console.log(socket)
 
     socket.on('disconnect', function(){
         console.log(new Date() + " -> user disconnected** io-socket")
