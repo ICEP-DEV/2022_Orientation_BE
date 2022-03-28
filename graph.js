@@ -97,6 +97,9 @@ socketIO.on('connection', (socket) => {
     })
 
     //Disconnection of IOSocket
+
+    
+
     socket.on('disconnect', function(){
         console.log(new Date() + " -> user disconnected** io-socket")
         connectionCount--;
