@@ -37,6 +37,7 @@ const Track_Orientation_cnxt = require('./contexts/Tracking/Orientation')
 //Orientation
 const AllCampus_cnxt = require("./contexts/Orientation/AllCampus")
 const faculty_cnxt = require("./contexts/Orientation/Faculty")
+const videos_cnxt = require("./contexts/Orientation/Video")
 
 //-----------------------------------------------------------------------------------Custome Libraries
 //-----------------------------------------------------------------------------------Express Server Algorithms
@@ -61,6 +62,7 @@ app.use('/Auth/Login', Login_cnxt);
 app.use('/Auth/Forgotten',Forgotten_cnxt);
 app.use('/Profile/Update',Profile_Update_cnxt);
 app.use('/Orientation/Faculty',faculty_cnxt)
+app.use('/Orientation/Videos', videos_cnxt)
 
 //context channelling Admin
 app.use('/Auth/Registration_Admin', RegistrationAdm_cnxt);

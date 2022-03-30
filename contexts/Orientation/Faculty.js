@@ -31,7 +31,7 @@ Router.get('/', (req, res, next) => {
         return
     }
    
-    mariadb.query(`SELECT faculty.id,faculty_name FROM campus,faculty WHERE camp_id = campus.id AND camp_id = ${req.query.id}`, (err, rows, fields) => {
+    mariadb.query(`SELECT faculty.id, faculty.faculty_name FROM faculty,cam_fac WHERE cam_fac.fac_id = faculty.id AND cam_fac.cam_id = ${req.query.id}`, (err, rows, fields) => {
         if (!err) {
             res.send({
                 error: false,
