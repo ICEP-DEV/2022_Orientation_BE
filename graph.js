@@ -8,28 +8,39 @@ const socket = require('socket.io')
 const connection = require("./connection")
 //Context file object
 const cors = require('cors');
-
+//----------------------------------------------------------------------------------Stock Libraries
 //Student
+//--Test
 const TestQuery_cnxt = require("./contexts/Common/TestQuery")
+const Student_cnxt = require("./contexts/Common/Students")
+//--Auth
 const Registration_cnxt = require('./contexts/Authentication/Registration')
 const Login_cnxt = require("./contexts/Authentication/Login")
-const Student_cnxt = require("./contexts/Common/Students")
 const Forgotten_cnxt = require("./contexts/Authentication/Forgotten")
+//--Profile
 const Profile_Update_cnxt = require("./contexts/Profile/Update")
+
+
 //Admin
 const RegistrationAdm_cnxt = require('./contexts/Authentication/Register_Adm')
 const LoginAdm_cnxt = require("./contexts/Authentication/Login_Adm")
 
 // //common
+//--Stats
 const Stats_cnxt = require('./contexts/Statistics/Stats')
+//--Track
 const Track_Add_cnxt = require('./contexts/Tracking/TrackAdd')
 const Track_Get_cnxt = require('./contexts/Tracking/TrackGet')
 const Track_Prog_cnxt = require('./contexts/Tracking/Progress')
 const Track_Survey_cnxt = require('./contexts/Tracking/Survey')
 const Track_Orientation_cnxt = require('./contexts/Tracking/Orientation')
+//Orientation
+const AllCampus_cnxt = require("./contexts/Orientation/AllCampus")
+const faculty_cnxt = require("./contexts/Orientation/Faculty")
 
+//-----------------------------------------------------------------------------------Custome Libraries
+//-----------------------------------------------------------------------------------Express Server Algorithms
 app.use(bodyParser.json());
-
 app.use(cors({origin: '*'}));
 
 
@@ -49,8 +60,7 @@ app.use('/Stud/Student', Student_cnxt);
 app.use('/Auth/Login', Login_cnxt);
 app.use('/Auth/Forgotten',Forgotten_cnxt);
 app.use('/Profile/Update',Profile_Update_cnxt);
-
-
+app.use('/Orientation/Faculty',faculty_cnxt)
 
 //context channelling Admin
 app.use('/Auth/Registration_Admin', RegistrationAdm_cnxt);
@@ -63,6 +73,7 @@ app.use('/Track/Query',Track_Get_cnxt)
 app.use('/Track/Progress',Track_Prog_cnxt)
 app.use('/Track/Survey',Track_Survey_cnxt)
 app.use('/Track/Orientation',Track_Orientation_cnxt)
+app.use('/Camp/AllStudent', AllCampus_cnxt)
 
 
 const PORT = 6900
@@ -75,7 +86,7 @@ var server = app.listen(PORT, (e) => {
 
 });
 
-
+//------------------------------------------------------------------------------------------------------Socket IO Algorithms
 //Counting of current live (Realtime) users on the On the system
 //Backend Code
 var socketIO = socket(server);
