@@ -38,6 +38,7 @@ const Track_Orientation_cnxt = require('./contexts/Tracking/Orientation')
 const AllCampus_cnxt = require("./contexts/Orientation/AllCampus")
 const faculty_cnxt = require("./contexts/Orientation/Faculty")
 const videos_cnxt = require("./contexts/Orientation/Video")
+const survQuestion_cnxt = require("./contexts/Orientation/Questions")
 
 //-----------------------------------------------------------------------------------Custome Libraries
 //-----------------------------------------------------------------------------------Express Server Algorithms
@@ -75,7 +76,8 @@ app.use('/Track/Query',Track_Get_cnxt)
 app.use('/Track/Progress',Track_Prog_cnxt)
 app.use('/Track/Survey',Track_Survey_cnxt)
 app.use('/Track/Orientation',Track_Orientation_cnxt)
-app.use('/Camp/AllStudent', AllCampus_cnxt)
+app.use('/Orientation/Campus', AllCampus_cnxt)
+app.use('/Orientation/Question',survQuestion_cnxt)
 
 
 const PORT = 6900
