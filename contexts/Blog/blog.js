@@ -8,9 +8,11 @@ const multer = require('multer');
 
 app.use(bodyParser.json());
 
-const storage = multer.diskStorage({
+
+
+const imageStorage = multer.diskStorage({
     // Destination to store image     
-    destination: 'views', 
+    destination: 'images', 
       filename: (req, file, cb) => {
           cb(null, file.fieldname + '_' + Date.now() 
              + path.extname(file.originalname))
@@ -19,61 +21,44 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({
-    storage: storage,
+const videoStorage = multer.diskStorage({
+    destination: 'videos', // Destination to store video 
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '_' + Date.now() 
+         + path.extname(file.originalname))
+    }
+});
+
+const imageUpload = multer({
+    storage: imageStorage,
+    limits: {
+      fileSize: 1000000 // 1000000 Bytes = 1 MB
+    },
+    fileFilter(req, file, cb) {
+      if (!file.originalname.match(/\.(png|jpg)$/)) { 
+         // upload only png and jpg format
+         return cb(new Error('Please upload a Image'))
+       }
+     cb(undefined, true)
+  }
+})
+
+const videoUpload = multer({
+    storage: videoStorage,
     limits: {
     fileSize: 10000000 // 10000000 Bytes = 10 MB
     },
     fileFilter(req, file, cb) {
       // upload only mp4 and mkv format
-      if (!file.originalname.match(/\.(mp4|MPEG-4|mkv|png|jpg)$/)) { 
-         return cb(new Error('Please upload a video/image!!!'))
+      if (!file.originalname.match(/\.(mp4|MPEG-4|mkv)$/)) { 
+         return cb(new Error('Please upload a video'))
       }
       cb(undefined, true)
    }
 })
 
-//Post a blog
-Router.post('/', (req, res) => {
 
-    //res.send(req.file)
 
-    if (Object.keys(req.body).length == 0) {
-        res.send({
-            error: true,
-            code: "C001_POST",
-            message: "body parameters were not found"
-        });
-        return
-    }
-    //const img = req.file.filename;
-    const { title, description, author, created_on, filename} = req.body;
-    
-    if (title == null || description == null || author == null ) {
-        res.send({
-            error: true,
-            message: "One or many of the requred body arguements is missing",
-            code: "C002_POST"
-        })
-        return
-    }
-    mariadb.query(`INSERT INTO blog VALUES(DEFAULT,'${title}','${description}','${author}',DEFAULT, '${filename}')`, (err, rows) => {
-        if (!err) {
-            res.send({
-                error: false,
-                data: `Blog with the Title name: '${title}' has been uploaded.`
-            })
-            return
-        } else {
-            res.send({
-                error: true,
-                message: err,
-                code: "C001_SQL_POST"
-            })
-            return
-        }
-    })
-})
 
 Router.get('/', (req, res, next) => {
 

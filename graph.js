@@ -25,6 +25,7 @@ const Track_cnxt = require('./contexts/Tracking/Tracking')
 
 //blog
 const blog_cnxt = require('./contexts/Blog/blog')
+//const upload_cnxt = require('/');
 
 
 
@@ -58,6 +59,9 @@ app.use('/Track/Tracking', Track_cnxt)
 
 //context to blog entities
 app.use('/Blog/blog', blog_cnxt);
+
+
+
 
 
 const PORT = 6900
