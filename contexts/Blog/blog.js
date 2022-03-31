@@ -4,14 +4,39 @@ const Router = express.Router();
 const mariadb = require('../../connection');
 const bodyParser = require('body-parser');
 var CryptoJS = require("crypto-js");
+const multer = require('multer');
 
 app.use(bodyParser.json());
 
+const storage = multer.diskStorage({
+    // Destination to store image     
+    destination: 'views', 
+      filename: (req, file, cb) => {
+          cb(null, file.fieldname + '_' + Date.now() 
+             + path.extname(file.originalname))
+            // file.fieldname is name of the field (image)
+            // path.extname get the uploaded file extension
+    }
+});
+
+const upload = multer({
+    storage: storage,
+    limits: {
+    fileSize: 10000000 // 10000000 Bytes = 10 MB
+    },
+    fileFilter(req, file, cb) {
+      // upload only mp4 and mkv format
+      if (!file.originalname.match(/\.(mp4|MPEG-4|mkv|png|jpg)$/)) { 
+         return cb(new Error('Please upload a video/image!!!'))
+      }
+      cb(undefined, true)
+   }
+})
 
 //Post a blog
-Router.post('', (req, res) => {
+Router.post('/', (req, res) => {
 
-    
+    //res.send(req.file)
 
     if (Object.keys(req.body).length == 0) {
         res.send({
@@ -21,8 +46,10 @@ Router.post('', (req, res) => {
         });
         return
     }
-    const { title, description, author, created_on} = req.body;
-    if (title == null || description == null || author == null) {
+    //const img = req.file.filename;
+    const { title, description, author, created_on, filename} = req.body;
+    
+    if (title == null || description == null || author == null ) {
         res.send({
             error: true,
             message: "One or many of the requred body arguements is missing",
@@ -30,11 +57,11 @@ Router.post('', (req, res) => {
         })
         return
     }
-    mariadb.query(`INSERT INTO blog VALUES(DEFAULT,'${title}','${description}','${author}',DEFAULT)`, (err, rows) => {
+    mariadb.query(`INSERT INTO blog VALUES(DEFAULT,'${title}','${description}','${author}',DEFAULT, '${filename}')`, (err, rows) => {
         if (!err) {
             res.send({
                 error: false,
-                data: `Blog with the Title name: ${title} has been added.`
+                data: `Blog with the Title name: '${title}' has been uploaded.`
             })
             return
         } else {
@@ -64,7 +91,7 @@ Router.get('/', (req, res, next) => {
 
     if (req.body.id) {
         if (req.body.id == "*") {
-            mariadb.query('SELECT title, description, author, created_on from blog', (err, rows) => {
+            mariadb.query('SELECT title, description, author, created_on, path from blog', (err, rows) => {
                 if (!err) {
                     res.send({
                         error: false,
@@ -126,7 +153,7 @@ Router.put('/', (req, res) => {
         return
     }
 
-    const { title, description,author, id } = req.body
+    const { title, description,author, path, id } = req.body
 
     mariadb.query(`UPDATE blog SET ${req.body.field} = '${req.body.updateValue}' WHERE id = ${req.body.id}`, (err, rows) => {
         if (!err) {

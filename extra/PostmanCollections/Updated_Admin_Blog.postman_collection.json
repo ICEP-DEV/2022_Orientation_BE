@@ -1,0 +1,38 @@
+{
+	"info": {
+		"_postman_id": "1515c0db-6457-485b-8577-c10b9b23a1d8",
+		"name": "Updated_Admin_Blog",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "post_with_image_or_video",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\": \"try\",\r\n\"description\": \"upload\",\r\n\"author\": \"no author\",\r\n\"filename\": \"image.jpg\"\r\n\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6900/Blog/blog",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6900",
+					"path": [
+						"Blog",
+						"blog"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
