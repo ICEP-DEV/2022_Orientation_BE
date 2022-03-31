@@ -1,0 +1,35 @@
+{
+	"info": {
+		"_postman_id": "cad4adb8-6f86-4085-ba49-b09ed063f0b3",
+		"name": "Orientation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "VideosgetReq",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6900/orientation/videos?fac_id=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6900",
+					"path": [
+						"orientation",
+						"videos"
+					],
+					"query": [
+						{
+							"key": "fac_id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

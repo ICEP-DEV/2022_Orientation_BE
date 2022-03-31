@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2022 at 01:50 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.3.33
+-- Generation Time: Mar 30, 2022 at 03:34 PM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 7.3.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -70,45 +70,13 @@ INSERT INTO `campus` (`id`, `campus_name`, `noOfFaculties`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cam_fac`
---
-
-CREATE TABLE `cam_fac` (
-  `id` int(8) NOT NULL,
-  `fac_id` int(4) NOT NULL,
-  `cam_id` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `cam_fac`
---
-
-INSERT INTO `cam_fac` (`id`, `fac_id`, `cam_id`) VALUES
-(1, 3, 8),
-(2, 4, 8),
-(3, 1, 4),
-(4, 1, 5),
-(5, 1, 6),
-(6, 2, 3),
-(7, 7, 1),
-(8, 4, 6),
-(9, 4, 3),
-(10, 3, 3),
-(11, 3, 9),
-(12, 3, 5),
-(13, 5, 5),
-(14, 6, 7),
-(15, 6, 2);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `faculty`
 --
 
 CREATE TABLE `faculty` (
   `id` int(4) NOT NULL,
   `faculty_name` varchar(128) NOT NULL,
+  `camp_id` int(4) NOT NULL,
   `noOfVideos` int(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -116,43 +84,13 @@ CREATE TABLE `faculty` (
 -- Dumping data for table `faculty`
 --
 
-INSERT INTO `faculty` (`id`, `faculty_name`, `noOfVideos`) VALUES
-(1, 'Faculty of Economics and Finance', 0),
-(2, 'Faculty of Engineering and the Built Environment', 0),
-(3, 'Faculty of Humanities', 0),
-(4, 'Faculty of Information and Communication Technology', 0),
-(5, 'Faculty of Management Sciences', 0),
-(6, 'Faculty of Science', 0),
-(7, 'Faculty of Arts and Design', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `fac_vid`
---
-
-CREATE TABLE `fac_vid` (
-  `id` int(8) NOT NULL,
-  `fac_id` int(4) NOT NULL,
-  `vid_id` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `fac_vid`
---
-
-INSERT INTO `fac_vid` (`id`, `fac_id`, `vid_id`) VALUES
-(1, 3, 3),
-(2, 3, 4),
-(3, 3, 1),
-(4, 3, 5),
-(5, 3, 6),
-(6, 3, 7),
-(7, 3, 8),
-(8, 3, 9),
-(9, 3, 10),
-(10, 3, 11),
-(11, 3, 2);
+INSERT INTO `faculty` (`id`, `faculty_name`, `camp_id`, `noOfVideos`) VALUES
+(1, 'Faculty of Economics and Finance', 4, 0),
+(2, 'Faculty of Economics and Finance', 5, 0),
+(3, 'Faculty of Economics and Finance', 6, 0),
+(4, 'Faculty of Engineering and the Built Environment', 3, 0),
+(5, 'Faculty of Humanities', 8, 0),
+(6, 'Faculty of Information and Communication Technology', 8, 0);
 
 -- --------------------------------------------------------
 
@@ -299,39 +237,6 @@ CREATE TABLE `tracking` (
 INSERT INTO `tracking` (`id`, `user_id`, `activity`, `datetime`) VALUES
 (3, 21, 'registered', '2022-03-15 08:57:16');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `videos`
---
-
-CREATE TABLE `videos` (
-  `id` int(4) NOT NULL,
-  `tittle` varchar(45) DEFAULT NULL,
-  `category` varchar(30) NOT NULL,
-  `path` varchar(512) NOT NULL,
-  `type` varchar(15) NOT NULL,
-  `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
-  `noOfViews` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `videos`
---
-
-INSERT INTO `videos` (`id`, `tittle`, `category`, `path`, `type`, `createdAt`, `noOfViews`) VALUES
-(1, 'Induction & Orientation', 'Office of Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/HUMANITIES+OVERVIEW+2022.mp4', 'video', '2022-03-30 18:36:37', 0),
-(2, 'Executive Dean', 'Office of Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Prof+Maserumule-+dean+video.mp4', 'video', '2022-03-30 18:38:26', 0),
-(3, NULL, 'Office of Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/booklets/Humanities+First+year+2022.pdf', 'document', '2022-03-30 18:39:27', 0),
-(4, 'Applied Langauges', 'Departments', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Humanities/Dr+Gary+Collins.mp4', 'video', '2022-03-30 18:41:50', 0),
-(5, 'Student Development & Support', 'Campus and Support', 'https://dh2dlbjd2qx17.cloudfront.net/videos/campus-support/SDS+Orientation.mp4', 'video', '2022-03-30 18:43:01', 0),
-(6, 'Health & Wellness', 'Campus and Support', 'https://dh2dlbjd2qx17.cloudfront.net/videos/general/Health+%26+Wellness%2C+an+Introduction.mp4', 'video', '2022-03-30 18:45:18', 0),
-(7, 'MyTUTor, What is a Study Guide?', 'Campus and Support', 'https://dh2dlbjd2qx17.cloudfront.net/videos/general/What+is+a+study+guide.mp4', 'video', '2022-03-30 18:45:51', 0),
-(8, 'Student Ombudsman', 'Campus and Support', 'https://dh2dlbjd2qx17.cloudfront.net/videos/campus-support/OMBUDSMAN+INTERVIEW.mp4', 'video', '2022-03-30 18:46:33', 0),
-(9, 'Higher Health', 'Campus and Support', 'https://dh2dlbjd2qx17.cloudfront.net/videos/general/Welcome+Class+of+2021-+your+health+is+in+your+hands.mp4', 'video', '2022-03-30 18:47:09', 0),
-(10, 'SGLD', 'Campus and Support', 'https://dh2dlbjd2qx17.cloudfront.net/videos/campus-support/Student+Governance+%26+Leadership+Development.mp4', 'video', '2022-03-30 18:47:47', 0),
-(11, 'Extracurricular Development', 'Campus and Support', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Jack+Sibanyoni.mp4', 'video', '2022-03-30 18:48:31', 0);
-
 --
 -- Indexes for dumped tables
 --
@@ -350,26 +255,11 @@ ALTER TABLE `campus`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `cam_fac`
---
-ALTER TABLE `cam_fac`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_camFac_cam` (`cam_id`),
-  ADD KEY `FK_cam_Fac_fac` (`fac_id`);
-
---
 -- Indexes for table `faculty`
 --
 ALTER TABLE `faculty`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `fac_vid`
---
-ALTER TABLE `fac_vid`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_facVid_fac` (`fac_id`),
-  ADD KEY `FK_facVid_vid` (`vid_id`);
+  ADD KEY `FK_faculty_campus` (`camp_id`);
 
 --
 -- Indexes for table `orientation`
@@ -398,12 +288,6 @@ ALTER TABLE `tracking`
   ADD KEY `FK_track_student` (`user_id`);
 
 --
--- Indexes for table `videos`
---
-ALTER TABLE `videos`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -420,22 +304,10 @@ ALTER TABLE `campus`
   MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `cam_fac`
---
-ALTER TABLE `cam_fac`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
 -- AUTO_INCREMENT for table `faculty`
 --
 ALTER TABLE `faculty`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `fac_vid`
---
-ALTER TABLE `fac_vid`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `orientation`
@@ -462,28 +334,14 @@ ALTER TABLE `tracking`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `videos`
---
-ALTER TABLE `videos`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `cam_fac`
+-- Constraints for table `faculty`
 --
-ALTER TABLE `cam_fac`
-  ADD CONSTRAINT `FK_camFac_cam` FOREIGN KEY (`cam_id`) REFERENCES `campus` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_cam_Fac_fac` FOREIGN KEY (`fac_id`) REFERENCES `faculty` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `fac_vid`
---
-ALTER TABLE `fac_vid`
-  ADD CONSTRAINT `FK_facVid_fac` FOREIGN KEY (`fac_id`) REFERENCES `faculty` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_facVid_vid` FOREIGN KEY (`vid_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE;
+ALTER TABLE `faculty`
+  ADD CONSTRAINT `FK_faculty_campus` FOREIGN KEY (`camp_id`) REFERENCES `campus` (`id`) ON DELETE NO ACTION;
 
 --
 -- Constraints for table `tracking`

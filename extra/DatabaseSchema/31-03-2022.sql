@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2022 at 01:50 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.3.33
+-- Generation Time: Mar 31, 2022 at 02:38 PM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 7.3.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,12 +33,52 @@ CREATE TABLE `admin` (
   `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `admin`
+-- Table structure for table `ans_que`
 --
 
-INSERT INTO `admin` (`id`, `email`, `password`) VALUES
-(1, 'cbshezi5@gmail.com', 'U2FsdGVkX18WGQKaKNYn9zh56+7oq2QaVFNFxNnFl+s=');
+CREATE TABLE `ans_que` (
+  `id` int(11) NOT NULL,
+  `ans_id` int(11) NOT NULL,
+  `que_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ans_que`
+--
+
+INSERT INTO `ans_que` (`id`, `ans_id`, `que_id`) VALUES
+(1, 8, 2),
+(2, 9, 2),
+(3, 10, 2),
+(4, 11, 2),
+(5, 12, 2),
+(6, 1, 4),
+(7, 2, 4),
+(8, 3, 4),
+(9, 4, 4),
+(10, 5, 4),
+(11, 1, 1),
+(12, 2, 1),
+(13, 3, 1),
+(14, 4, 1),
+(15, 7, 1),
+(16, 17, 3),
+(17, 13, 3),
+(18, 15, 3),
+(19, 16, 3),
+(20, 14, 3),
+(21, 21, 5),
+(22, 22, 5),
+(23, 20, 5),
+(24, 18, 5),
+(25, 19, 5),
+(26, 24, 6),
+(27, 26, 6),
+(28, 25, 6),
+(29, 27, 6);
 
 -- --------------------------------------------------------
 
@@ -162,18 +202,34 @@ INSERT INTO `fac_vid` (`id`, `fac_id`, `vid_id`) VALUES
 
 CREATE TABLE `orientation` (
   `id` int(8) NOT NULL,
-  `user_id` int(4) NOT NULL,
+  `student_id` int(4) NOT NULL,
   `field` varchar(25) NOT NULL,
   `value` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `orientation`
+-- Table structure for table `que_fac`
 --
 
-INSERT INTO `orientation` (`id`, `user_id`, `field`, `value`) VALUES
-(4, 2, 'Campus', 'Arts'),
-(5, 2, 'Campus', 'Arts');
+CREATE TABLE `que_fac` (
+  `id` int(8) NOT NULL,
+  `fac_id` int(4) NOT NULL,
+  `que_id` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `que_fac`
+--
+
+INSERT INTO `que_fac` (`id`, `fac_id`, `que_id`) VALUES
+(1, 3, 1),
+(2, 3, 2),
+(3, 3, 3),
+(4, 3, 4),
+(5, 3, 5),
+(6, 3, 6);
 
 -- --------------------------------------------------------
 
@@ -218,8 +274,8 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`id`, `studNum`, `firstname`, `lastname`, `email`, `password`, `isVerified`, `orientation_progress`) VALUES
-(21, 0, 'NULL', 'NULL', '218503624@tut4life.ac.za', 'U2FsdGVkX1/3bL5XVscbPcGP+ihJsh6CEZhR1ApnpVI=', 1, 1),
-(24, 0, 'NULL', 'NULL', 'cbshezi5@gmail.com', 'U2FsdGVkX1/8aYtdf9KM6R+LQ8ng5oaM8w3NmTc9vvk=', 1, 0);
+(1, 0, 'Tumelo', 'Raditlhalo', '218503624@tut4life.ac.za', 'U2FsdGVkX1/3bL5XVscbPcGP+ihJsh6CEZhR1ApnpVI=', 1, 1),
+(2, 0, 'Cebolenkosi', 'Shezi', 'cbshezi5@gmail.com', 'U2FsdGVkX1/8aYtdf9KM6R+LQ8ng5oaM8w3NmTc9vvk=', 1, 0);
 
 --
 -- Triggers `student`
@@ -243,8 +299,8 @@ DELIMITER ;
 
 CREATE TABLE `survey` (
   `id` int(8) NOT NULL,
-  `user_id` int(4) NOT NULL,
-  `question` int(2) NOT NULL,
+  `student_id` int(4) NOT NULL,
+  `question_id` int(4) NOT NULL,
   `answer` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -252,32 +308,76 @@ CREATE TABLE `survey` (
 -- Dumping data for table `survey`
 --
 
-INSERT INTO `survey` (`id`, `user_id`, `question`, `answer`) VALUES
-(200, 2, 1, 'apple'),
-(201, 2, 2, 'orange'),
-(202, 2, 3, 'bananna'),
-(203, 2, 4, 'strawberry'),
-(204, 2, 5, 'blueberry'),
-(205, 2, 1, 'apple'),
-(206, 2, 2, 'orange'),
-(207, 2, 3, 'bananna'),
-(208, 2, 4, 'strawberry'),
-(209, 2, 5, 'blueberry'),
-(210, 2, 1, 'apple'),
-(211, 2, 2, 'orange'),
-(212, 2, 3, 'bananna'),
-(213, 2, 4, 'strawberry'),
-(214, 2, 5, 'blueberry'),
-(215, 2, 1, 'apple'),
-(216, 2, 2, 'orange'),
-(217, 2, 3, 'bananna'),
-(218, 2, 4, 'strawberry'),
-(219, 2, 5, 'blueberry'),
-(220, 2, 1, 'apple'),
-(221, 2, 2, 'orange'),
-(222, 2, 3, 'bananna'),
-(223, 2, 4, 'strawberry'),
-(224, 2, 5, 'blueberry');
+INSERT INTO `survey` (`id`, `student_id`, `question_id`, `answer`) VALUES
+(225, 2, 1, 'Danny'),
+(226, 2, 4, '97-07-28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surveyanswer`
+--
+
+CREATE TABLE `surveyanswer` (
+  `id` int(4) NOT NULL,
+  `answer` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `surveyanswer`
+--
+
+INSERT INTO `surveyanswer` (`id`, `answer`) VALUES
+(8, '1'),
+(9, '2'),
+(10, '3'),
+(11, '4'),
+(12, '5'),
+(2, 'black'),
+(3, 'blue'),
+(17, 'boxer'),
+(24, 'Cebo'),
+(26, 'Chiyeza'),
+(25, 'Dikeledi'),
+(18, 'Gina'),
+(5, 'green'),
+(7, 'grey'),
+(22, 'KB'),
+(21, 'KG'),
+(20, 'Phaidi'),
+(13, 'pick n pay'),
+(1, 'pink'),
+(15, 'shoprite'),
+(23, 'Siya'),
+(16, 'spar'),
+(19, 'Thato'),
+(27, 'Tumi'),
+(6, 'white'),
+(14, 'woolies'),
+(4, 'yellow');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surveyquestion`
+--
+
+CREATE TABLE `surveyquestion` (
+  `id` int(4) NOT NULL,
+  `question` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `surveyquestion`
+--
+
+INSERT INTO `surveyquestion` (`id`, `question`) VALUES
+(1, 'Whats your t-shirt color?'),
+(2, 'How many hat do you own?'),
+(3, 'Where do you shop?'),
+(4, 'What favorite color?'),
+(5, 'Who is your instructor?'),
+(6, 'Who is your scrum master?');
 
 -- --------------------------------------------------------
 
@@ -291,13 +391,6 @@ CREATE TABLE `tracking` (
   `activity` varchar(25) NOT NULL,
   `datetime` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tracking`
---
-
-INSERT INTO `tracking` (`id`, `user_id`, `activity`, `datetime`) VALUES
-(3, 21, 'registered', '2022-03-15 08:57:16');
 
 -- --------------------------------------------------------
 
@@ -344,6 +437,14 @@ ALTER TABLE `admin`
   ADD UNIQUE KEY `username` (`email`);
 
 --
+-- Indexes for table `ans_que`
+--
+ALTER TABLE `ans_que`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_ansque_ans` (`ans_id`),
+  ADD KEY `FK_ansque_que` (`que_id`);
+
+--
 -- Indexes for table `campus`
 --
 ALTER TABLE `campus`
@@ -375,7 +476,16 @@ ALTER TABLE `fac_vid`
 -- Indexes for table `orientation`
 --
 ALTER TABLE `orientation`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_orie_stud` (`student_id`);
+
+--
+-- Indexes for table `que_fac`
+--
+ALTER TABLE `que_fac`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_quefac_fac` (`fac_id`),
+  ADD KEY `fk_quefac_que` (`que_id`);
 
 --
 -- Indexes for table `student`
@@ -388,6 +498,21 @@ ALTER TABLE `student`
 -- Indexes for table `survey`
 --
 ALTER TABLE `survey`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_stud_surv` (`student_id`),
+  ADD KEY `FK_que_answer` (`question_id`);
+
+--
+-- Indexes for table `surveyanswer`
+--
+ALTER TABLE `surveyanswer`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `answer` (`answer`);
+
+--
+-- Indexes for table `surveyquestion`
+--
+ALTER TABLE `surveyquestion`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -412,6 +537,12 @@ ALTER TABLE `videos`
 --
 ALTER TABLE `admin`
   MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ans_que`
+--
+ALTER TABLE `ans_que`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `campus`
@@ -444,16 +575,34 @@ ALTER TABLE `orientation`
   MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `que_fac`
+--
+ALTER TABLE `que_fac`
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `survey`
 --
 ALTER TABLE `survey`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=225;
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=227;
+
+--
+-- AUTO_INCREMENT for table `surveyanswer`
+--
+ALTER TABLE `surveyanswer`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `surveyquestion`
+--
+ALTER TABLE `surveyquestion`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tracking`
@@ -472,6 +621,13 @@ ALTER TABLE `videos`
 --
 
 --
+-- Constraints for table `ans_que`
+--
+ALTER TABLE `ans_que`
+  ADD CONSTRAINT `FK_ansque_ans` FOREIGN KEY (`ans_id`) REFERENCES `surveyanswer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_ansque_que` FOREIGN KEY (`que_id`) REFERENCES `surveyquestion` (`id`);
+
+--
 -- Constraints for table `cam_fac`
 --
 ALTER TABLE `cam_fac`
@@ -486,9 +642,30 @@ ALTER TABLE `fac_vid`
   ADD CONSTRAINT `FK_facVid_vid` FOREIGN KEY (`vid_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `orientation`
+--
+ALTER TABLE `orientation`
+  ADD CONSTRAINT `FK_orie_stud` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `que_fac`
+--
+ALTER TABLE `que_fac`
+  ADD CONSTRAINT `fk_quefac_fac` FOREIGN KEY (`fac_id`) REFERENCES `faculty` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_quefac_que` FOREIGN KEY (`que_id`) REFERENCES `surveyquestion` (`id`);
+
+--
+-- Constraints for table `survey`
+--
+ALTER TABLE `survey`
+  ADD CONSTRAINT `FK_que_answer` FOREIGN KEY (`question_id`) REFERENCES `surveyquestion` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_stud_surv` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `tracking`
 --
 ALTER TABLE `tracking`
+  ADD CONSTRAINT `FK_track_admn` FOREIGN KEY (`user_id`) REFERENCES `admin` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_track_student` FOREIGN KEY (`user_id`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
 
