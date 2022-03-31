@@ -19,7 +19,7 @@ const imageStorage = multer.diskStorage({
             // file.fieldname is name of the field (image)
             // path.extname get the uploaded file extension
     }
-});
+}); 
 
 const videoStorage = multer.diskStorage({
     destination: 'videos', // Destination to store video 

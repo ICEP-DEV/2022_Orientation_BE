@@ -97,7 +97,7 @@ app.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
      console.log("Video uploaded");
    })
 
-},handleErr)
+},handleErr) 
 
 
 app.listen(port, () => {
