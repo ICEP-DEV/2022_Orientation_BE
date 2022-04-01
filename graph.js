@@ -9,12 +9,20 @@ const socket = require('socket.io')
 const connection = require("./connection")
 //Context file object
 //Student
+<<<<<<< HEAD
 const TestQuery_cnxt = require('./contexts/Common/TestQuery')
 const Registration_cnxt = require('./contexts/Authentication/Registration')
 const Login_cnxt = require("./contexts/Authentication/Login")
 const Student_cnxt = require("./contexts/Common/Students")
 const Forgotten_cnxt = require("./contexts/Authentication/Forgotten")
 const Update_cnxt = require("./contexts/profile/Update")
+=======
+const TestQuery_cnxt = require('./contexts/TestQuery')
+const Registration_cnxt = require('./contexts/Registration')
+const Login_cnxt = require("./contexts/Login")
+const Student_cnxt = require("./contexts/Students")
+const Forgotten_cnxt = require("./contexts/Forgotten")
+>>>>>>> 34e70068397a4024e99bed553b6a74994dacc159
     //Admin
 const RegistrationAdm_cnxt = require('./contexts/Authentication/Register_Adm')
 const LoginAdm_cnxt = require("./contexts/Authentication/Login_Adm")
@@ -26,6 +34,7 @@ const Track_cnxt = require('./contexts/Tracking/Tracking')
 //blog
 const blog_cnxt = require('./contexts/Blog/blog')
 //const upload_cnxt = require('/');
+
 
 
 
@@ -41,6 +50,7 @@ app.use(function(req, res, next) {
 });
 
 //context channelling Student
+<<<<<<< HEAD
 app.use('/Test/TestQuery', TestQuery_cnxt);
 app.use('/Auth/Registration', Registration_cnxt);
 app.use('/Auth/Student', Student_cnxt);
@@ -48,6 +58,13 @@ app.use('/Auth/Login', Login_cnxt);
 app.use('/Auth/Forgotten',Forgotten_cnxt);
 app.use('/profile/Update', Update_cnxt);
 
+=======
+app.use('/TestQuery', TestQuery_cnxt);
+app.use('/Registration', Registration_cnxt);
+app.use('/Student', Student_cnxt);
+app.use('/Login', Login_cnxt);
+app.use('/Forgotten',Forgotten_cnxt)
+>>>>>>> 34e70068397a4024e99bed553b6a74994dacc159
 
 //context channelling Admin
 app.use('/Auth/Registration_Admin', RegistrationAdm_cnxt);
@@ -76,7 +93,10 @@ var server = app.listen(PORT, (e) => {
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 34e70068397a4024e99bed553b6a74994dacc159
 connectionCount = 0
 /* Note for Shezi */
 
@@ -84,6 +104,7 @@ connectionCount = 0
 //Backend Code
 var socketIO = socket(server);
 
+<<<<<<< HEAD
 //Connection of IOSocket
 socketIO.on('connection', (socket) => {
     console.log(new Date() + " -> user connected** io-socket\b")
@@ -114,6 +135,24 @@ socketIO.on('connection', (socket) => {
             {
                 console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO disconnect err")
             }
+=======
+socketIO.on('connection', (socket) => {
+    console.log("user connected")
+    connectionCount++
+    //console.log(socket)
+    socketIO.emit('usercount',connectionCount)
+ 
+    connection.query(`UPDATE stats SET viewNumVisitors = ${connectionCount}`,function(err, rows, fields){
+        
+    })
+    socket.on('disconnect', function(){
+        console.log("user disconnected")
+        connectionCount--
+        socketIO.emit('usercount',connectionCount)
+        
+        connection.query(`UPDATE stats SET viewNumVisitors = ${connectionCount}`,function(err, rows, fields){
+            
+>>>>>>> 34e70068397a4024e99bed553b6a74994dacc159
         })
     })
 })
