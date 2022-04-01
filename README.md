@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 2022_Orientation_BE
 ### -Express Server running and mysql mariadb active tested with xampp servies providing instance of mysql server (25/02/2022)
 ### -Student Registration Completed (27/02/2022)
@@ -6,3 +7,6 @@
 ### -SMTP Sender completed for registration (01/03/2022)
 ### -IO Socket connection and disconnected event listeres completed (14/03/2022)
 ### -Context Restructuring of the API completed (14/03/2022)
+=======
+
+>>>>>>> 34e70068397a4024e99bed553b6a74994dacc159
