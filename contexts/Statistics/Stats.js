@@ -56,7 +56,7 @@ Router.post('/', (req, res, next) => {
 Router.put('/', (req, res) => {
 
     let field;
-    let updateNum = 5;
+    let updateNum = 0;
   
     if (Object.keys(req.body).length == 0) {
         res.send({

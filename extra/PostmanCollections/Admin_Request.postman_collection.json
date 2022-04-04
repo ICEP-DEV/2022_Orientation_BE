@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a7a8ae34-c7b7-4551-ac0b-2f945279919d",
+		"_postman_id": "bdfdfd1d-e23b-432f-965d-494f86d38cfc",
 		"name": "Admin_Request",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -9,7 +9,10 @@
 			"name": "POST_Registration",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		},
@@ -31,13 +34,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6900/login_admin",
+					"raw": "http://localhost:6900/auth/login_admin",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "6900",
 					"path": [
+						"auth",
 						"login_admin"
 					]
 				}

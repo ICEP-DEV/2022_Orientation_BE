@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2022 at 09:08 AM
--- Server version: 10.1.33-MariaDB
--- PHP Version: 7.2.6
+-- Generation Time: Mar 07, 2022 at 08:08 AM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 7.3.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -44,28 +43,6 @@ INSERT INTO `admin` (`id`, `email`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `blog`
---
-
-CREATE TABLE `blog` (
-  `id` int(100) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  `author` varchar(255) NOT NULL,
-  `created_on` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  `path` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `blog`
---
-
-INSERT INTO `blog` (`id`, `title`, `description`, `author`, `created_on`, `path`) VALUES
-(1, 'try', 'upload', 'no author', '2022-03-31 08:57:50.852005', 'image.jpg');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `stats`
 --
 
@@ -83,7 +60,7 @@ CREATE TABLE `stats` (
 --
 
 INSERT INTO `stats` (`countUsers`, `viewNumVisitors`, `uploadVideo`, `videoCounts`, `videoClicks`, `id`) VALUES
-(5, 5, 0, 0, 0, 1);
+(3, 0, 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -107,10 +84,8 @@ CREATE TABLE `student` (
 
 INSERT INTO `student` (`id`, `studNum`, `firstname`, `lastname`, `email`, `password`, `isVerified`) VALUES
 (1, 217070554, 'Cebolenkosi', 'Shezi', 'cbshezi5@gmail.com', 'U2FsdGVkX19MzgWjTo6AX0z/UXP3YC/KSX+j9eNk9QA=', 1),
-(2, 212214563, 'Chenna', 'mkhari', 'cm@gmail.com', '12345', 1),
-(3, 211452639, 'Nhlelo', 'nkuna', 'nkunan@gmail.com', '36985', 1),
-(4, 123654789, 'teck', 'nkuna', 'cheyezamlondo9@gmail.com', '98629862', 1),
-(5, 123654788, 'teckner', 'nkuna', 'cheyezamlondo55@gmail.com', 'U2FsdGVkX1+NUIoM8h0LdJOpVtpjtZZXlSseXwTXWHo=', 1);
+(2, 212214563, 'cee', 'mkhari', 'cm@gmail.com', '12345', 1),
+(3, 211452639, 'ntlhari', 'nkuna', 'nkunan@gmail.com', '36985', 1);
 
 --
 -- Triggers `student`
@@ -136,8 +111,7 @@ CREATE TABLE `tracking` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `activity` varchar(25) NOT NULL,
-  `datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `orientation_progress` int(11) NOT NULL
+  `datetime` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -150,12 +124,6 @@ CREATE TABLE `tracking` (
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`email`);
-
---
--- Indexes for table `blog`
---
-ALTER TABLE `blog`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `stats`
@@ -189,16 +157,10 @@ ALTER TABLE `admin`
   MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `blog`
---
-ALTER TABLE `blog`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `stats`
 --
 ALTER TABLE `stats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `student`

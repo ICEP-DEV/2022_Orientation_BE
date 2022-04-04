@@ -1,0 +1,45 @@
+{
+	"info": {
+		"_postman_id": "1e95c8fb-800c-4e05-8fa4-4e0ad441c3d5",
+		"name": "OrientaionSystemReqs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetAllCampusReq",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:6900/Camp/AllStudent/",
+					"host": [
+						"localhost"
+					],
+					"port": "6900",
+					"path": [
+						"Camp",
+						"AllStudent",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetFacByCampReq",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "GetQueByFacReq",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

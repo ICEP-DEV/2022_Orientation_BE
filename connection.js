@@ -1,5 +1,5 @@
 //Database establishment of connection
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const prompt = require('prompt-sync')();
 
 const mariadb = mysql.createConnection({

@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "f4b60cc3-db16-4832-b7e4-9b154dd0c81e",
+		"name": "pdfCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost/pdfrender/temmp.php",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\":\"Cebolenkosi\",\r\n    \"lastName\":\"Shezi\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost/pdfrender/temmp.php",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"pdfrender",
+						"temmp.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

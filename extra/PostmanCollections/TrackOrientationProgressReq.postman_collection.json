@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "2275aacf-5783-4b54-995c-61f709a91b81",
+		"name": "TrackOrientationProgressReq",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST_reqSurveyTrack",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\":2,\r\n    \"survey\":[\r\n        {\r\n            \"question\":1,\r\n            \"answer\":\"apple\"\r\n        },\r\n        {\r\n            \"question\":2,\r\n            \"answer\":\"orange\"\r\n        },\r\n        {\r\n            \"question\":3,\r\n            \"answer\":\"bananna\"\r\n        },\r\n        {\r\n            \"question\":4,\r\n            \"answer\":\"strawberry\"\r\n        },\r\n        {\r\n            \"question\":5,\r\n            \"answer\":\"blueberry\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:6900/track/survey",
+					"host": [
+						"localhost"
+					],
+					"port": "6900",
+					"path": [
+						"track",
+						"survey"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_reqSurveyTrack",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:6900/track/survey?user_id=2",
+					"host": [
+						"localhost"
+					],
+					"port": "6900",
+					"path": [
+						"track",
+						"survey"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_reqOrientationTrack",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:6900/Track/Orientation?user_id=2",
+					"host": [
+						"localhost"
+					],
+					"port": "6900",
+					"path": [
+						"Track",
+						"Orientation"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "2"
+						},
+						{
+							"key": "field",
+							"value": "StartOrientation",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST_reqOrintationTrack",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\":\"2\",\r\n    \"field\":\"Campus\",\r\n    \"value\":\"Arts\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:6900/track/orientation",
+					"host": [
+						"localhost"
+					],
+					"port": "6900",
+					"path": [
+						"track",
+						"orientation"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

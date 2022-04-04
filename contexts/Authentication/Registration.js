@@ -22,22 +22,22 @@ Router.post('/', (req, res, next) => {
         return
     }
 
-    // if (!req.body.fname) {
-    //     res.send({
-    //         error: true,
-    //         code: "R002",
-    //         message: "first name was not found"
-    //     });
-    //     return
-    // }
-    // if (!req.body.lname) {
-    //     res.send({
-    //         error: true,
-    //         code: "R003",
-    //         message: "last name was not found"
-    //     });
-    //     return
-    // }
+    if (!req.body.fname) {
+        res.send({
+            error: true,
+            code: "R002",
+            message: "first name was not found"
+        });
+        return
+    }
+    if (!req.body.lname) {
+        res.send({
+            error: true,
+            code: "R003",
+            message: "last name was not found"
+        });
+        return
+    }
     if (!req.body.password) {
         res.send({
             error: true,
@@ -46,14 +46,14 @@ Router.post('/', (req, res, next) => {
         });
         return
     }
-    // if (!req.body.studNum) {
-    //     res.send({
-    //         error: true,
-    //         code: "R005",
-    //         message: "student number was not found"
-    //     });
-    //     return
-    // }
+    if (!req.body.studNum) {
+        res.send({
+            error: true,
+            code: "R005",
+            message: "student number was not found"
+        });
+        return
+    }
     if (!req.body.email) {
         res.send({
             error: true,
@@ -67,7 +67,7 @@ Router.post('/', (req, res, next) => {
     var ciphertext = CryptoJS.AES.encrypt(req.body.password, "123").toString();
 
     try {
-        mariadb.query(`INSERT INTO student VALUES ( DEFAULT,"NULL","NULL","NULL", "${req.body.email}", "${ciphertext}", "${1}");`, (err, rows, fields) => {
+        mariadb.query(`INSERT INTO student VALUES ( DEFAULT,"${req.body.studNum}","${req.body.fname}","${req.body.lname}", "${req.body.email}", "${ciphertext}", "${1}");`, (err, rows, fields) => {
             if (!err) {
                 res.send({
                     error: false,
