@@ -1,0 +1,52 @@
+{
+	"info": {
+		"_postman_id": "bdfdfd1d-e23b-432f-965d-494f86d38cfc",
+		"name": "Admin_Request",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST_Registration",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_Login",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"cbshezi5@gmail.com\",\r\n    \"password\":\"tut@2017\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6900/auth/login_admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6900",
+					"path": [
+						"auth",
+						"login_admin"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
