@@ -97,30 +97,35 @@ var socketIO = socket(server);
 
 //Connection of IOSocket
 socketIO.on('connection', (socket) => {
-    console.log(new Date() + " -> user connected** io-socket\b")
+    
 
 
-    socket.on('con',(stream)=>{
+    socket.on('RegisteredUsers_soc',(st_stream)=>{
         console.log('View ++++++++++++')
-        socketIO.emit('name',3)
+        
+        //socketIO.emit('name',3)
     })
 
-    //Emttion of viewNumVisitors on connection of the client of IOSocket
-    socketIO.emit('usercount',socket.server.eio.clientsCount)
-    //Update the viewNumVisitors when client connection
-    connection.query(`UPDATE stats SET viewNumVisitors = ${socket.server.eio.clientsCount}`,function(err, rows, fields){
-        if(err)
-        {
-            console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO connection err")
-        }
+    socket.on('Visitors_soc',(st_stream)=>{
+        //Emttion of viewNumVisitors on connection of the client of IOSocket
+        socketIO.emit('countVisitors',socket.server.eio.clientsCount)
+        //Update the viewNumVisitors when client connection
+        connection.query(`UPDATE stats SET viewNumVisitors = ${socket.server.eio.clientsCount}`,function(err, rows, fields){
+            if(err)
+            {
+                console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO connection err")
+            }
+        })
+
     })
+
+    
 
     //Disconnection of IOSocket
 
     socket.on('disconnect', function(){
-        console.log(new Date() + " -> user disconnected** io-socket")
         //Emttion of viewNumVisitors for disconnection
-        socketIO.emit('usercount',socket.server.eio.clientsCount)
+        socketIO.emit('countVisitors',socket.server.eio.clientsCount)
 
         //Update the viewNumVisitors when client disconnect
         connection.query(`UPDATE stats SET viewNumVisitors = ${socket.server.eio.clientsCount}`,function(err, rows, fields){
