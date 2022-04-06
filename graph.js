@@ -101,13 +101,14 @@ socketIO.on('connection', (socket) => {
    
     //------>Registered Users
     socket.on('RegisteredUsers_soc',(st_stream)=>{
-        connection.query(`SELECT countUsers FROM stats`,(err,rows,fields)=>{
+        connection.query(`SELECT countUsers,survey FROM stats`,(err,rows,fields)=>{
             if(err)
             {
                 console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO1 connection err")
                 return
             }
             socketIO.emit('countStudents',rows[0].countUsers)
+            socketIO.emit('countSurveys',rows[0].survey)
         })
     })
     
@@ -125,6 +126,34 @@ socketIO.on('connection', (socket) => {
             }
         })
 
+    })
+
+    //Login Users Stats
+    socket.on('LoggedInUsers_soc',(st_stream)=>{
+        connection.query(`SELECT loggedin FROM stats`,(err,rows,field)=>{
+            connection.query(`UPDATE stats SET loggedin = ${rows[0].loggedin+1} `,(inerr,inrows,infields)=>{
+                if(inerr || err)
+                {
+                    console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO1 connection err")
+                    return
+                }
+                socketIO.emit('countLoggedIn',rows[0].loggedin+1)
+            })
+        })
+    })
+
+    //Logout Users Stats
+    socket.on('LoggedOutUsers_soc',(st_stream)=>{
+        connection.query(`SELECT loggedin FROM stats`,(err,rows,field)=>{
+            connection.query(`UPDATE stats SET loggedin = ${rows[0].loggedin-1} `,(inerr,inrows,infields)=>{
+                if(inerr || err)
+                {
+                    console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO1 connection err")
+                    return
+                }
+                socketIO.emit('countLoggedIn',rows[0].loggedin-1)
+            })
+        })
     })
 
     
