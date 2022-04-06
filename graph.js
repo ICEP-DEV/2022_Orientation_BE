@@ -114,7 +114,7 @@ socketIO.on('connection', (socket) => {
     //----->Visitors Users
     socket.on('Visitors_soc',(st_stream)=>{
         //Emttion of viewNumVisitors on connection of the client of IOSocket
-        socketIO.emit('countVisitors',socket.server.eio.clientsCount)
+        socketIO.emit('countVisitors',socket.server.eio.clientsCount - 1)
         //Update the viewNumVisitors when client connection
         connection.query(`UPDATE stats SET viewNumVisitors = ${socket.server.eio.clientsCount}`,function(err, rows, fields){
             if(err)
@@ -132,7 +132,7 @@ socketIO.on('connection', (socket) => {
 
     socket.on('disconnect', function(){
         //Emttion of viewNumVisitors for disconnection
-        socketIO.emit('countVisitors',socket.server.eio.clientsCount)
+        socketIO.emit('countVisitors',socket.server.eio.clientsCount - 1)
 
         //Update the viewNumVisitors when client disconnect
         connection.query(`UPDATE stats SET viewNumVisitors = ${socket.server.eio.clientsCount}`,function(err, rows, fields){
