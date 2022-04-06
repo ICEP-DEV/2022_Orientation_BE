@@ -81,7 +81,7 @@ app.use('/Orientation/Question',survQuestion_cnxt)
 
 
 const PORT = 6900
-var server = app.listen(PORT, (e) => {
+const server = app.listen(PORT, (e) => {
     console.log("********************************************************");
     console.log("* DB: localhost:3306 DBname:'orientation_db_schema'    *");
     console.log("*                PORT is running on " + PORT + "               *");
@@ -91,21 +91,27 @@ var server = app.listen(PORT, (e) => {
 });
 
 //------------------------------------------------------------------------------------------------------Socket IO Algorithms
-//Counting of current live (Realtime) users on the On the system
+//(Realtime) Socket For stats and more
 //Backend Code
 var socketIO = socket(server);
 
 //Connection of IOSocket
 socketIO.on('connection', (socket) => {
     
-
-
+   
+    //------>Registered Users
     socket.on('RegisteredUsers_soc',(st_stream)=>{
-        console.log('View ++++++++++++')
-        
-        //socketIO.emit('name',3)
+        connection.query(`SELECT countUsers FROM stats`,(err,rows,fields)=>{
+            if(err)
+            {
+                console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO1 connection err")
+                return
+            }
+            socketIO.emit('countStudents',rows[0].countUsers)
+        })
     })
-
+    
+    //----->Visitors Users
     socket.on('Visitors_soc',(st_stream)=>{
         //Emttion of viewNumVisitors on connection of the client of IOSocket
         socketIO.emit('countVisitors',socket.server.eio.clientsCount)
@@ -113,7 +119,8 @@ socketIO.on('connection', (socket) => {
         connection.query(`UPDATE stats SET viewNumVisitors = ${socket.server.eio.clientsCount}`,function(err, rows, fields){
             if(err)
             {
-                console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO connection err")
+                console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO2 connection err")
+                return
             }
         })
 
