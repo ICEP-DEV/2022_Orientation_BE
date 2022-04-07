@@ -73,9 +73,11 @@ app.post('/uploadImage', imageUpload.single('image'), (req, res) => {
 
  mariadb.query(`INSERT INTO blog(path, author, title, description, created_on) VALUES('${img}','${author}','${title}', '${description}', DEFAULT)`, (err,result) => {
     if(err) throw err
- 
+    console.log("Image uploaded");
+    res.send('Image uploaded')
+    return
   })
-
+  return
 },handleErr)
 
 app.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
@@ -89,8 +91,9 @@ app.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
    mariadb.query(`INSERT INTO blog(path, author, title, description, created_on) VALUES('${vid}','${author}','${title}', '${description}', DEFAULT)`, (err,result) => {
      if(err) throw err
      console.log("Video uploaded");
+     res.send('Video uploaded')
    })
-
+   return
 },handleErr) 
 
 
