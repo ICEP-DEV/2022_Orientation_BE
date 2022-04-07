@@ -7,7 +7,7 @@ const port = process.env.PORT || 3007
 
 
 app.get('/', (req, res) => { 
-    res.send('Hello People'); 
+    res.send('Not a accessbled Address'); 
 });
 
 
@@ -66,21 +66,15 @@ const videoUpload = multer({
 // For Single image upload
 app.post('/uploadImage', imageUpload.single('image'), (req, res) => {
 
-  
-
-    console.log(req.user)
-    
-
     const title = req.body.title;
     const description = req.body.description;;
     const img = req.file.filename;
     const author = req.body.author;
 
  mariadb.query(`INSERT INTO blog(path, author, title, description, created_on) VALUES('${img}','${author}','${title}', '${description}', DEFAULT)`, (err,result) => {
-   if(err) throw err
-   //console.log("Image uploaded");
-    res.send(req.file)
- })
+    if(err) throw err
+ 
+  })
 
 },handleErr)
 
