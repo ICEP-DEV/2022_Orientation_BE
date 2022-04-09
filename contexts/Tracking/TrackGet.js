@@ -31,11 +31,11 @@ Router.post('/', (req, res, next) => {
 
 
     if (req.body.when == "lastest*" || req.body.when == "LASTEST*") {
-        query += ` GROUP BY "tracking.user_id" DESC`;
+        query += ` GROUP BY tracking.user_id DESC`;
     }
 
     if (req.body.when == "earliest*" || req.body.when == "EARLIEST*") {
-        query += ` GROUP BY "tracking.user_id"`;
+        query += ` GROUP BY tracking.user_id`;
     }
 
 

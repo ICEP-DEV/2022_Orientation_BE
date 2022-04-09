@@ -98,7 +98,11 @@ app.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
 
 
 app.listen(port, () => {
-    console.log('Server is up on port ' + port);
+  console.log("********************************************************");
+  console.log("* DB: localhost:3306 DBname:'orientation_db_schema'    *");
+  console.log("*                PORT is running on " + port + "               *");
+  console.log("*                 file upload by cheyeza               *");
+  console.log("********************************************************");
 })
 
 module.exports = app;
