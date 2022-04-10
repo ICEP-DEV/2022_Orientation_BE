@@ -129,7 +129,7 @@ Router.post('/',(req,res,next)=>{
     {
         res.send({
             error:true,
-            message:"Error you have to pass field, value and user_id element to set a user's progress",    
+            message:"Error you have to pass field, value and useremail element to set a user's progress",    
             code:"O001_POST"        
         })
         return;
@@ -198,6 +198,144 @@ Router.post('/',(req,res,next)=>{
             })
         })
     })
+})
+
+Router.delete("/",(req,res,next)=>{
+
+    if(Object.keys(req.query).length < 1)
+    {
+        res.send({
+            error:true,
+            message:"Error you have to pass useremail for the user to delete there progress",    
+            code:"O001_DELETE"        
+        })
+        return;
+    }
+
+    if(!req.query.useremail)
+    { 
+        res.send({
+            error:true,
+            message:"Error you have to pass useremail for the user to delete there progress",    
+            code:"O002_DELETE"        
+        })
+        return;
+    }
+
+    mariadb.query(`SELECT id FROM student WHERE email = '${req.query.useremail}'`,(outer_err,outer_rows,fields)=>{
+
+        if(outer_err || !outer_rows[0].id)
+        {
+            res.send({
+                error:true,
+                message:"Error SQL statement for retriving user id is incorrect",    
+                code:"O001_DELETE_SQL",     
+                sqlMessage:outer_err
+            })
+            return;
+        }
+
+        if(req.query.survey)
+        { 
+            let query = `DELETE FROM Orientation WHERE student_id = ${outer_rows[0].id} AND field = 'Survey'`
+
+            if(req.query.videos)
+                query += ` OR field = 'Videos'`
+                
+            if(req.query.faculty)
+                query += ` OR field = 'Faculty'`
+
+            if(req.query.campus)
+                query += ` OR field = 'Campus'`
+
+            if(req.query.start)
+                query += ` OR field = 'StartOrientation'`
+
+
+            mariadb.query(query,(err,rows,fields)=>{
+
+                if(err)
+                {
+                    res.send({
+                        error:true,
+                        message:"Error SQL statement for deleting from orientation id is incorrect",    
+                        code:"O001_DELETE_SQL",     
+                        sqlMessage:outer_err
+                    })
+                    return;
+                }
+
+                mariadb.query(`DELETE FROM survey WHERE student_id = ${outer_rows[0].id}`,(inner_err,inner_rows,fields)=>{
+                    if(inner_err)
+                    {
+                        res.send({
+                            error:true,
+                            message:"Error SQL statement for deleting from orientation id is incorrect",    
+                            code:"O002_DELETE_SQL",     
+                            sqlMessage:outer_err
+                        })
+                        return;
+                    }
+                    res.send({
+                        error:false,
+                        message:"Delete Custome step",    
+                
+                    })
+                    return;
+                })
+            })
+        }
+        else
+        if(req.query.delete == "all")
+        {
+            
+            mariadb.query(`DELETE FROM Orientation WHERE student_id = ${outer_rows[0].id}`,(err,rows,fields)=>{
+
+                if(err)
+                {
+                    res.send({
+                        error:true,
+                        message:"Error SQL statement for deleting from orientation id is incorrect",    
+                        code:"O003_DELETE_SQL",     
+                        sqlMessage:outer_err
+                    })
+                    return;
+                }
+
+                mariadb.query(`DELETE FROM survey WHERE student_id = ${outer_rows[0].id}`,(inner_err,inner_rows,fields)=>{
+                    if(inner_err)
+                    {
+                        res.send({
+                            error:true,
+                            message:"Error SQL statement for deleting from orientation id is incorrect",    
+                            code:"O004_DELETE_SQL",     
+                            sqlMessage:outer_err
+                        })
+                        return;
+                    }
+                    res.send({
+                        error:false,
+                        message:"Delete all step",    
+                
+                    })
+                    return;
+                })
+            })
+
+        }
+        else
+        {
+            res.send({
+                error:true,
+                message:"Error didn't choose delete type",    
+                code:"O005_DELETE_SQL",     
+            })
+            return;
+        }
+     
+
+    })
+
 })
 
 module.exports = Router
