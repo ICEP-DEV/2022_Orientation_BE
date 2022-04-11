@@ -163,14 +163,14 @@ socketIO.on('connection', (socket) => {
 
     //Survey Added Stats 
     socket.on("Add_Survey_soc",(st_stream)=>{
-        connection.query(`SELECT survey FROM stats`,(err,rows,field)=>{
-            connection.query(`UPDATE stats SET survey = ${rows[0].survey + 1} `,(inerr,inrows,infields)=>{
+        connection.query(`SELECT student_id FROM survey GROUP BY student_id`,(err,rows,field)=>{
+            connection.query(`UPDATE stats SET survey = ${rows.length} `,(inerr,inrows,infields)=>{
                 if(inerr || err)
                 {
                     console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO1 connection err")
                     return
                 }
-                socketIO.emit('countSurvey',rows[0].survey+1)
+                socketIO.emit('countSurvey',rows.length)
             })
         })
     })
