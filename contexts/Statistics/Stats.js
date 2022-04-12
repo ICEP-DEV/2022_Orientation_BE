@@ -14,11 +14,23 @@ Router.post('/', (req, res, next) => {
     let field;
 
     if (Object.keys(req.body).length == 0) {
-        res.send({
-            error: true,
-            code: "S001",
-            message: "body parameters were not found"
-        })
+        mariadb.query(`SELECT * FROM stats`, (err, rows, fields) => {
+            if (!err) {
+                res.send({
+                    error: false,
+                    data: rows,
+                })
+                return
+            } else {
+                res.send({
+                    error: true,
+                    code: "S001_SQL",
+                    message: "Failed to return all stats execution of sql was not succesful",
+                    sqlMessage: err
+                })
+                return
+            }
+        });
         return
     }
 
@@ -68,7 +80,7 @@ Router.put('/', (req, res) => {
     }
 
     if (req.body.field) {
-        mariadb.query(`UPDATE stats SET  ${req.body.field} = ${req.body.updateNum} WHERE id = 1`,(err, rows,fields) => {
+        mariadb.query(`UPDATE stats SET  ${req.body.field} = ${req.body.updateNum}`,(err, rows,fields) => {
             if (!err) {
                 res.send({
                     error: false,

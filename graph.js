@@ -20,6 +20,8 @@ const Forgotten_cnxt = require("./contexts/Authentication/Forgotten")
 //--Profile
 const Profile_Update_cnxt = require("./contexts/Profile/Update")
 
+//Blog
+const blog_cnxt = require('./contexts/Blog/blog')
 
 //Admin
 const RegistrationAdm_cnxt = require('./contexts/Authentication/Register_Adm')
@@ -79,6 +81,9 @@ app.use('/Track/Orientation',Track_Orientation_cnxt)
 app.use('/Orientation/Campus', AllCampus_cnxt)
 app.use('/Orientation/Question',survQuestion_cnxt)
 
+//context to blog entities
+app.use('/Blog/blog', blog_cnxt);
+
 
 const PORT = 6900
 const server = app.listen(PORT, (e) => {
@@ -94,29 +99,31 @@ const server = app.listen(PORT, (e) => {
 //(Realtime) Socket For stats and more
 //Backend Code
 var socketIO = socket(server);
-
+var studentSessions = 0;
 //Connection of IOSocket
 socketIO.on('connection', (socket) => {
     
    
     //------>Registered Users
     socket.on('RegisteredUsers_soc',(st_stream)=>{
-        connection.query(`SELECT countUsers FROM stats`,(err,rows,fields)=>{
+        connection.query(`SELECT countUsers,survey FROM stats`,(err,rows,fields)=>{
             if(err)
             {
                 console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO1 connection err")
                 return
             }
             socketIO.emit('countStudents',rows[0].countUsers)
+            socketIO.emit('countSurveys',rows[0].survey)
         })
     })
     
     //----->Visitors Users
     socket.on('Visitors_soc',(st_stream)=>{
         //Emttion of viewNumVisitors on connection of the client of IOSocket
-        socketIO.emit('countVisitors',socket.server.eio.clientsCount - 1)
+        studentSessions++
+        socketIO.emit('countVisitors',studentSessions)
         //Update the viewNumVisitors when client connection
-        connection.query(`UPDATE stats SET viewNumVisitors = ${socket.server.eio.clientsCount}`,function(err, rows, fields){
+        connection.query(`UPDATE stats SET viewNumVisitors = ${studentSessions}`,function(err, rows, fields){
             if(err)
             {
                 console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO2 connection err")
@@ -126,16 +133,74 @@ socketIO.on('connection', (socket) => {
 
     })
 
+    //Login Users Stats
+    socket.on('LoggedInUsers_soc',(st_stream)=>{
+        connection.query(`SELECT loggedin FROM stats`,(err,rows,field)=>{
+            connection.query(`UPDATE stats SET loggedin = ${rows[0].loggedin + 1} `,(inerr,inrows,infields)=>{
+                if(inerr || err)
+                {
+                    console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO1 connection err")
+                    return
+                }
+                socketIO.emit('countLoggedIn',rows[0].loggedin+1)
+            })
+        })
+    })
+
+    //Logout Users Stats
+    socket.on('LoggedOutUsers_soc',(st_stream)=>{
+        connection.query(`SELECT loggedin FROM stats`,(err,rows,field)=>{
+            connection.query(`UPDATE stats SET loggedin = ${rows[0].loggedin - 1} `,(inerr,inrows,infields)=>{
+                if(inerr || err)
+                {
+                    console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO1 connection err")
+                    return
+                }
+                socketIO.emit('countLoggedIn',rows[0].loggedin - 1)
+            })
+        })
+    })
+
+    //Survey Added Stats 
+    socket.on("Add_Survey_soc",(st_stream)=>{
+        connection.query(`SELECT student_id FROM survey GROUP BY student_id`,(err,rows,field)=>{
+            connection.query(`UPDATE stats SET survey = ${rows.length} `,(inerr,inrows,infields)=>{
+                if(inerr || err)
+                {
+                    console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO1 connection err")
+                    return
+                }
+                socketIO.emit('countSurvey',rows.length)
+            })
+        })
+    })
+
+    //Survey Subtract Stats 
+    socket.on("Sub_Survey_soc",(st_stream)=>{
+        connection.query(`SELECT survey FROM stats`,(err,rows,field)=>{
+            connection.query(`UPDATE stats SET survey = ${rows[0].survey - 1} `,(inerr,inrows,infields)=>{
+                if(inerr || err)
+                {
+                    console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO1 connection err")
+                    return
+                }
+                socketIO.emit('countSurvey',rows[0].survey - 1)
+            })
+        })
+    })
+
+
     
 
     //Disconnection of IOSocket
 
     socket.on('disconnect', function(){
         //Emttion of viewNumVisitors for disconnection
-        socketIO.emit('countVisitors',socket.server.eio.clientsCount - 1)
+        studentSessions--
+        socketIO.emit('countVisitors',studentSessions)
 
         //Update the viewNumVisitors when client disconnect
-        connection.query(`UPDATE stats SET viewNumVisitors = ${socket.server.eio.clientsCount}`,function(err, rows, fields){
+        connection.query(`UPDATE stats SET viewNumVisitors = ${studentSessions}`,function(err, rows, fields){
             if(err)
             {
                 console.log("Unknow err of sql execution "+ new Date()+" SQL-S_IO disconnect err")

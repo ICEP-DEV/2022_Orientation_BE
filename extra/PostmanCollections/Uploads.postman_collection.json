@@ -1,0 +1,82 @@
+{
+	"info": {
+		"_postman_id": "9144da15-7338-4bf0-b90d-5252a2792db0",
+		"name": "Uploads",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "upload_Video",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "video",
+							"type": "file",
+							"src": "/C:/Users/ICEP-INTERN/Music/VID-20220316-WA0002.mp4"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3007/uploadVideo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3007",
+					"path": [
+						"uploadVideo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload_Image",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/ICEP-INTERN/Downloads/tecna.jpg"
+						},
+						{
+							"key": "title",
+							"value": "winx",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "fairy tales",
+							"type": "text"
+						},
+						{
+							"key": "author",
+							"value": "Teckner",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3007/uploadImage",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3007",
+					"path": [
+						"uploadImage"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

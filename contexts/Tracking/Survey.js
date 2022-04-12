@@ -7,6 +7,7 @@ app.use(bodyParser.json());
 
 
 Router.get('/',(req, res, next) => {
+
     if(Object.keys(req.query).length < 1)
     {
         res.send({
@@ -17,33 +18,46 @@ Router.get('/',(req, res, next) => {
         return;
     }
 
-    if(!req.query.user_id)
+    if(!req.query.useremail)
     {
         res.send({
             error:true,
-            message:"Error expacted 'user_id' to retrieve user survey",
+            message:"Error expacted 'useremail' to retrieve user survey",
             code:"V002_GET"
         })
         return;
     }
 
-    mariadb.query(`SELECT question,answer FROM survey WHERE user_id = ${req.query.user_id}`,(err,rows,fields)=>{
-        if(err)
+    mariadb.query(`SELECT id FROM student WHERE email = '${req.query.useremail}'`,(err,outer_rows,fields)=>{
+
+        if(err || outer_rows.length < 1)
         {
             res.send({
                 error:true,
-                code:"V001_GET_SQL",
-                message:"Error sql statement couldn't execute successfully",
-                sqlMessage:err,
+                message:"Error sql statement couldn't execute successfully",    
+                code:"O001_POST_SQL"        
             })
             return;
         }
 
-        res.send({
-            error:false,
-            data:rows
+        mariadb.query(`SELECT question_id,answer FROM survey WHERE student_id = ${outer_rows[0].id}`,(err,rows,fields)=>{
+            if(err)
+            {
+                res.send({
+                    error:true,
+                    code:"V001_GET_SQL",
+                    message:"Error sql statement couldn't execute successfully",
+                    sqlMessage:err,
+                })
+                return;
+            }
+
+            res.send({
+                error:false,
+                data:rows
+            })
+            return;
         })
-        return;
     })
 })
 
@@ -71,7 +85,7 @@ Router.post('/', (req, res, next) => {
         return
     }
 
-    if(!req.body.user_id)
+    if(!req.body.useremail)
     {
         res.send({
             error:true,
@@ -95,14 +109,34 @@ Router.post('/', (req, res, next) => {
     let rowsInserted;
     let sqlErr;
 
-    async function InsertRows()
+    mariadb.query(`SELECT id FROM student WHERE email = '${req.body.useremail}'`,(err,outer_rows,fields)=>{
+
+        if(err || outer_rows.length < 1)
+        {
+            res.send({
+                error:true,
+                message:"Error sql statement couldn't execute successfully",    
+                code:"O001_POST_SQL"        
+            })
+            return;
+        }
+
+        mariadb.query(`DELETE FROM survey WHERE student_id = ${outer_rows[0].id}`,(err,inner_rows,fields)=>{
+            InsertAll(outer_rows[0].id)
+        })
+
+        
+
+    })
+
+    async function InsertRows(id)
     {
         rowsInserted = 0;
         for (let index = 0; index < req.body.survey.length; index++) 
         {
             try
             {
-                await mariadb.promise().query(`INSERT INTO survey VALUES(DEFAULT,${req.body.user_id},${req.body.survey[index].question},'${req.body.survey[index].answer}')`)
+                await mariadb.promise().query(`INSERT INTO survey VALUES(DEFAULT,${id},${req.body.survey[index].question},'${req.body.survey[index].answer}')`)
                 .then((data)=>{
                     if(data[0].affectedRows == 1) rowsInserted++
                 })
@@ -115,9 +149,9 @@ Router.post('/', (req, res, next) => {
 
     }
     
-    async function InsertAll()
+    async function InsertAll(id)
     {
-        await InsertRows().then(()=>{
+        await InsertRows(id).then(()=>{
             if(rowsInserted == req.body.survey.length)
             {
                 res.send({
@@ -139,7 +173,7 @@ Router.post('/', (req, res, next) => {
         })
     }
     
-    InsertAll()
+    
 
     
     

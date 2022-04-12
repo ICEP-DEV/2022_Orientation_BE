@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 Router.post('/', (req, res, next) => {
 
 
-    let query = "SELECT student.firstname, student.lastname, student.email, student.studNum, tracking.activity, tracking.datetime" +
+    let query = "SELECT tracking.id, student.firstname, student.lastname, student.email, student.studNum, tracking.activity, tracking.datetime" +
         " FROM tracking, student" +
         " WHERE tracking.user_id = student.id"
 
@@ -31,11 +31,11 @@ Router.post('/', (req, res, next) => {
 
 
     if (req.body.when == "lastest*" || req.body.when == "LASTEST*") {
-        query += ` GROUP BY "tracking.user_id" DESC`;
+        query += ` GROUP BY tracking.user_id DESC`;
     }
 
     if (req.body.when == "earliest*" || req.body.when == "EARLIEST*") {
-        query += ` GROUP BY "tracking.user_id"`;
+        query += ` GROUP BY tracking.user_id`;
     }
 
 

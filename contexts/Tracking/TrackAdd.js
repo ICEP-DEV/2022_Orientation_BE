@@ -23,6 +23,7 @@ Router.post('/', async (req, res, next) => {
 
     mariadb.promise().query(`SELECT id FROM student WHERE email = '${req.body.useremail}'`)
     .then((data)=>{
+        
         if(!data[0][0])
         {
             res.send({

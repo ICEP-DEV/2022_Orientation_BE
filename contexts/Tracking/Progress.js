@@ -53,7 +53,7 @@ Router.put('/', (req, res, next) => {
 
 Router.get('/', (req, res, next) => {
     
-    if(!req.query.email)
+    if(!req.query.useremail)
     {
         res.send({
             error:true,
@@ -63,7 +63,7 @@ Router.get('/', (req, res, next) => {
         return;
     }
 
-    mariadb.query(`SELECT orientation_progress FROM student WHERE email = '${req.query.email}'`,(err,rows,fields)=>{
+    mariadb.query(`SELECT orientation_progress FROM student WHERE email = '${req.query.useremail}'`,(err,rows,fields)=>{
         if(err)
         {
             res.send({

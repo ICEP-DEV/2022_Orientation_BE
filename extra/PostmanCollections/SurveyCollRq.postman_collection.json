@@ -1,0 +1,161 @@
+{
+	"info": {
+		"_postman_id": "ae852f77-2d79-4400-a46e-28a5be175e6f",
+		"name": "SurveyCollRq",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SaveAllSurveyAnswer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"useremail\":\"cbshezi5@gmail.com\",\r\n    \"survey\":[\r\n        {\r\n            \"question\":1,\r\n            \"answer\":\"Cebo\"\r\n        },\r\n        {\r\n            \"question\":2,\r\n            \"answer\":\"Shezi\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:6900/track/Survey",
+					"host": [
+						"localhost"
+					],
+					"port": "6900",
+					"path": [
+						"track",
+						"Survey"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSurveySaved",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6900/track/survey?useremail=cbshezi5@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6900",
+					"path": [
+						"track",
+						"survey"
+					],
+					"query": [
+						{
+							"key": "useremail",
+							"value": "cbshezi5@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetOrientationSaved",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6900/track/orientation?useremail=cbshezi5@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6900",
+					"path": [
+						"track",
+						"orientation"
+					],
+					"query": [
+						{
+							"key": "useremail",
+							"value": "cbshezi5@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteInCustomeSaved",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6900/track/orientation?useremail=cbshezi5@gmail.com&survey=true&videos=true&faculty=true&campus=true&start=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6900",
+					"path": [
+						"track",
+						"orientation"
+					],
+					"query": [
+						{
+							"key": "useremail",
+							"value": "cbshezi5@gmail.com"
+						},
+						{
+							"key": "delete",
+							"value": "all",
+							"disabled": true
+						},
+						{
+							"key": "survey",
+							"value": "true"
+						},
+						{
+							"key": "videos",
+							"value": "true"
+						},
+						{
+							"key": "faculty",
+							"value": "true"
+						},
+						{
+							"key": "campus",
+							"value": "true"
+						},
+						{
+							"key": "start",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
