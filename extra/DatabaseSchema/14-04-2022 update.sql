@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 4.8.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2022 at 02:38 PM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 7.3.28
+-- Generation Time: Apr 13, 2022 at 10:55 AM
+-- Server version: 10.1.33-MariaDB
+-- PHP Version: 7.2.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -32,6 +33,15 @@ CREATE TABLE `admin` (
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `email`, `password`) VALUES
+(1, 'cbshezi5@gmail.com', 'U2FsdGVkX18WGQKaKNYn9zh56+7oq2QaVFNFxNnFl+s='),
+(2, 'cheyezamlondo9@gmail.com', 'U2FsdGVkX19s0QGMc3gWoWts01tqATbdvMaLsRgxDlE='),
+(3, 'siyamtanda.quma@gmail.com', 'U2FsdGVkX1/37zEE5z92g84eaC/nk78QmjwEhSeXydE=');
 
 -- --------------------------------------------------------
 
@@ -83,13 +93,42 @@ INSERT INTO `ans_que` (`id`, `ans_id`, `que_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `blog`
+--
+
+CREATE TABLE `blog` (
+  `id` int(100) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `author` varchar(255) NOT NULL,
+  `created_on` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `path` text NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `subtittle` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `blog`
+--
+
+INSERT INTO `blog` (`id`, `title`, `description`, `author`, `created_on`, `path`, `link`, `subtittle`) VALUES
+(1, 'new blog', 'this is where the admin is going to post all blog content', 'Teckner', '2022-04-07 12:55:39.550830', 'image_1649328939496.jpg', '', ''),
+(2, 'new blog', 'this is where the admin is going to post all blog content', 'Teckner', '2022-04-07 12:57:36.043838', 'video_1649329055915.mp4', '', ''),
+(3, 'winx', 'fairy tales', 'Teckner', '2022-04-13 10:13:38.825831', 'image_1649837618356.jpg', 'https://dh2dlbjd2qx17.cloudfront.net/img/tres.png', ''),
+(4, 'winx', 'fairy tales', 'Teckner', '2022-04-13 10:16:46.760474', 'video_1649837806673.mp4', 'https://dh2dlbjd2qx17.cloudfront.net/img/tres.png', ''),
+(5, 'winx', 'fairy tales', 'Teckner', '2022-04-13 10:20:07.545343', 'image_1649838007535.jpg', 'http://localhost:3007/uploadImage', ''),
+(6, 'winx', 'fairy tales', 'Teckner', '2022-04-13 10:55:18.385417', 'image_1649840118271.jpg', 'http://localhost:3007/uploadImage', 'winx club');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `campus`
 --
 
 CREATE TABLE `campus` (
   `id` int(4) NOT NULL,
   `campus_name` varchar(68) NOT NULL,
-  `noOfFaculties` int(4) NOT NULL DEFAULT 0
+  `noOfFaculties` int(4) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -149,7 +188,7 @@ INSERT INTO `cam_fac` (`id`, `fac_id`, `cam_id`) VALUES
 CREATE TABLE `faculty` (
   `id` int(4) NOT NULL,
   `faculty_name` varchar(128) NOT NULL,
-  `noOfVideos` int(4) NOT NULL DEFAULT 0
+  `noOfVideos` int(4) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -250,7 +289,7 @@ CREATE TABLE `stats` (
 --
 
 INSERT INTO `stats` (`countUsers`, `viewNumVisitors`, `uploadVideo`, `videoCounts`, `videoClicks`) VALUES
-(1, 0, 0, 0, 0);
+(3, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -266,7 +305,7 @@ CREATE TABLE `student` (
   `email` varchar(50) NOT NULL,
   `password` varchar(60) NOT NULL,
   `isVerified` tinyint(1) NOT NULL,
-  `orientation_progress` int(2) NOT NULL DEFAULT 0
+  `orientation_progress` int(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -274,6 +313,7 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`id`, `studNum`, `firstname`, `lastname`, `email`, `password`, `isVerified`, `orientation_progress`) VALUES
+(0, 215685122, 'Cheyeza', 'Mlondo', 'cheyezamlondo55@gmail.com', 'U2FsdGVkX1/pbbXpO6N0eI8UngPRV4yjwLTHRYcdAKg=', 1, 0),
 (1, 0, 'Tumelo', 'Raditlhalo', '218503624@tut4life.ac.za', 'U2FsdGVkX1/3bL5XVscbPcGP+ihJsh6CEZhR1ApnpVI=', 1, 1),
 (2, 0, 'Cebolenkosi', 'Shezi', 'cbshezi5@gmail.com', 'U2FsdGVkX1/8aYtdf9KM6R+LQ8ng5oaM8w3NmTc9vvk=', 1, 0);
 
@@ -389,7 +429,7 @@ CREATE TABLE `tracking` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `activity` varchar(25) NOT NULL,
-  `datetime` timestamp NOT NULL DEFAULT current_timestamp()
+  `datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -404,8 +444,8 @@ CREATE TABLE `videos` (
   `category` varchar(30) NOT NULL,
   `path` varchar(512) NOT NULL,
   `type` varchar(15) NOT NULL,
-  `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
-  `noOfViews` int(11) NOT NULL DEFAULT 0
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `noOfViews` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -443,6 +483,12 @@ ALTER TABLE `ans_que`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_ansque_ans` (`ans_id`),
   ADD KEY `FK_ansque_que` (`que_id`);
+
+--
+-- Indexes for table `blog`
+--
+ALTER TABLE `blog`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `campus`
@@ -503,13 +549,6 @@ ALTER TABLE `survey`
   ADD KEY `FK_que_answer` (`question_id`);
 
 --
--- Indexes for table `surveyanswer`
---
-ALTER TABLE `surveyanswer`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `answer` (`answer`);
-
---
 -- Indexes for table `surveyquestion`
 --
 ALTER TABLE `surveyquestion`
@@ -536,137 +575,13 @@ ALTER TABLE `videos`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `ans_que`
+-- AUTO_INCREMENT for table `blog`
 --
-ALTER TABLE `ans_que`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-
---
--- AUTO_INCREMENT for table `campus`
---
-ALTER TABLE `campus`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `cam_fac`
---
-ALTER TABLE `cam_fac`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- AUTO_INCREMENT for table `faculty`
---
-ALTER TABLE `faculty`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `fac_vid`
---
-ALTER TABLE `fac_vid`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `orientation`
---
-ALTER TABLE `orientation`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `que_fac`
---
-ALTER TABLE `que_fac`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `student`
---
-ALTER TABLE `student`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `survey`
---
-ALTER TABLE `survey`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=227;
-
---
--- AUTO_INCREMENT for table `surveyanswer`
---
-ALTER TABLE `surveyanswer`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
-
---
--- AUTO_INCREMENT for table `surveyquestion`
---
-ALTER TABLE `surveyquestion`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `tracking`
---
-ALTER TABLE `tracking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `videos`
---
-ALTER TABLE `videos`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `ans_que`
---
-ALTER TABLE `ans_que`
-  ADD CONSTRAINT `FK_ansque_ans` FOREIGN KEY (`ans_id`) REFERENCES `surveyanswer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_ansque_que` FOREIGN KEY (`que_id`) REFERENCES `surveyquestion` (`id`);
-
---
--- Constraints for table `cam_fac`
---
-ALTER TABLE `cam_fac`
-  ADD CONSTRAINT `FK_camFac_cam` FOREIGN KEY (`cam_id`) REFERENCES `campus` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_cam_Fac_fac` FOREIGN KEY (`fac_id`) REFERENCES `faculty` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `fac_vid`
---
-ALTER TABLE `fac_vid`
-  ADD CONSTRAINT `FK_facVid_fac` FOREIGN KEY (`fac_id`) REFERENCES `faculty` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_facVid_vid` FOREIGN KEY (`vid_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `orientation`
---
-ALTER TABLE `orientation`
-  ADD CONSTRAINT `FK_orie_stud` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `que_fac`
---
-ALTER TABLE `que_fac`
-  ADD CONSTRAINT `fk_quefac_fac` FOREIGN KEY (`fac_id`) REFERENCES `faculty` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_quefac_que` FOREIGN KEY (`que_id`) REFERENCES `surveyquestion` (`id`);
-
---
--- Constraints for table `survey`
---
-ALTER TABLE `survey`
-  ADD CONSTRAINT `FK_que_answer` FOREIGN KEY (`question_id`) REFERENCES `surveyquestion` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_stud_surv` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `tracking`
---
-ALTER TABLE `tracking`
-  ADD CONSTRAINT `FK_track_admn` FOREIGN KEY (`user_id`) REFERENCES `admin` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_track_student` FOREIGN KEY (`user_id`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `blog`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
