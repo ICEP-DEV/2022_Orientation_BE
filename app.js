@@ -66,20 +66,18 @@ const videoUpload = multer({
 // For Single image upload
 app.post('/uploadImage', imageUpload.single('image'), (req, res) => {
 
+  res.send(req.file)
   
-
-    console.log(req.user)
-    
-
     const title = req.body.title;
     const description = req.body.description;;
     const img = req.file.filename;
     const author = req.body.author;
+    const link = req.body.link;
 
- mariadb.query(`INSERT INTO blog(path, author, title, description, created_on) VALUES('${img}','${author}','${title}', '${description}', DEFAULT)`, (err,result) => {
+ mariadb.query(`INSERT INTO blog(path, author, title, description, created_on, link) VALUES('${img}','${author}','${title}', '${description}', DEFAULT,'${link}')`, (err,result) => {
    if(err) throw err
-   //console.log("Image uploaded");
-    res.send(req.file)
+   console.log("Image uploaded");
+    
  })
 
 },handleErr)
@@ -91,8 +89,9 @@ app.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
    const title = req.body.title;
    const description = req.body.description;
    const author = req.body.author;
+   const link = req.body.link;
 
-   mariadb.query(`INSERT INTO blog(path, author, title, description, created_on) VALUES('${vid}','${author}','${title}', '${description}', DEFAULT)`, (err,result) => {
+   mariadb.query(`INSERT INTO blog(path, author, title, description, created_on, link) VALUES('${vid}','${author}','${title}', '${description}', DEFAULT, '${link}')`, (err,result) => {
      if(err) throw err
      console.log("Video uploaded");
    })
