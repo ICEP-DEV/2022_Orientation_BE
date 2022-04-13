@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 const imageStorage = multer.diskStorage({
     // Destination to store image     
-    destination: 'images', 
+    destination: 'bin/images', 
       filename: (req, file, cb) => {
           cb(null, file.fieldname + '_' + Date.now() 
              + path.extname(file.originalname))
@@ -22,7 +22,7 @@ const imageStorage = multer.diskStorage({
 }); 
 
 const videoStorage = multer.diskStorage({
-    destination: 'videos', // Destination to store video 
+    destination: 'bin/videos', // Destination to store video 
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '_' + Date.now() 
          + path.extname(file.originalname))

@@ -7,7 +7,7 @@ const port = process.env.PORT || 3007
 
 
 app.get('/', (req, res) => { 
-    res.send('Hello People'); 
+    res.send('Not a accessbled Address'); 
 });
 
 
@@ -73,8 +73,9 @@ app.post('/uploadImage', imageUpload.single('image'), (req, res) => {
     const img = req.file.filename;
     const author = req.body.author;
     const link = req.body.link;
+    const subtittle = req.body.subtittle;
 
- mariadb.query(`INSERT INTO blog(path, author, title, description, created_on, link) VALUES('${img}','${author}','${title}', '${description}', DEFAULT,'${link}')`, (err,result) => {
+ mariadb.query(`INSERT INTO blog(path, author, title, description, created_on, link, subtittle) VALUES('${img}','${author}','${title}', '${description}', DEFAULT,'${link}', '${subtittle}')`, (err,result) => {
    if(err) throw err
    console.log("Image uploaded");
     
@@ -90,17 +91,23 @@ app.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
    const description = req.body.description;
    const author = req.body.author;
    const link = req.body.link;
+   const subtittle = req.body.subtittle;
 
-   mariadb.query(`INSERT INTO blog(path, author, title, description, created_on, link) VALUES('${vid}','${author}','${title}', '${description}', DEFAULT, '${link}')`, (err,result) => {
+   mariadb.query(`INSERT INTO blog(path, author, title, description, created_on, link, subtittle) VALUES('${vid}','${author}','${title}', '${description}', DEFAULT, '${link}', '${subtittle}')`, (err,result) => {
      if(err) throw err
      console.log("Video uploaded");
+     res.send('Video uploaded')
    })
-
+   return
 },handleErr) 
 
 
 app.listen(port, () => {
-    console.log('Server is up on port ' + port);
+  console.log("********************************************************");
+  console.log("* DB: localhost:3306 DBname:'orientation_db_schema'    *");
+  console.log("*                PORT is running on " + port + "               *");
+  console.log("*                 file upload by cheyeza               *");
+  console.log("********************************************************");
 })
 
 module.exports = app;
