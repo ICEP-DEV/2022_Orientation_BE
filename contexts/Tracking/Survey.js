@@ -23,7 +23,6 @@ Router.get('/admin',(req, res, next) => {
         for (let index = 0; index < outer_rows.length; index++) {
             await mariadb.promise().query(`SELECT  survey.answer,surveyquestion.question FROM survey,surveyquestion WHERE survey.question_id = surveyquestion.id AND survey.student_id = ${outer_rows[index].id}`)
             .then((data)=>{
-                console.log(data[0][0])
                 if(data[0][0])
                 {
                     surveyUser[index] = 

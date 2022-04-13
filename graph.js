@@ -84,6 +84,11 @@ app.use('/Orientation/Question',survQuestion_cnxt)
 //context to blog entities
 app.use('/Blog/blog', blog_cnxt);
 
+//Publisize a folder
+app.use(express.static('public')); 
+app.use('/images', express.static('bin/images'));
+app.use('/videos', express.static('bin/videos'));
+
 
 const PORT = 6900
 const server = app.listen(PORT, (e) => {

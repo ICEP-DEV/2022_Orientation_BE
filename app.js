@@ -71,7 +71,7 @@ app.post('/uploadImage', imageUpload.single('image'), (req, res) => {
     const img = req.file.filename;
     const author = req.body.author;
 
- mariadb.query(`INSERT INTO blog(path, author, title, description, created_on) VALUES('${img}','${author}','${title}', '${description}', DEFAULT)`, (err,result) => {
+ mariadb.query(`INSERT INTO blog(path, author, title, description, created_on) VALUES('http://localhost:6900/images/${img}','${author}','${title}', '${description}', DEFAULT)`, (err,result) => {
     if(err) throw err
     console.log("Image uploaded");
     res.send('Image uploaded')
