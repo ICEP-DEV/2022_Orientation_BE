@@ -197,24 +197,28 @@ socketIO.on('connection', (socket) => {
         })
     })
 
-    socket.on("LineGraph_update",(st_stream)=>{
+    socket.on("LineGraph_update",async (st_stream)=>{
         let datesRates=[]
 
     for (let index = 0; index < 10; index++) {
 
-       await mariadb.promise().query(`SELECT COUNT(activity) as rates FROM tracking WHERE DATE_FORMAT(datetime,"%M - %Y") = DATE_FORMAT(CURRENT_TIMESTAMP,"%M - %Y")  AND DATE_FORMAT(datetime,"%D") = (DATE_FORMAT(CURRENT_TIMESTAMP,"%D") - ${index}) AND activity = "Logged in";`)
+       await connection.promise().query(`SELECT COUNT(activity) as rates FROM tracking WHERE DATE_FORMAT(datetime,"%M - %Y") = DATE_FORMAT(CURRENT_TIMESTAMP,"%M - %Y")  AND DATE_FORMAT(datetime,"%D") = (DATE_FORMAT(CURRENT_TIMESTAMP,"%D") - ${index}) AND activity = "Logged in";`)
             .then((data)=>{
                 if(data[0])
                 { 
                     if(data[0][0].rates || data[0][0].rates == 0)
-                    { 
+                    {
+                        if(index == 0) 
+                        { 
+                            data[0][0].rates++
+                        }
+
                         datesRates[index] = data[0][0].rates
                     }
                 }
             })
         }
-
-        socketIO.emit('updateLine',datesRates)
+        socketIO.emit('updateLine',JSON.stringify(datesRates))
         return
     
     })
