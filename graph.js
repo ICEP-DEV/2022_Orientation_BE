@@ -21,11 +21,12 @@ const Forgotten_cnxt = require("./contexts/Authentication/Forgotten")
 const Profile_Update_cnxt = require("./contexts/Profile/Update")
 
 //Blog
-const blog_cnxt = require('./contexts/Blog/blog')
+const Blog_cnxt = require('./contexts/Blog/blog')
 
 //Admin
 const RegistrationAdm_cnxt = require('./contexts/Authentication/Register_Adm')
 const LoginAdm_cnxt = require("./contexts/Authentication/Login_Adm")
+const LoginTrackAdm_cnxt = require('./contexts/Tracking/LoginsOverview')
 
 // //common
 //--Stats
@@ -38,9 +39,10 @@ const Track_Survey_cnxt = require('./contexts/Tracking/Survey')
 const Track_Orientation_cnxt = require('./contexts/Tracking/Orientation')
 //Orientation
 const AllCampus_cnxt = require("./contexts/Orientation/AllCampus")
-const faculty_cnxt = require("./contexts/Orientation/Faculty")
-const videos_cnxt = require("./contexts/Orientation/Video")
-const survQuestion_cnxt = require("./contexts/Orientation/Questions")
+const Faculty_cnxt = require("./contexts/Orientation/Faculty")
+const Videos_cnxt = require("./contexts/Orientation/Video")
+const SurvQuestion_cnxt = require("./contexts/Orientation/Questions")
+
 
 //-----------------------------------------------------------------------------------Custome Libraries
 //-----------------------------------------------------------------------------------Express Server Algorithms
@@ -64,12 +66,13 @@ app.use('/Stud/Student', Student_cnxt);
 app.use('/Auth/Login', Login_cnxt);
 app.use('/Auth/Forgotten',Forgotten_cnxt);
 app.use('/Profile/Update',Profile_Update_cnxt);
-app.use('/Orientation/Faculty',faculty_cnxt)
-app.use('/Orientation/Videos', videos_cnxt)
+app.use('/Orientation/Faculty',Faculty_cnxt)
+app.use('/Orientation/Videos', Videos_cnxt)
 
 //context channelling Admin
 app.use('/Auth/Registration_Admin', RegistrationAdm_cnxt);
 app.use('/Auth/Login_Admin', LoginAdm_cnxt);
+app.use('/Track/LoginOverview',LoginTrackAdm_cnxt)
 
 //context to common entities
 app.use('/Stat/Stats', Stats_cnxt);
@@ -79,10 +82,10 @@ app.use('/Track/Progress',Track_Prog_cnxt)
 app.use('/Track/Survey',Track_Survey_cnxt)
 app.use('/Track/Orientation',Track_Orientation_cnxt)
 app.use('/Orientation/Campus', AllCampus_cnxt)
-app.use('/Orientation/Question',survQuestion_cnxt)
+app.use('/Orientation/Question',SurvQuestion_cnxt)
 
 //context to blog entities
-app.use('/Blog/blog', blog_cnxt);
+app.use('/Blog/blog', Blog_cnxt);
 
 //Publisize a folder
 app.use(express.static('public')); 
@@ -193,6 +196,29 @@ socketIO.on('connection', (socket) => {
             })
         })
     })
+
+    socket.on("LineGraph_update",(st_stream)=>{
+        let datesRates=[]
+
+    for (let index = 0; index < 10; index++) {
+
+       await mariadb.promise().query(`SELECT COUNT(activity) as rates FROM tracking WHERE DATE_FORMAT(datetime,"%M - %Y") = DATE_FORMAT(CURRENT_TIMESTAMP,"%M - %Y")  AND DATE_FORMAT(datetime,"%D") = (DATE_FORMAT(CURRENT_TIMESTAMP,"%D") - ${index}) AND activity = "Logged in";`)
+            .then((data)=>{
+                if(data[0])
+                { 
+                    if(data[0][0].rates || data[0][0].rates == 0)
+                    { 
+                        datesRates[index] = data[0][0].rates
+                    }
+                }
+            })
+        }
+
+        socketIO.emit('updateLine',datesRates)
+        return
+    
+    })
+
 
 
     
