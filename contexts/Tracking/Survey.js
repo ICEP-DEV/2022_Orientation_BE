@@ -9,7 +9,7 @@ Router.get('/admin',(req, res, next) => {
 
     let surveyUser = [];
 
-    mariadb.query(`SELECT id, studNum as StudentNo, firstname as Firstname, lastname as Lastname, email as Email FROM student`,async (err,outer_rows,fields)=>{
+    mariadb.query(`SELECT student.id, studNum as StudentNo, firstname as Firstname, lastname as Lastname, email as Email FROM student ,survey WHERE student.id = survey.student_id GROUP BY student.id`,async (err,outer_rows,fields)=>{
 
         if(err || outer_rows.length < 1)
         {
