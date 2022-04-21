@@ -51,7 +51,7 @@ const imageUpload = multer({
 const videoUpload = multer({
     storage: videoStorage,
     limits: {
-    fileSize: 10000000 // 10000000 Bytes = 10 MB
+    fileSize: 50000000 // 50000000 Bytes = 50 MB
     },
     fileFilter(req, file, cb) {
       // upload only mp4 and mkv format
@@ -66,34 +66,73 @@ const videoUpload = multer({
 // For Single image upload
 app.post('/uploadImage', imageUpload.single('image'), (req, res) => {
 
-    const title = req.body.title;
-    const description = req.body.description;;
-    const img = req.file.filename;
-    const author = req.body.author;
+    
+      const img = req.file.filename;
+      
+      if(req.body.type == 'blog')
+      {
+        const title = req.body.title;
+        const description = req.body.description;;
+        const author = req.body.author;
+        const subTittle = req.body.sub;
+        const link = req.body.link;
+       
+        //Adding a blog post with a image
+        mariadb.query(`INSERT INTO blog(path, author, title, description, created_on,link,subTittle) VALUES('http://localhost:6900/images/${img}','${author}','${title}', '${description}', DEFAULT,'${link}','${subTittle}')`, (err,result) => {
+            if(err) throw err
+            console.log("Image uploaded");
+            res.send('Image uploaded')
+            return
+        })
+      }
+      
+      return
 
- mariadb.query(`INSERT INTO blog(path, author, title, description, created_on) VALUES('http://localhost:6900/images/${img}','${author}','${title}', '${description}', DEFAULT)`, (err,result) => {
-    if(err) throw err
-    console.log("Image uploaded");
-    res.send('Image uploaded')
-    return
-  })
-  return
 },handleErr)
 
 app.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
-   res.send(req.file)
+   
 
    const vid = req.file.filename;
-   const title = req.body.title;
-   const description = req.body.description;
-   const author = req.body.author;
+   
+   
+   if(req.body.type == 'blog')
+   {
+    const title = req.body.title;
+    const description = req.body.description;
+    const author = req.body.author;
+    const subTittle = req.body.sub;
+    const link = req.body.link;
+    
+    //Adding a blog post with a video
+      mariadb.query(`INSERT INTO blog(path, author, title, description, created_on,link,subTittle) VALUES('http://localhost:6900/videos/${vid}','${author}','${title}', '${description}', DEFAULT,'${link}','${subTittle}')`, (err,result) => {
+        if(err) throw err
+        res.send('Video uploaded for blog')
+      })
+    }
+    else if(req.body.type == 'orientation')
+    {
+        const faculty = req.body.fac
+        const title = req.body.title
+        const category = req.body.category
+        const fileType = req.body.fileType
+      
 
-   mariadb.query(`INSERT INTO blog(path, author, title, description, created_on) VALUES('${vid}','${author}','${title}', '${description}', DEFAULT)`, (err,result) => {
-     if(err) throw err
-     console.log("Video uploaded");
-     res.send('Video uploaded')
-   })
-   return
+        //Adding a video post with a image
+        mariadb.query(`INSERT INTO videos(path, tittle, createdAt,category,type,noOfViews) VALUES('http://localhost:6900/videos/${vid}','${title}', DEFAULT,'${category}','${fileType}',0)`, (err,result) => {
+            if(err) throw err
+          
+            if(result.insertId)
+            {
+              mariadb.query(`INSERT INTO fac_vid VALUES(DEFAULT,${faculty},${result.insertId})`,(err,result)=>{
+                if(err) throw err
+                res.send("video for orientation was added")
+              })
+            }
+            return
+        })
+    }
+    return
 },handleErr) 
 
 
