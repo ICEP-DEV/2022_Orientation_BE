@@ -16,7 +16,8 @@ Router.get('/admin',(req, res, next) => {
             res.send({
                 error:true,
                 message:"Error sql statement couldn't execute successfully",    
-                code:"O001_POST_SQL"        
+                code:"O001_POST_SQL",
+                sqlMessage:err        
             })
             return;
         }

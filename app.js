@@ -25,7 +25,8 @@ app.get('/', (req, res) => {
 
 
 const handleErr = (error, req, res, next) => {
-    res.status(400).send({ error: error.message })
+    res.status(400).send(error.message)
+    return
 }
 
 const imageStorage = multer.diskStorage({
@@ -64,7 +65,7 @@ const imageUpload = multer({
 const videoUpload = multer({
     storage: videoStorage,
     limits: {
-    fileSize: 50000000 // 50000000 Bytes = 50 MB
+    fileSize: 150000000 // 50000000 Bytes = 50 MB
     },
     fileFilter(req, file, cb) {
       // upload only mp4 and mkv format
