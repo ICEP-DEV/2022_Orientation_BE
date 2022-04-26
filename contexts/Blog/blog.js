@@ -76,7 +76,7 @@ Router.get('/', (req, res, next) => {
 
     if (req.body.id) {
         if (req.body.id == "*") {
-            mariadb.query('SELECT title, description, author, created_on, path from blog', (err, rows) => {
+            mariadb.query('SELECT title, description, author, created_on, path, link, subtittle from blog', (err, rows) => {
                 if (!err) {
                     res.send({
                         error: false,
@@ -138,7 +138,7 @@ Router.put('/', (req, res) => {
         return
     }
 
-    const { title, description,author, path, id } = req.body
+    const { title, description,author, path, link, subtittle, id } = req.body
 
     mariadb.query(`UPDATE blog SET ${req.body.field} = '${req.body.updateValue}' WHERE id = ${req.body.id}`, (err, rows) => {
         if (!err) {
