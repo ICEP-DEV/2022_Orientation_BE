@@ -54,7 +54,7 @@ const imageUpload = multer({
       fileSize: 1000000 // 1000000 Bytes = 1 MB
     },
     fileFilter(req, file, cb) {
-      if (!file.originalname.match(/\.(png|jpg)$/)) { 
+      if (!file.originalname.match(/\.(png|jpg|PNG|JPG|JPEG|GIF|gif|jpeg)$/)) { 
          // upload only png and jpg format
          return cb(new Error('Please upload a Image'))
        }
@@ -90,7 +90,6 @@ app.post('/uploadImage', imageUpload.single('image'), (req, res) => {
         //Adding a blog post with a image
         mariadb.query(`INSERT INTO blog(path, author, title, description, created_on,link,subTittle) VALUES('http://localhost:6900/images/${img}','${author}','${title}', '${description}', DEFAULT,'${link}','${subTittle}')`, (err,result) => {
             if(err) throw err
-            console.log("Image uploaded");
             res.send('Image uploaded')
             return
         })
