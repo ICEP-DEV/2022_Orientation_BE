@@ -226,6 +226,18 @@ socketIO.on('connection', (socket) => {
     })
 
 
+    socket.on("VideoUploaded",async (st_stream)=>{
+        connection.query("SELECT COUNT(id) as videos FROM videos",(err,rows,fields)=>{
+            if(err) throw err
+            socketIO.emit("VideosCount",rows[0].videos)
+        })
+        
+    })
+
+    socket.on("CampusSaved",(in_stream)=>{
+        socketIO.emit("updatePie")
+    })
+
 
     
 
