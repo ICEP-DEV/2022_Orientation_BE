@@ -2,13 +2,13 @@
 const mysql = require('mysql2');
 const prompt = require('prompt-sync')();
 
-const mariadb = mysql.createConnection({
+const mariadb = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'orientation_db_schema'
 })
-mariadb.connect()
+
 
 mariadb.query('SELECT "test"', function(err, rows, fields) {
     if (err) {
