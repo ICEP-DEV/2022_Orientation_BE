@@ -1,3 +1,4 @@
+const HOSTNAME = "ec2-3-80-224-126.compute-1.amazonaws.com"
 const express = require('express');
 const path = require('path');
 const app = express()
@@ -88,7 +89,7 @@ app.post('/uploadImage', imageUpload.single('image'), (req, res) => {
       const link = req.body.link;
        
         //Adding a blog post with a image
-        mariadb.query(`INSERT INTO blog(path, author, title, description, created_on,link,subTittle) VALUES('http://localhost:6900/images/${img}','${author}','${title}', '${description}', DEFAULT,'${link}','${subTittle}')`, (err,result) => {
+        mariadb.query(`INSERT INTO blog(path, author, title, description, created_on,link,subTittle) VALUES('http://${HOSTNAME}:6900/images/${img}','${author}','${title}', '${description}', DEFAULT,'${link}','${subTittle}')`, (err,result) => {
             if(err) throw err
             res.send('Image uploaded')
             return
@@ -112,7 +113,7 @@ app.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
     const link = req.body.link;
     
     //Adding a blog post with a video
-      mariadb.query(`INSERT INTO blog(path, author, title, description, created_on,link,subTittle) VALUES('http://localhost:6900/videos/${vid}','${author}','${title}', '${description}', DEFAULT,'${link}','${subTittle}')`, (err,result) => {
+      mariadb.query(`INSERT INTO blog(path, author, title, description, created_on,link,subTittle) VALUES('http://${HOSTNAME}:6900/videos/${vid}','${author}','${title}', '${description}', DEFAULT,'${link}','${subTittle}')`, (err,result) => {
         if(err) throw err
         res.send('Video uploaded for blog')
       })
@@ -126,7 +127,7 @@ app.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
       
 
         //Adding a video post with a image
-        mariadb.query(`INSERT INTO videos(path, tittle, createdAt,category,type,noOfViews) VALUES('http://localhost:6900/videos/${vid}','${title}', DEFAULT,'${category}','${fileType}',0)`, (err,result) => {
+        mariadb.query(`INSERT INTO videos(path, tittle, createdAt,category,type,noOfViews) VALUES('http://${HOSTNAME}:6900/videos/${vid}','${title}', DEFAULT,'${category}','${fileType}',0)`, (err,result) => {
             if(err) throw err
           
             if(result.insertId)
