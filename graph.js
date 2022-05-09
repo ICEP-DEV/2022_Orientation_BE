@@ -28,7 +28,7 @@ const RegistrationAdm_cnxt = require('./contexts/Authentication/Register_Adm')
 const LoginAdm_cnxt = require("./contexts/Authentication/Login_Adm")
 const LoginTrackAdm_cnxt = require('./contexts/Tracking/LoginsOverview')
 const UpdateVideo_cnxt = require('./contexts/Administrator/UpdateVideo')
-
+const SearchAll_cnxt = require('./contexts/Administrator/GlobalSearch')
 // //common
 //--Stats
 const Stats_cnxt = require('./contexts/Statistics/Stats')
@@ -75,6 +75,7 @@ app.use('/Auth/Registration_Admin', RegistrationAdm_cnxt);
 app.use('/Auth/Login_Admin', LoginAdm_cnxt);
 app.use('/Track/LoginOverview',LoginTrackAdm_cnxt)
 app.use('/Admin/UpdateDeleteVideo',UpdateVideo_cnxt)
+app.use('/Search',SearchAll_cnxt)
 
 //context to common entities
 app.use('/Stat/Stats', Stats_cnxt);
