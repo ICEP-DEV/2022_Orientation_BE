@@ -27,7 +27,7 @@ const blog_cnxt = require('./contexts/Blog/blog')
 const RegistrationAdm_cnxt = require('./contexts/Authentication/Register_Adm')
 const LoginAdm_cnxt = require("./contexts/Authentication/Login_Adm")
 
-// //common
+// //common cnxt
 //--Stats
 const Stats_cnxt = require('./contexts/Statistics/Stats')
 //--Track
