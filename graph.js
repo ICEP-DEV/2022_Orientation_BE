@@ -99,6 +99,12 @@ const server = app.listen(PORT, (e) => {
 //(Realtime) Socket For stats and more
 //Backend Code
 var socketIO = socket(server,{
+    allowEIO3: true,
+   cors: {
+    origin: ["https://master.dj4hobg2ew465.amplifyapp.com", "http://localhost:4200"],
+    allowedHeaders: ["X-Requested-With","Content-Type"],
+    credentials: true
+  },
   allowRequest: (req, callback) => {
     const isOriginValid = check(req);
     callback(null, isOriginValid);
