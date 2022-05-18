@@ -100,7 +100,7 @@ const server = app.listen(PORT, (e) => {
 //Backend Code
 var socketIO = socket(server,{
     cors: {
-      origin: "https://master.dj4hobg2ew465.amplifyapp.com/"
+      origin: ["https://master.dj4hobg2ew465.amplifyapp.com:80","mbuqssmxk3.us-east-1.awsapprunner.com:80"]
     }
 });
 var studentSessions = 0;
