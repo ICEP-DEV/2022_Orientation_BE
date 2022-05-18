@@ -98,11 +98,7 @@ const server = app.listen(PORT, (e) => {
 //------------------------------------------------------------------------------------------------------Socket IO Algorithms
 //(Realtime) Socket For stats and more
 //Backend Code
-var socketIO = socket(server,{
-    cors: {
-      origin: "*"
-    }
-});
+var socketIO = socket(server,{ origins: '*:*'});
 var studentSessions = 0;
 //Connection of IOSocket
 socketIO.on('connection', (socket) => {
