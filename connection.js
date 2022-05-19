@@ -1,4 +1,4 @@
-//Database establishment of connection V05MplwnzsxSUPdKVjVd
+//Database establishment of connection
 const mysql = require('mysql2');
 const { DATABASE_HOSTNAME,USERNAME,PASSWORD } = require('./globals')
 
