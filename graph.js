@@ -52,7 +52,7 @@ app.use(function(req, res, next) {
     //Header allowences of METHODS
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Sec-WebSocket-Key,Sec-WebSocket-Extensions,Host,Upgrade,Sec-WebSocket-Version,Connection');
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
@@ -102,8 +102,8 @@ var socketIO = socket(server,{
     allowEIO3: true,
    cors: {
     origin: "*:*",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["X-Requested-With","Content-Type"],
+    methods: ["GET", "POST","PUT"],
+    allowedHeaders: ["X-Requested-With","Content-Type","Sec-WebSocket-Key","Sec-WebSocket-Extensions","Host","Upgrade","Sec-WebSocket-Version","Connection"],
     credentials: false
   },
   allowRequest: (req, callback) => {
