@@ -4,6 +4,7 @@ const prompt = require('prompt-sync')();
 
 const mariadb = mysql.createPool({
     host: 'db-orientation-inst.cvqpj5ith2h1.us-east-1.rds.amazonaws.com',
+
     user: 'admin',
     password: 'icep2020',
     database: 'orientation_db_schema'

@@ -26,10 +26,12 @@ const Blog_cnxt = require('./contexts/Blog/blog')
 //Admin
 const RegistrationAdm_cnxt = require('./contexts/Authentication/Register_Adm')
 const LoginAdm_cnxt = require("./contexts/Authentication/Login_Adm")
+
 const LoginTrackAdm_cnxt = require('./contexts/Tracking/LoginsOverview')
 const UpdateVideo_cnxt = require('./contexts/Administrator/UpdateVideo')
 const SearchAll_cnxt = require('./contexts/Administrator/GlobalSearch')
 // //common
+
 //--Stats
 const Stats_cnxt = require('./contexts/Statistics/Stats')
 //--Track
@@ -55,7 +57,7 @@ app.use(function(req, res, next) {
     //Header allowences of METHODS
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With','Content-Type','Sec-WebSocket-Key','Sec-WebSocket-Extensions','Host','Upgrade','Sec-WebSocket-Version','Connection');
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
@@ -109,7 +111,19 @@ const server = app.listen(PORT, (e) => {
 //------------------------------------------------------------------------------------------------------Socket IO Algorithms
 //(Realtime) Socket For stats and more
 //Backend Code
-var socketIO = socket(server);
+var socketIO = socket(server,{
+   allowEIO3: true,
+   cors: {
+    origin: "*:*",
+    methods: ["GET", "POST","PUT"],
+    allowedHeaders: ["X-Requested-With","Content-Type","Sec-WebSocket-Key","Sec-WebSocket-Extensions","Host","Upgrade","Sec-WebSocket-Version","Connection"],
+    credentials: false
+  },
+  allowRequest: (req, callback) => {
+    const noOriginHeader = req.headers.origin === undefined;
+    callback(null, noOriginHeader);
+  }
+});
 var studentSessions = 0;
 //Connection of IOSocket
 socketIO.on('connection', (socket) => {
