@@ -1,11 +1,11 @@
 //Database establishment of connection V05MplwnzsxSUPdKVjVd
 const mysql = require('mysql2');
-const prompt = require('prompt-sync')();
+const { DATABASE_HOSTNAME,USERNAME,PASSWORD } = require('./globals')
 
 const mariadb = mysql.createPool({
-    host: 'inst-orientation-db.cvqpj5ith2h1.us-east-1.rds.amazonaws.com',
-    user: 'admin',
-    password: 'icep2020',
+    host: DATABASE_HOSTNAME,
+    user: USERNAME,
+    password: PASSWORD,
     database: 'orientation_db_schema'
 })
 
@@ -18,8 +18,6 @@ mariadb.query('SELECT "test"', function(err, rows, fields) {
     if (rows[0])
         if (rows[0].test == "test") {
             console.log("********************Server is ready********************")
-            console.log("")
-            console.log("System Log: ")
         }
 })
 
