@@ -1,13 +1,15 @@
+//PORT FOR THE API ENDPOINT________________________
+const { APP_PORT,DATABASE } = require('./globals');
+//_________________________________________________
 const HOSTNAME = "localhost"
-//localhost
-//ec2-3-80-224-126.compute-1.amazonaws.com"
+
 const express = require('express');
 const path = require('path');
 const app = express()
 const multer = require('multer');
 const mariadb = require('./connection');
 const cors = require('cors');
-const port = process.env.PORT || 3007
+
 
 app.use(cors({origin: '*'}));
 
@@ -151,11 +153,11 @@ app.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
 },handleErr) 
 
 
-app.listen(port, () => {
+app.listen(APP_PORT, () => {
   console.log("********************************************************");
-  console.log("* DB: localhost:3306 DBname:'orientation_db_schema'    *");
-  console.log("*                PORT is running on " + port + "               *");
-  console.log("*                 file upload by cheyeza               *");
+  console.log("* DB: "+DATABASE()+":3306 DBname:'orientation_db_schema'    *");
+  console.log("*           S3 Bucket(U/D) Amazon : by Cheyeza         *");
+  console.log("*                   PORT : "+APP_PORT+"                        *");
   console.log("********************************************************");
 })
 
