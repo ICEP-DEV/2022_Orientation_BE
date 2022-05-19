@@ -21,8 +21,6 @@ var studentSessions = 0;
 
 //Connection of IOSocket
 socketIO.on('connection', (socket) => {
-    
-   console.log("user_connct")
     //------>Registered Users
     socket.on('RegisteredUsers_soc',(st_stream)=>{
         connection.query(`SELECT countUsers,survey FROM stats`,(err,rows,fields)=>{
