@@ -64,19 +64,21 @@ Router.get('/', (req, res, next) => {
 
     let field;
 
-    if (Object.keys(req.body).length == 0) {
+    if (Object.keys(req.query).length == 0) {
         res.send({
             error: true,
             code: "S001",
-            message: "body parameters were not found"
+            message: "paramiter parameters were not found"
         })
         return
     }
 
 
-    if (req.body.id) {
-        if (req.body.id == "*") {
-            mariadb.query('SELECT title, description, author, created_on, path, link, subtittle from blog', (err, rows) => {
+
+    if (req.query.id) {
+        if (req.query.id == "*") {
+            mariadb.query('SELECT title, description, author, created_on, path, link,subTittle from blog', (err, rows) => {
+
                 if (!err) {
                     res.send({
                         error: false,
@@ -93,7 +95,7 @@ Router.get('/', (req, res, next) => {
             })
         }
         else {
-            mariadb.query(`SELECT ${req.body.field} FROM blog`, (err, rows, fields) => {
+            mariadb.query(`SELECT ${req.query.field} FROM blog`, (err, rows, fields) => {
                 if (!err) {
                     res.send({
                         error: false,

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2022 at 12:12 PM
+-- Generation Time: Apr 26, 2022 at 09:36 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -20,6 +20,662 @@ SET time_zone = "+00:00";
 --
 -- Database: `orientation_db_schema`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `id` int(4) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `email`, `password`) VALUES
+(1, 'cbshezi5@gmail.com', 'U2FsdGVkX1/pza39yVKOktMVlWCTOrybIWagMDOK4Xc=');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ans_que`
+--
+
+CREATE TABLE `ans_que` (
+  `id` int(11) NOT NULL,
+  `ans_id` int(11) NOT NULL,
+  `que_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ans_que`
+--
+
+INSERT INTO `ans_que` (`id`, `ans_id`, `que_id`) VALUES
+(5, 30, 1),
+(6, 28, 1),
+(7, 30, 2),
+(8, 28, 2),
+(9, 32, 3),
+(10, 31, 3),
+(11, 32, 4),
+(12, 31, 4),
+(13, 33, 5),
+(14, 34, 6),
+(15, 35, 7),
+(16, 31, 8),
+(17, 32, 8),
+(18, 28, 9),
+(19, 30, 9),
+(20, 36, 10),
+(21, 31, 11),
+(22, 32, 11),
+(23, 28, 12),
+(24, 30, 12),
+(25, 28, 13),
+(26, 30, 13),
+(27, 28, 14),
+(28, 30, 14),
+(29, 28, 15),
+(30, 30, 15),
+(31, 31, 16),
+(32, 32, 16),
+(33, 37, 17),
+(34, 38, 17),
+(35, 39, 17),
+(36, 40, 17),
+(37, 41, 18),
+(38, 42, 18),
+(39, 43, 18),
+(40, 44, 19),
+(41, 45, 19),
+(42, 46, 19),
+(43, 47, 20),
+(44, 48, 20),
+(45, 49, 20),
+(46, 50, 21),
+(47, 51, 21),
+(48, 52, 21),
+(49, 40, 21),
+(50, 54, 22),
+(51, 55, 22),
+(52, 56, 22),
+(53, 57, 23),
+(54, 58, 23),
+(55, 59, 23),
+(56, 28, 24),
+(57, 30, 24),
+(58, 28, 25),
+(59, 30, 25),
+(60, 28, 26),
+(61, 30, 26),
+(62, 60, 27),
+(63, 61, 27),
+(64, 62, 27),
+(65, 63, 27),
+(66, 28, 28),
+(67, 30, 28),
+(68, 64, 29),
+(69, 67, 29),
+(70, 65, 29),
+(71, 66, 29),
+(72, 28, 30),
+(73, 30, 30),
+(74, 68, 31),
+(75, 28, 32),
+(76, 30, 32),
+(77, 31, 33),
+(78, 32, 33),
+(79, 28, 34),
+(80, 30, 34),
+(81, 69, 35),
+(82, 70, 35);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blog`
+--
+
+CREATE TABLE `blog` (
+  `id` int(100) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `author` varchar(255) NOT NULL,
+  `created_on` datetime(6) NOT NULL DEFAULT current_timestamp(6),
+  `path` text NOT NULL,
+  `link` text NOT NULL,
+  `subTittle` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `campus`
+--
+
+CREATE TABLE `campus` (
+  `id` int(4) NOT NULL,
+  `campus_name` varchar(68) NOT NULL,
+  `noOfFaculties` int(4) NOT NULL DEFAULT 0,
+  `campus_coords` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `campus`
+--
+
+INSERT INTO `campus` (`id`, `campus_name`, `noOfFaculties`, `campus_coords`) VALUES
+(1, 'Arts', 0, '[-25.740218,28.196562]'),
+(2, 'Arcadia ', 0, '[-25.744687,28.199628]'),
+(3, 'eMalahleni', 0, '[-25.877430,29.236509]'),
+(4, 'Ga-Rankuwa', 0, '[-25.616608,28.003027]'),
+(5, 'Mbombela', 0, '[-25.499894,30.955981]'),
+(6, 'Polokwane', 0, '[-23.900083,29.448802]'),
+(7, 'Pretoria', 0, '[-25.732331,28.163258]'),
+(8, 'Soshanguve South', 0, '[-25.540316,28.096885]'),
+(9, 'Soshanguve North', 0, '[-25.520643,28.114129]');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cam_fac`
+--
+
+CREATE TABLE `cam_fac` (
+  `id` int(8) NOT NULL,
+  `fac_id` int(4) NOT NULL,
+  `cam_id` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cam_fac`
+--
+
+INSERT INTO `cam_fac` (`id`, `fac_id`, `cam_id`) VALUES
+(1, 3, 8),
+(2, 4, 8),
+(3, 1, 4),
+(4, 1, 5),
+(5, 1, 6),
+(6, 2, 3),
+(7, 7, 1),
+(8, 4, 6),
+(9, 4, 3),
+(10, 3, 3),
+(11, 3, 9),
+(12, 3, 5),
+(13, 5, 5),
+(14, 6, 7),
+(15, 6, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faculty`
+--
+
+CREATE TABLE `faculty` (
+  `id` int(4) NOT NULL,
+  `faculty_name` varchar(128) NOT NULL,
+  `noOfVideos` int(4) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `faculty`
+--
+
+INSERT INTO `faculty` (`id`, `faculty_name`, `noOfVideos`) VALUES
+(1, 'Faculty of Economics and Finance', 0),
+(2, 'Faculty of Engineering and the Built Environment', 0),
+(3, 'Faculty of Humanities', 0),
+(4, 'Faculty of Information and Communication Technology', 0),
+(5, 'Faculty of Management Sciences', 0),
+(6, 'Faculty of Science', 0),
+(7, 'Faculty of Arts and Design', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fac_vid`
+--
+
+CREATE TABLE `fac_vid` (
+  `id` int(8) NOT NULL,
+  `fac_id` int(4) NOT NULL,
+  `vid_id` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fac_vid`
+--
+
+INSERT INTO `fac_vid` (`id`, `fac_id`, `vid_id`) VALUES
+(12, 1, 16),
+(13, 1, 17),
+(14, 1, 18),
+(15, 1, 19),
+(16, 1, 20),
+(17, 1, 21),
+(18, 1, 22),
+(19, 1, 23),
+(20, 2, 24),
+(21, 2, 25),
+(22, 2, 26),
+(23, 2, 27),
+(24, 2, 28),
+(25, 2, 29),
+(26, 2, 30),
+(27, 2, 31),
+(28, 2, 32),
+(29, 2, 33),
+(30, 2, 17),
+(31, 2, 18),
+(32, 2, 19),
+(33, 2, 20),
+(34, 2, 21),
+(35, 2, 22),
+(36, 2, 23),
+(37, 3, 34),
+(38, 3, 35),
+(39, 3, 36),
+(40, 3, 37),
+(41, 3, 38),
+(42, 3, 39),
+(43, 3, 40),
+(44, 3, 41),
+(45, 3, 42),
+(46, 3, 43),
+(47, 3, 44),
+(48, 3, 45),
+(49, 3, 46),
+(50, 3, 17),
+(51, 3, 18),
+(52, 3, 19),
+(53, 3, 20),
+(54, 3, 21),
+(55, 3, 22),
+(56, 3, 23),
+(57, 4, 47),
+(58, 4, 48),
+(59, 4, 49),
+(60, 4, 50),
+(61, 4, 51),
+(62, 4, 52),
+(63, 4, 53),
+(64, 4, 54),
+(65, 4, 55),
+(66, 4, 17),
+(67, 4, 18),
+(68, 4, 19),
+(69, 4, 20),
+(70, 4, 21),
+(71, 4, 22),
+(72, 4, 23),
+(73, 4, 56),
+(74, 4, 57),
+(75, 5, 58),
+(76, 5, 59),
+(77, 5, 60),
+(78, 5, 61),
+(79, 5, 62),
+(80, 5, 63),
+(81, 5, 64),
+(82, 5, 65),
+(83, 5, 66),
+(84, 5, 67),
+(85, 5, 68),
+(86, 5, 69),
+(87, 5, 70),
+(88, 5, 17),
+(89, 5, 18),
+(90, 5, 19),
+(91, 5, 20),
+(92, 5, 21),
+(93, 5, 22),
+(94, 5, 23),
+(95, 6, 71),
+(96, 6, 72),
+(97, 6, 73),
+(98, 6, 74),
+(99, 6, 75),
+(100, 6, 76),
+(101, 6, 77),
+(102, 6, 78),
+(103, 6, 79),
+(104, 6, 80),
+(105, 6, 81),
+(106, 6, 82),
+(107, 6, 83),
+(108, 6, 84),
+(109, 6, 85),
+(110, 6, 86),
+(111, 6, 17),
+(112, 6, 18),
+(113, 6, 19),
+(114, 6, 20),
+(115, 6, 21),
+(116, 6, 22),
+(117, 6, 23),
+(118, 7, 87),
+(119, 7, 88),
+(120, 7, 89),
+(121, 7, 90),
+(122, 7, 91),
+(123, 7, 92),
+(124, 7, 93),
+(125, 7, 17),
+(126, 7, 18),
+(127, 7, 19),
+(128, 7, 20),
+(129, 7, 21),
+(130, 7, 22),
+(131, 7, 23);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orientation`
+--
+
+CREATE TABLE `orientation` (
+  `id` int(8) NOT NULL,
+  `student_id` int(4) NOT NULL,
+  `field` varchar(25) NOT NULL,
+  `value` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orientation`
+--
+
+INSERT INTO `orientation` (`id`, `student_id`, `field`, `value`) VALUES
+(1913, 3, 'StartOrientation', 'true'),
+(1914, 3, 'Campus', 'Soshanguve South'),
+(1915, 3, 'Faculty', 'Faculty of Information and Communication Technology'),
+(1916, 3, 'Videos', 'true'),
+(1917, 3, 'Survey', 'true'),
+(1923, 4, 'StartOrientation', 'true'),
+(1924, 4, 'Campus', 'eMalahleni'),
+(1925, 4, 'Faculty', 'Faculty of Engineering and the Built Environment'),
+(1926, 4, 'Videos', 'true'),
+(1927, 4, 'Survey', 'true'),
+(2013, 2, 'StartOrientation', 'true'),
+(2014, 2, 'Campus', 'eMalahleni'),
+(2015, 2, 'Faculty', 'Faculty of Information and Communication Technology'),
+(2016, 2, 'Videos', 'true'),
+(2017, 2, 'Survey', 'true'),
+(2199, 1, 'Initialize', 'true'),
+(2239, 1, 'StartOrientation', 'true'),
+(2240, 1, 'Campus', 'Ga-Rankuwa'),
+(2241, 1, 'Faculty', 'Faculty of Economics and Finance');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `que_fac`
+--
+
+CREATE TABLE `que_fac` (
+  `id` int(8) NOT NULL,
+  `fac_id` int(4) NOT NULL,
+  `que_id` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `que_fac`
+--
+
+INSERT INTO `que_fac` (`id`, `fac_id`, `que_id`) VALUES
+(1, 3, 1),
+(2, 3, 2),
+(3, 3, 3),
+(4, 3, 4),
+(5, 3, 5),
+(6, 3, 6),
+(7, 5, 7),
+(8, 5, 8),
+(9, 5, 9),
+(10, 5, 10),
+(11, 5, 11),
+(12, 5, 12),
+(13, 2, 13),
+(14, 2, 14),
+(15, 2, 15),
+(16, 2, 16),
+(17, 2, 17),
+(18, 7, 18),
+(19, 7, 20),
+(20, 7, 19),
+(21, 7, 21),
+(22, 7, 22),
+(23, 7, 23),
+(24, 4, 25),
+(25, 4, 27),
+(26, 4, 26),
+(27, 4, 28),
+(28, 4, 29),
+(29, 4, 30),
+(30, 1, 31),
+(31, 1, 32),
+(32, 1, 33),
+(33, 1, 34),
+(34, 1, 35);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stats`
+--
+
+CREATE TABLE `stats` (
+  `countUsers` int(11) NOT NULL,
+  `viewNumVisitors` int(11) NOT NULL,
+  `uploadVideo` int(11) NOT NULL,
+  `videoCounts` int(11) NOT NULL,
+  `videoClicks` int(11) NOT NULL,
+  `survey` int(11) NOT NULL,
+  `loggedin` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `stats`
+--
+
+INSERT INTO `stats` (`countUsers`, `viewNumVisitors`, `uploadVideo`, `videoCounts`, `videoClicks`, `survey`, `loggedin`) VALUES
+(4, 1, 0, 0, 0, 3, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student`
+--
+
+CREATE TABLE `student` (
+  `id` int(4) NOT NULL,
+  `studNum` int(9) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(60) NOT NULL,
+  `isVerified` tinyint(1) NOT NULL,
+  `orientation_progress` int(2) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `student`
+--
+
+INSERT INTO `student` (`id`, `studNum`, `firstname`, `lastname`, `email`, `password`, `isVerified`, `orientation_progress`) VALUES
+(1, 217070554, 'Cebolenkosi', 'Shezi', 'cbshezi5@gmail.com', 'U2FsdGVkX1/pza39yVKOktMVlWCTOrybIWagMDOK4Xc=', 1, 3),
+(2, 217070552, 'Daniel', 'Dlaba', '217070554@tut4life.ac.za', 'U2FsdGVkX1+nENRx7Ax6RqEE0sXL9Q72x5Ane9aLHm4=', 1, 5),
+(3, 2147483647, 'vx', 'zitha', 'vnkwinika1@gmail.com', 'U2FsdGVkX1/5BmB7vCu0JJBygCcQ5gcRjhZqPpypTHs=', 1, 5),
+(4, 217615607, 'dikeledi', 'Segola', 'segola.dikeledi2@gmail.com', 'U2FsdGVkX18NcAH+yDbavkohyQqSszDUDm/L0NmO//M=', 1, 5);
+
+--
+-- Triggers `student`
+--
+DELIMITER $$
+CREATE TRIGGER `deleteUser` AFTER DELETE ON `student` FOR EACH ROW UPDATE stats
+SET countUsers = (SELECT COUNT(id-1) FROM student)
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `updateStats` AFTER INSERT ON `student` FOR EACH ROW UPDATE stats
+SET countUsers = (SELECT COUNT(id+1) FROM student)
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `survey`
+--
+
+CREATE TABLE `survey` (
+  `id` int(8) NOT NULL,
+  `student_id` int(4) NOT NULL,
+  `question_id` int(4) NOT NULL,
+  `answer` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `survey`
+--
+
+INSERT INTO `survey` (`id`, `student_id`, `question_id`, `answer`) VALUES
+(1, 3, 24, 'True'),
+(2, 3, 25, 'False'),
+(3, 3, 26, 'False'),
+(4, 3, 27, 'B) 6'),
+(894, 3, 28, 'True'),
+(895, 3, 29, 'A) Accommodation Residence Life & Catering'),
+(896, 4, 13, 'False'),
+(897, 4, 14, 'False'),
+(898, 4, 15, 'True'),
+(899, 4, 16, 'Yes'),
+(900, 4, 17, 'A) Student Development & support'),
+(1003, 2, 24, 'False'),
+(1004, 2, 25, 'False'),
+(1005, 2, 26, 'False'),
+(1006, 2, 27, 'C) 8'),
+(1007, 2, 28, 'False'),
+(1008, 2, 29, 'B) Accommodation Residential LIFE & Catering');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surveyanswer`
+--
+
+CREATE TABLE `surveyanswer` (
+  `id` int(4) NOT NULL,
+  `answer` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `surveyanswer`
+--
+
+INSERT INTO `surveyanswer` (`id`, `answer`) VALUES
+(60, 'A) 3'),
+(64, 'A) Accommodation Residence Life & Catering'),
+(69, 'A) Diploma in internal audit'),
+(47, 'A) Exist to facilitate access to quality information'),
+(54, 'A) Fine and studio arts'),
+(57, 'A) Interior design'),
+(44, 'A) Learning interaction and collaboration'),
+(50, 'A) Prof Nalini Moodley-Diar'),
+(37, 'A) Student Development & support'),
+(41, 'A) Wear mask, sanitize , make sure you can clean'),
+(61, 'B) 6'),
+(67, 'B) Accommodation Residential LIFE & Catering'),
+(70, 'B) Advance diploma in internal Audit'),
+(55, 'B) Design studies'),
+(48, 'B) Exist to offer high level information'),
+(38, 'B) Health and wellness'),
+(45, 'B) Learning Management system'),
+(58, 'B) Performing arts'),
+(51, 'B) Prof Naline Moodley-Diar'),
+(42, 'B) Wear mask, sanitize, make sure your hands are always clean'),
+(35, 'Building 30- Pretoria campus'),
+(62, 'C) 8'),
+(65, 'C) Accommodate Residence Life & catering'),
+(46, 'C) Learning and tutoring'),
+(56, 'C) Performing arts'),
+(52, 'C) Prof Naline Modley-Diaz'),
+(39, 'C) Student ombudsman'),
+(49, 'C) To get access to high quality information'),
+(59, 'C) Visual communication'),
+(43, 'C) Wear mask, make sure your hands clean all the time.'),
+(63, 'D) 5'),
+(66, 'D) Accommodation Residence life & Cater'),
+(40, 'D) None of the above'),
+(30, 'False'),
+(36, 'Marketing, supply chain management and sport Management'),
+(32, 'No'),
+(33, 'Student Development and Support'),
+(68, 'Student Governance Leadership Development'),
+(28, 'True'),
+(34, 'Tshwane University of Technology'),
+(31, 'Yes');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surveyquestion`
+--
+
+CREATE TABLE `surveyquestion` (
+  `id` int(4) NOT NULL,
+  `question` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `surveyquestion`
+--
+
+INSERT INTO `surveyquestion` (`id`, `question`) VALUES
+(1, 'Journalisms forms as one of the pillars of any successful democratic Society. '),
+(2, 'In 1st year will be introduced to the field of integrated communication. '),
+(3, 'Department Educational Foundation offers foundation subject. '),
+(4, 'Department of Business Education offers programs from 5 disciplines that are offer education programs. Is Consumer one of it? '),
+(5, 'What does SDS stand for? '),
+(6, 'What does TUT stand for? '),
+(7, 'Which building can one find tourism management department? '),
+(8, 'Diploma in Food Operating Management is a program offered in the Hospitality management department? '),
+(9, 'A class Rep is needed to represent student and communicate with lecturer when there are issues. '),
+(10, 'What does Mss stand for? '),
+(11, 'Does TUT provide professional and confidential service?'),
+(12, 'Study guide give you an overview on how the module is structured. '),
+(13, 'Architecture and industrial Design department offers one and only one qualification'),
+(14, 'Classes are NOT scheduled daily according to the timetable, you come as you please?'),
+(15, 'Is 80% attendance Mandatory in class? '),
+(16, 'Is Campus clinic is available at Pretoria Campus? '),
+(17, 'Which video from the campus & support Request you to submit confidential information?'),
+(18, 'What advice did Prof stanely mention about Covid rules, choose the correct set of rules below?'),
+(19, 'What does MyTutor offer?'),
+(20, 'Why do libraries exist?'),
+(21, 'What is the correct name of the Executive dean of faculty of arts...'),
+(22, 'Which department & unit focuses on fashion design & technology, jewelry design, manufacturing program...'),
+(23, 'Which department and unit focuses on these following modules computer aided design, graphic technique, system integration and color coordination.'),
+(24, 'True or False, a study guide gives an overview of information Expected from your Module?'),
+(25, 'True or false, is Dr Etiene Van Wyk the executive dean of ICT?'),
+(26, 'Can a computer drive a car, true or false?'),
+(27, 'How many programs does an informatics department have?'),
+(28, 'TRUE OR FALSE, a blended learning model is a model where a part of learning is performed remotely while another will be performed in class room settting.'),
+(29, 'What does ARLC stand for?'),
+(30, 'True or False, a student needs to access Campus clinic with a student card & application form?'),
+(31, 'What does SGLD stand for? '),
+(32, 'It is Safe to NOT wear a mask everywhere you go. '),
+(33, 'The Faculty of Economics and Finance is found only at Garankuwa Campus.'),
+(34, 'You don’t need to understand accounting to study Economics and Finance? '),
+(35, 'What qualification is offered in department of Internal audit? Pick one. ');
 
 -- --------------------------------------------------------
 
@@ -2117,11 +2773,1022 @@ INSERT INTO `tracking` (`id`, `user_id`, `activity`, `datetime`) VALUES
 (2075, 1, 'Campus clicked', '2022-04-12 10:06:59'),
 (2076, 1, 'On Step Two', '2022-04-12 10:06:59'),
 (2077, 1, 'Faculty clicked', '2022-04-12 10:06:59'),
-(2078, 1, 'On Step Three', '2022-04-12 10:07:00');
+(2078, 1, 'On Step Three', '2022-04-12 10:07:00'),
+(2079, 1, 'Logged out', '2022-04-12 11:23:28'),
+(2080, 1, 'Logged in', '2022-04-12 12:10:39'),
+(2081, 1, 'On Step One', '2022-04-12 12:10:40'),
+(2082, 1, 'Campus clicked', '2022-04-12 12:10:40'),
+(2083, 1, 'On Step Two', '2022-04-12 12:10:40');
+INSERT INTO `tracking` (`id`, `user_id`, `activity`, `datetime`) VALUES
+(2084, 1, 'Faculty clicked', '2022-04-12 12:10:40'),
+(2085, 1, 'On Step Three', '2022-04-12 12:10:40'),
+(2086, 1, 'Video played', '2022-04-12 12:10:47'),
+(2087, 1, 'Video played', '2022-04-12 12:10:50'),
+(2088, 1, 'On Step Four', '2022-04-12 12:10:50'),
+(2089, 1, 'On Step Five', '2022-04-12 12:11:00'),
+(2090, 1, 'On Step One', '2022-04-12 12:35:33'),
+(2091, 1, 'Campus clicked', '2022-04-12 12:35:33'),
+(2092, 1, 'On Step Two', '2022-04-12 12:35:33'),
+(2093, 1, 'Faculty clicked', '2022-04-12 12:35:33'),
+(2094, 1, 'On Step Three', '2022-04-12 12:35:33'),
+(2095, 1, 'Video played', '2022-04-12 12:35:33'),
+(2096, 1, 'Video played', '2022-04-12 12:35:33'),
+(2097, 1, 'On Step Four', '2022-04-12 12:35:33'),
+(2098, 1, 'On Step Five', '2022-04-12 12:35:34'),
+(2099, 1, 'On Step One', '2022-04-12 12:35:46'),
+(2100, 1, 'Campus clicked', '2022-04-12 12:35:48'),
+(2101, 1, 'On Step Two', '2022-04-12 12:35:48'),
+(2102, 1, 'Faculty clicked', '2022-04-12 12:35:49'),
+(2103, 1, 'On Step Three', '2022-04-12 12:35:49'),
+(2104, 1, 'Video played', '2022-04-12 12:35:49'),
+(2105, 1, 'Video played', '2022-04-12 12:35:49'),
+(2106, 1, 'On Step Four', '2022-04-12 12:35:49'),
+(2107, 1, 'On Step Five', '2022-04-12 12:35:49'),
+(2108, 1, 'On Step One', '2022-04-12 12:42:34'),
+(2109, 1, 'Campus clicked', '2022-04-12 12:42:34'),
+(2110, 1, 'On Step Two', '2022-04-12 12:42:34'),
+(2111, 1, 'Faculty clicked', '2022-04-12 12:42:34'),
+(2112, 1, 'On Step Three', '2022-04-12 12:42:34'),
+(2113, 1, 'Video played', '2022-04-12 12:42:34'),
+(2114, 1, 'Video played', '2022-04-12 12:42:34'),
+(2115, 1, 'On Step Four', '2022-04-12 12:42:34'),
+(2116, 1, 'On Step Five', '2022-04-12 12:42:34'),
+(2117, 1, 'Logged out', '2022-04-12 12:42:37'),
+(2118, 2, 'Logged in', '2022-04-12 12:43:08'),
+(2119, 2, 'On Step One', '2022-04-12 12:43:10'),
+(2120, 2, 'Campus clicked', '2022-04-12 12:43:11'),
+(2121, 2, 'On Step Two', '2022-04-12 12:43:12'),
+(2122, 2, 'Faculty clicked', '2022-04-12 12:43:14'),
+(2123, 2, 'On Step Three', '2022-04-12 12:43:15'),
+(2124, 2, 'Video played', '2022-04-12 12:43:23'),
+(2125, 2, 'Video played', '2022-04-12 12:43:24'),
+(2126, 2, 'On Step Four', '2022-04-12 12:43:27'),
+(2127, 2, 'On Step Five', '2022-04-12 12:43:39'),
+(2128, 2, 'Logged out', '2022-04-12 12:44:18'),
+(2129, 1, 'Logged in', '2022-04-13 06:33:28'),
+(2130, 1, 'On Step One', '2022-04-13 06:33:28'),
+(2131, 1, 'Campus clicked', '2022-04-13 06:33:28'),
+(2132, 1, 'On Step Two', '2022-04-13 06:33:28'),
+(2133, 1, 'Faculty clicked', '2022-04-13 06:33:29'),
+(2134, 1, 'On Step Three', '2022-04-13 06:33:29'),
+(2135, 1, 'Video played', '2022-04-13 06:33:29'),
+(2136, 1, 'Video played', '2022-04-13 06:33:29'),
+(2137, 1, 'On Step Four', '2022-04-13 06:33:29'),
+(2138, 1, 'On Step Five', '2022-04-13 06:33:30'),
+(2139, 1, 'On Step One', '2022-04-13 06:51:55'),
+(2140, 1, 'Campus clicked', '2022-04-13 06:51:55'),
+(2141, 1, 'On Step Two', '2022-04-13 06:51:55'),
+(2142, 1, 'Faculty clicked', '2022-04-13 06:51:55'),
+(2143, 1, 'On Step Three', '2022-04-13 06:51:56'),
+(2144, 1, 'Video played', '2022-04-13 06:51:56'),
+(2145, 1, 'Video played', '2022-04-13 06:51:56'),
+(2146, 1, 'On Step Four', '2022-04-13 06:51:56'),
+(2147, 1, 'On Step Five', '2022-04-13 06:51:56'),
+(2148, 1, 'On Step One', '2022-04-13 06:51:59'),
+(2149, 1, 'Campus clicked', '2022-04-13 06:51:59'),
+(2150, 1, 'On Step Two', '2022-04-13 06:51:59'),
+(2151, 1, 'Faculty clicked', '2022-04-13 06:51:59'),
+(2152, 1, 'On Step Three', '2022-04-13 06:51:59'),
+(2153, 1, 'Video played', '2022-04-13 06:52:00'),
+(2154, 1, 'Video played', '2022-04-13 06:52:00'),
+(2155, 1, 'On Step Four', '2022-04-13 06:52:00'),
+(2156, 1, 'On Step Five', '2022-04-13 06:52:00'),
+(2157, 1, 'On Step One', '2022-04-13 07:02:11'),
+(2158, 1, 'Campus clicked', '2022-04-13 07:02:11'),
+(2159, 1, 'On Step Two', '2022-04-13 07:02:12'),
+(2160, 1, 'Faculty clicked', '2022-04-13 07:02:12'),
+(2161, 1, 'On Step Three', '2022-04-13 07:02:12'),
+(2162, 1, 'Video played', '2022-04-13 07:02:12'),
+(2163, 1, 'Video played', '2022-04-13 07:02:12'),
+(2164, 1, 'On Step Four', '2022-04-13 07:02:12'),
+(2165, 1, 'On Step Five', '2022-04-13 07:02:13'),
+(2166, 1, 'On Step One', '2022-04-13 08:16:30'),
+(2167, 1, 'Campus clicked', '2022-04-13 08:16:30'),
+(2168, 1, 'On Step Two', '2022-04-13 08:16:31'),
+(2169, 1, 'Faculty clicked', '2022-04-13 08:16:31'),
+(2170, 1, 'On Step Three', '2022-04-13 08:16:32'),
+(2171, 1, 'Video played', '2022-04-13 08:16:32'),
+(2172, 1, 'Video played', '2022-04-13 08:16:32'),
+(2173, 1, 'On Step Four', '2022-04-13 08:16:32'),
+(2174, 1, 'On Step One', '2022-04-13 08:16:35'),
+(2175, 1, 'Campus clicked', '2022-04-13 08:16:35'),
+(2176, 1, 'On Step Two', '2022-04-13 08:16:35'),
+(2177, 1, 'Faculty clicked', '2022-04-13 08:16:35'),
+(2178, 1, 'On Step Three', '2022-04-13 08:16:36'),
+(2179, 1, 'Video played', '2022-04-13 08:16:36'),
+(2180, 1, 'Video played', '2022-04-13 08:16:37'),
+(2181, 1, 'On Step Four', '2022-04-13 08:16:37'),
+(2182, 1, 'On Step Five', '2022-04-13 08:16:37'),
+(2183, 1, 'Logged out', '2022-04-13 08:16:40'),
+(2184, 1, 'Logged in', '2022-04-13 09:24:58'),
+(2185, 1, 'On Step One', '2022-04-13 09:24:59'),
+(2186, 1, 'Campus clicked', '2022-04-13 09:24:59'),
+(2187, 1, 'On Step Two', '2022-04-13 09:24:59'),
+(2188, 1, 'Faculty clicked', '2022-04-13 09:25:00'),
+(2189, 1, 'On Step Three', '2022-04-13 09:25:00'),
+(2190, 1, 'Video played', '2022-04-13 09:25:00'),
+(2191, 1, 'Video played', '2022-04-13 09:25:01'),
+(2192, 1, 'On Step Four', '2022-04-13 09:25:01'),
+(2193, 1, 'On Step Five', '2022-04-13 09:25:01'),
+(2194, 1, 'On Step One', '2022-04-13 09:30:03'),
+(2195, 1, 'Campus clicked', '2022-04-13 09:30:03'),
+(2196, 1, 'On Step Two', '2022-04-13 09:30:04'),
+(2197, 1, 'Faculty clicked', '2022-04-13 09:30:04'),
+(2198, 1, 'On Step Three', '2022-04-13 09:30:04'),
+(2199, 1, 'Video played', '2022-04-13 09:30:04'),
+(2200, 1, 'Video played', '2022-04-13 09:30:04'),
+(2201, 1, 'On Step Four', '2022-04-13 09:30:04'),
+(2202, 1, 'On Step Five', '2022-04-13 09:30:05'),
+(2203, 1, 'On Step Five', '2022-04-13 09:30:11'),
+(2204, 1, 'On Step One', '2022-04-13 09:31:56'),
+(2205, 1, 'Campus clicked', '2022-04-13 09:31:56'),
+(2206, 1, 'On Step Two', '2022-04-13 09:31:56'),
+(2207, 1, 'Faculty clicked', '2022-04-13 09:31:56'),
+(2208, 1, 'On Step One', '2022-04-13 09:31:59'),
+(2209, 1, 'Campus clicked', '2022-04-13 09:31:59'),
+(2210, 1, 'On Step Two', '2022-04-13 09:31:59'),
+(2211, 1, 'Faculty clicked', '2022-04-13 09:31:59'),
+(2212, 1, 'On Step Three', '2022-04-13 09:32:00'),
+(2213, 1, 'Video played', '2022-04-13 09:32:00'),
+(2214, 1, 'Video played', '2022-04-13 09:32:00'),
+(2215, 1, 'On Step Four', '2022-04-13 09:32:00'),
+(2216, 1, 'On Step Five', '2022-04-13 09:32:00'),
+(2217, 1, 'On Step One', '2022-04-13 09:32:04'),
+(2218, 1, 'Campus clicked', '2022-04-13 09:32:05'),
+(2219, 1, 'On Step Two', '2022-04-13 09:32:05'),
+(2220, 1, 'Faculty clicked', '2022-04-13 09:32:05'),
+(2221, 1, 'On Step Three', '2022-04-13 09:32:05'),
+(2222, 1, 'Video played', '2022-04-13 09:32:06'),
+(2223, 1, 'Video played', '2022-04-13 09:32:06'),
+(2224, 1, 'On Step Four', '2022-04-13 09:32:06'),
+(2225, 1, 'On Step Five', '2022-04-13 09:32:06'),
+(2226, 1, 'On Step One', '2022-04-13 09:32:22'),
+(2227, 1, 'Campus clicked', '2022-04-13 09:32:22'),
+(2228, 1, 'On Step Two', '2022-04-13 09:32:22'),
+(2229, 1, 'Faculty clicked', '2022-04-13 09:32:23'),
+(2230, 1, 'On Step Three', '2022-04-13 09:32:23'),
+(2231, 1, 'Video played', '2022-04-13 09:32:23'),
+(2232, 1, 'Video played', '2022-04-13 09:32:23'),
+(2233, 1, 'On Step Four', '2022-04-13 09:32:23'),
+(2234, 1, 'On Step Five', '2022-04-13 09:32:24'),
+(2235, 1, 'On Step One', '2022-04-13 09:32:41'),
+(2236, 1, 'Campus clicked', '2022-04-13 09:32:42'),
+(2237, 1, 'On Step Two', '2022-04-13 09:32:44'),
+(2238, 1, 'Faculty clicked', '2022-04-13 09:32:48'),
+(2239, 1, 'On Step One', '2022-04-13 09:32:50'),
+(2240, 1, 'Campus clicked', '2022-04-13 09:32:51'),
+(2241, 1, 'On Step Two', '2022-04-13 09:32:52'),
+(2242, 1, 'Faculty clicked', '2022-04-13 09:32:52'),
+(2243, 1, 'On Step Three', '2022-04-13 09:32:52'),
+(2244, 1, 'Video played', '2022-04-13 09:32:52'),
+(2245, 1, 'Video played', '2022-04-13 09:32:52'),
+(2246, 1, 'On Step Four', '2022-04-13 09:32:52'),
+(2247, 1, 'On Step Five', '2022-04-13 09:32:53'),
+(2248, 1, 'On Step One', '2022-04-13 09:33:09'),
+(2249, 1, 'Campus clicked', '2022-04-13 09:33:09'),
+(2250, 1, 'On Step Two', '2022-04-13 09:33:09'),
+(2251, 1, 'Faculty clicked', '2022-04-13 09:33:09'),
+(2252, 1, 'On Step Three', '2022-04-13 09:33:09'),
+(2253, 1, 'Video played', '2022-04-13 09:33:09'),
+(2254, 1, 'Video played', '2022-04-13 09:33:09'),
+(2255, 1, 'On Step Four', '2022-04-13 09:33:09'),
+(2256, 1, 'On Step Five', '2022-04-13 09:33:10'),
+(2257, 1, 'Blog clicked', '2022-04-13 09:52:19'),
+(2258, 1, 'On Step One', '2022-04-13 09:52:31'),
+(2259, 1, 'Campus clicked', '2022-04-13 09:52:31'),
+(2260, 1, 'On Step Two', '2022-04-13 09:52:32'),
+(2261, 1, 'Faculty clicked', '2022-04-13 09:52:32'),
+(2262, 1, 'On Step Three', '2022-04-13 09:52:32'),
+(2263, 1, 'Video played', '2022-04-13 09:52:32'),
+(2264, 1, 'Video played', '2022-04-13 09:52:32'),
+(2265, 1, 'On Step Four', '2022-04-13 09:52:32'),
+(2266, 1, 'On Step Five', '2022-04-13 09:52:32'),
+(2267, 1, 'Logged out', '2022-04-13 09:53:23'),
+(2268, 1, 'Logged in', '2022-04-13 09:56:43'),
+(2269, 1, 'On Step One', '2022-04-13 09:56:44'),
+(2270, 1, 'Campus clicked', '2022-04-13 09:56:44'),
+(2271, 1, 'On Step Two', '2022-04-13 09:56:44'),
+(2272, 1, 'Faculty clicked', '2022-04-13 09:56:44'),
+(2273, 1, 'On Step Three', '2022-04-13 09:56:45'),
+(2274, 1, 'Video played', '2022-04-13 09:56:45'),
+(2275, 1, 'Video played', '2022-04-13 09:56:45'),
+(2276, 1, 'On Step Four', '2022-04-13 09:56:45'),
+(2277, 1, 'On Step Five', '2022-04-13 09:56:45'),
+(2278, 3, 'Registered', '2022-04-13 09:59:11'),
+(2279, 3, 'On Step One', '2022-04-13 09:59:16'),
+(2280, 3, 'Campus clicked', '2022-04-13 09:59:19'),
+(2281, 3, 'On Step Two', '2022-04-13 09:59:20'),
+(2282, 3, 'Faculty clicked', '2022-04-13 09:59:22'),
+(2283, 3, 'On Step Three', '2022-04-13 09:59:23'),
+(2284, 3, 'Video played', '2022-04-13 09:59:30'),
+(2285, 3, 'Video played', '2022-04-13 09:59:41'),
+(2286, 3, 'On Step Four', '2022-04-13 09:59:51'),
+(2287, 3, 'On Step Five', '2022-04-13 10:00:15'),
+(2288, 3, 'Logged out', '2022-04-13 10:00:52'),
+(2289, 4, 'Registered', '2022-04-13 10:03:16'),
+(2290, 4, 'On Step One', '2022-04-13 10:03:18'),
+(2291, 4, 'Campus clicked', '2022-04-13 10:03:19'),
+(2292, 4, 'On Step Two', '2022-04-13 10:03:20'),
+(2293, 4, 'Faculty clicked', '2022-04-13 10:03:21'),
+(2294, 4, 'On Step Three', '2022-04-13 10:03:22'),
+(2295, 4, 'Video played', '2022-04-13 10:03:24'),
+(2296, 4, 'Video played', '2022-04-13 10:03:30'),
+(2297, 4, 'On Step Four', '2022-04-13 10:03:38'),
+(2298, 4, 'On Step Five', '2022-04-13 10:03:46'),
+(2299, 4, 'On Step One', '2022-04-13 10:07:24'),
+(2300, 4, 'Campus clicked', '2022-04-13 10:07:26'),
+(2301, 4, 'Logged out', '2022-04-13 10:07:26'),
+(2302, 4, 'On Step Two', '2022-04-13 10:07:27'),
+(2303, 4, 'On Step Three', '2022-04-13 10:07:28'),
+(2304, 4, 'On Step Four', '2022-04-13 10:07:29'),
+(2305, 4, 'On Step Five', '2022-04-13 10:07:31'),
+(2306, 1, 'On Step One', '2022-04-13 10:27:40'),
+(2307, 1, 'Campus clicked', '2022-04-13 10:27:41'),
+(2308, 1, 'On Step Two', '2022-04-13 10:27:41'),
+(2309, 1, 'Faculty clicked', '2022-04-13 10:27:41'),
+(2310, 1, 'On Step Three', '2022-04-13 10:27:41'),
+(2311, 1, 'Video played', '2022-04-13 10:27:42'),
+(2312, 1, 'Video played', '2022-04-13 10:27:42'),
+(2313, 1, 'On Step Four', '2022-04-13 10:27:42'),
+(2314, 1, 'On Step Five', '2022-04-13 10:27:42'),
+(2315, 1, 'On Step One', '2022-04-13 10:28:33'),
+(2316, 1, 'Campus clicked', '2022-04-13 10:28:33'),
+(2317, 1, 'On Step Two', '2022-04-13 10:28:33'),
+(2318, 1, 'Faculty clicked', '2022-04-13 10:28:33'),
+(2319, 1, 'On Step Three', '2022-04-13 10:28:33'),
+(2320, 1, 'Video played', '2022-04-13 10:28:33'),
+(2321, 1, 'Video played', '2022-04-13 10:28:34'),
+(2322, 1, 'On Step Four', '2022-04-13 10:28:34'),
+(2323, 1, 'On Step Five', '2022-04-13 10:28:34'),
+(2324, 1, 'Logged out', '2022-04-13 10:28:43'),
+(2325, 1, 'On Step One', '2022-04-13 10:29:30'),
+(2326, 1, 'Campus clicked', '2022-04-13 10:29:30'),
+(2327, 1, 'On Step Two', '2022-04-13 10:29:30'),
+(2328, 1, 'Faculty clicked', '2022-04-13 10:29:30'),
+(2329, 1, 'On Step Three', '2022-04-13 10:29:31'),
+(2330, 1, 'Video played', '2022-04-13 10:29:31'),
+(2331, 1, 'Video played', '2022-04-13 10:29:31'),
+(2332, 1, 'On Step Four', '2022-04-13 10:29:31'),
+(2333, 1, 'On Step Five', '2022-04-13 10:29:31'),
+(2334, 1, 'Logged in', '2022-04-13 10:34:14'),
+(2335, 1, 'On Step One', '2022-04-13 10:34:14'),
+(2336, 1, 'Campus clicked', '2022-04-13 10:34:14'),
+(2337, 1, 'On Step Two', '2022-04-13 10:34:15'),
+(2338, 1, 'Faculty clicked', '2022-04-13 10:34:15'),
+(2339, 1, 'On Step Three', '2022-04-13 10:34:16'),
+(2340, 1, 'Video played', '2022-04-13 10:34:16'),
+(2341, 1, 'Video played', '2022-04-13 10:34:17'),
+(2342, 1, 'On Step Four', '2022-04-13 10:34:17'),
+(2343, 1, 'On Step Five', '2022-04-13 10:34:17'),
+(2344, 1, 'Logged out', '2022-04-13 10:34:56'),
+(2345, 1, 'Logged in', '2022-04-13 10:46:35'),
+(2346, 1, 'On Step One', '2022-04-13 10:46:36'),
+(2347, 1, 'Campus clicked', '2022-04-13 10:46:36'),
+(2348, 1, 'On Step Two', '2022-04-13 10:46:37'),
+(2349, 1, 'Faculty clicked', '2022-04-13 10:46:37'),
+(2350, 1, 'On Step Three', '2022-04-13 10:46:37'),
+(2351, 1, 'Video played', '2022-04-13 10:46:38'),
+(2352, 1, 'Video played', '2022-04-13 10:46:38'),
+(2353, 1, 'On Step Four', '2022-04-13 10:46:38'),
+(2354, 1, 'On Step Five', '2022-04-13 10:46:38'),
+(2355, 1, 'On Step One', '2022-04-13 10:47:43'),
+(2356, 1, 'Campus clicked', '2022-04-13 10:47:43'),
+(2357, 1, 'On Step Two', '2022-04-13 10:47:43'),
+(2358, 1, 'Faculty clicked', '2022-04-13 10:47:43'),
+(2359, 1, 'On Step Three', '2022-04-13 10:47:44'),
+(2360, 1, 'Video played', '2022-04-13 10:47:44'),
+(2361, 1, 'Video played', '2022-04-13 10:47:44'),
+(2362, 1, 'On Step Four', '2022-04-13 10:47:44'),
+(2363, 1, 'On Step Five', '2022-04-13 10:47:44'),
+(2364, 1, 'On Step One', '2022-04-13 10:47:58'),
+(2365, 1, 'Campus clicked', '2022-04-13 10:47:58'),
+(2366, 1, 'On Step Two', '2022-04-13 10:47:58'),
+(2367, 1, 'Faculty clicked', '2022-04-13 10:47:58'),
+(2368, 1, 'On Step Three', '2022-04-13 10:47:59'),
+(2369, 1, 'Video played', '2022-04-13 10:47:59'),
+(2370, 1, 'Video played', '2022-04-13 10:47:59'),
+(2371, 1, 'On Step Four', '2022-04-13 10:47:59'),
+(2372, 1, 'On Step Five', '2022-04-13 10:47:59'),
+(2373, 1, 'On Step One', '2022-04-13 10:48:09'),
+(2374, 1, 'Campus clicked', '2022-04-13 10:48:09'),
+(2375, 1, 'On Step Two', '2022-04-13 10:48:09'),
+(2376, 1, 'Faculty clicked', '2022-04-13 10:48:10'),
+(2377, 1, 'On Step Three', '2022-04-13 10:48:10'),
+(2378, 1, 'Video played', '2022-04-13 10:48:10'),
+(2379, 1, 'Video played', '2022-04-13 10:48:10'),
+(2380, 1, 'On Step Four', '2022-04-13 10:48:10'),
+(2381, 1, 'On Step Five', '2022-04-13 10:48:11'),
+(2382, 1, 'On Step One', '2022-04-13 10:48:26'),
+(2383, 1, 'Campus clicked', '2022-04-13 10:48:27'),
+(2384, 1, 'On Step Two', '2022-04-13 10:48:27'),
+(2385, 1, 'Faculty clicked', '2022-04-13 10:48:27'),
+(2386, 1, 'On Step Three', '2022-04-13 10:48:27'),
+(2387, 1, 'Video played', '2022-04-13 10:48:27'),
+(2388, 1, 'Video played', '2022-04-13 10:48:27'),
+(2389, 1, 'On Step Four', '2022-04-13 10:48:27'),
+(2390, 1, 'On Step Five', '2022-04-13 10:48:28'),
+(2391, 1, 'On Step One', '2022-04-13 10:48:38'),
+(2392, 1, 'Campus clicked', '2022-04-13 10:48:39'),
+(2393, 1, 'On Step Two', '2022-04-13 10:48:40'),
+(2394, 1, 'Faculty clicked', '2022-04-13 10:48:40'),
+(2395, 1, 'On Step Three', '2022-04-13 10:48:42'),
+(2396, 1, 'Video played', '2022-04-13 10:48:42'),
+(2397, 1, 'Video played', '2022-04-13 10:48:43'),
+(2398, 1, 'On Step Four', '2022-04-13 10:48:44'),
+(2399, 1, 'On Step Five', '2022-04-13 10:48:45'),
+(2400, 1, 'Blog clicked', '2022-04-13 10:51:18'),
+(2401, 1, 'On Step One', '2022-04-13 10:59:04'),
+(2402, 1, 'Campus clicked', '2022-04-13 10:59:05'),
+(2403, 1, 'On Step Two', '2022-04-13 10:59:05'),
+(2404, 1, 'Faculty clicked', '2022-04-13 10:59:05'),
+(2405, 1, 'On Step Three', '2022-04-13 10:59:05'),
+(2406, 1, 'Video played', '2022-04-13 10:59:05'),
+(2407, 1, 'Video played', '2022-04-13 10:59:05'),
+(2408, 1, 'On Step Four', '2022-04-13 10:59:06'),
+(2409, 1, 'On Step Five', '2022-04-13 10:59:06'),
+(2410, 1, 'Logged out', '2022-04-13 10:59:09'),
+(2411, 1, 'On Step One', '2022-04-13 11:02:15'),
+(2412, 1, 'Campus clicked', '2022-04-13 11:02:15'),
+(2413, 1, 'On Step Two', '2022-04-13 11:02:15'),
+(2414, 1, 'Faculty clicked', '2022-04-13 11:02:16'),
+(2415, 1, 'On Step Three', '2022-04-13 11:02:16'),
+(2416, 1, 'Video played', '2022-04-13 11:02:16'),
+(2417, 1, 'Video played', '2022-04-13 11:02:16'),
+(2418, 1, 'On Step Four', '2022-04-13 11:02:16'),
+(2419, 1, 'On Step Five', '2022-04-13 11:02:16'),
+(2420, 1, 'Logged out', '2022-04-13 11:02:21'),
+(2421, 2, 'Logged in', '2022-04-13 11:07:35'),
+(2422, 2, 'On Step One', '2022-04-13 11:07:35'),
+(2423, 2, 'Campus clicked', '2022-04-13 11:07:35'),
+(2424, 2, 'On Step Two', '2022-04-13 11:07:36'),
+(2425, 2, 'Faculty clicked', '2022-04-13 11:07:36'),
+(2426, 2, 'On Step Three', '2022-04-13 11:07:36'),
+(2427, 2, 'Video played', '2022-04-13 11:07:37'),
+(2428, 2, 'Video played', '2022-04-13 11:07:37'),
+(2429, 2, 'On Step Four', '2022-04-13 11:07:37'),
+(2430, 2, 'On Step Five', '2022-04-13 11:07:37'),
+(2431, 2, 'On Step One', '2022-04-13 11:10:11'),
+(2432, 2, 'Campus clicked', '2022-04-13 11:10:11'),
+(2433, 2, 'On Step Two', '2022-04-13 11:10:11'),
+(2434, 2, 'Faculty clicked', '2022-04-13 11:10:11'),
+(2435, 2, 'On Step Three', '2022-04-13 11:10:12'),
+(2436, 2, 'Video played', '2022-04-13 11:10:12'),
+(2437, 2, 'Video played', '2022-04-13 11:10:12'),
+(2438, 2, 'On Step Four', '2022-04-13 11:10:12'),
+(2439, 2, 'On Step Five', '2022-04-13 11:10:12'),
+(2440, 2, 'On Step One', '2022-04-13 11:10:23'),
+(2441, 2, 'Campus clicked', '2022-04-13 11:10:23'),
+(2442, 2, 'On Step Two', '2022-04-13 11:10:23'),
+(2443, 2, 'Faculty clicked', '2022-04-13 11:10:23'),
+(2444, 2, 'On Step Three', '2022-04-13 11:10:24'),
+(2445, 2, 'Video played', '2022-04-13 11:10:24'),
+(2446, 2, 'Video played', '2022-04-13 11:10:24'),
+(2447, 2, 'On Step Four', '2022-04-13 11:10:24'),
+(2448, 2, 'On Step Five', '2022-04-13 11:10:25'),
+(2449, 2, 'On Step One', '2022-04-13 11:13:08'),
+(2450, 2, 'Campus clicked', '2022-04-13 11:13:08'),
+(2451, 2, 'On Step Two', '2022-04-13 11:13:08'),
+(2452, 2, 'Faculty clicked', '2022-04-13 11:13:08'),
+(2453, 2, 'On Step Three', '2022-04-13 11:13:09'),
+(2454, 2, 'Video played', '2022-04-13 11:13:09'),
+(2455, 2, 'Video played', '2022-04-13 11:13:09'),
+(2456, 2, 'On Step Four', '2022-04-13 11:13:09'),
+(2457, 2, 'On Step Five', '2022-04-13 11:13:09'),
+(2458, 2, 'On Step One', '2022-04-13 11:13:13'),
+(2459, 2, 'Campus clicked', '2022-04-13 11:13:13'),
+(2460, 2, 'On Step Two', '2022-04-13 11:13:13'),
+(2461, 2, 'Faculty clicked', '2022-04-13 11:13:13'),
+(2462, 2, 'On Step Three', '2022-04-13 11:13:13'),
+(2463, 2, 'Video played', '2022-04-13 11:13:13'),
+(2464, 2, 'Video played', '2022-04-13 11:13:14'),
+(2465, 2, 'On Step Four', '2022-04-13 11:13:14'),
+(2466, 2, 'On Step Five', '2022-04-13 11:13:14'),
+(2467, 2, 'On Step One', '2022-04-13 11:15:20'),
+(2468, 2, 'Campus clicked', '2022-04-13 11:15:20'),
+(2469, 2, 'On Step Two', '2022-04-13 11:15:20'),
+(2470, 2, 'Faculty clicked', '2022-04-13 11:15:20'),
+(2471, 2, 'On Step Three', '2022-04-13 11:15:21'),
+(2472, 2, 'Video played', '2022-04-13 11:15:21'),
+(2473, 2, 'Video played', '2022-04-13 11:15:21'),
+(2474, 2, 'On Step Four', '2022-04-13 11:15:21'),
+(2475, 2, 'On Step Five', '2022-04-13 11:15:22'),
+(2476, 2, 'Logged out', '2022-04-13 11:15:31'),
+(2477, 1, 'Logged in', '2022-04-19 07:31:10'),
+(2478, 1, 'On Step One', '2022-04-19 07:31:11'),
+(2479, 1, 'Campus clicked', '2022-04-19 07:31:12'),
+(2480, 1, 'On Step Two', '2022-04-19 07:31:12'),
+(2481, 1, 'Faculty clicked', '2022-04-19 07:31:12'),
+(2482, 1, 'On Step Three', '2022-04-19 07:31:13'),
+(2483, 1, 'Video played', '2022-04-19 07:31:13'),
+(2484, 1, 'Video played', '2022-04-19 07:31:13'),
+(2485, 1, 'On Step Four', '2022-04-19 07:31:13'),
+(2486, 1, 'On Step Five', '2022-04-19 07:31:13'),
+(2487, 1, 'Restared the Orientation', '2022-04-19 07:32:57'),
+(2488, 1, 'Blog clicked', '2022-04-19 07:34:33'),
+(2489, 1, 'On Step One', '2022-04-19 07:35:24'),
+(2490, 1, 'On Step One', '2022-04-19 07:35:28'),
+(2491, 1, 'Campus clicked', '2022-04-19 07:35:33'),
+(2492, 1, 'On Step Two', '2022-04-19 07:35:35'),
+(2493, 1, 'On Step One', '2022-04-19 07:35:37'),
+(2494, 1, 'Campus clicked', '2022-04-19 07:35:37'),
+(2495, 1, 'On Step Two', '2022-04-19 07:35:38'),
+(2496, 1, 'Logged out', '2022-04-19 07:35:44'),
+(2497, 1, 'Logged in', '2022-04-19 07:37:13'),
+(2498, 1, 'On Step One', '2022-04-19 07:37:14'),
+(2499, 1, 'Campus clicked', '2022-04-19 07:37:14'),
+(2500, 1, 'On Step Two', '2022-04-19 07:37:14'),
+(2501, 1, 'Logged out', '2022-04-19 07:37:55'),
+(2502, 1, 'Logged in', '2022-04-19 07:38:00'),
+(2503, 1, 'On Step One', '2022-04-19 07:38:00'),
+(2504, 1, 'Campus clicked', '2022-04-19 07:38:00'),
+(2505, 1, 'On Step Two', '2022-04-19 07:38:00'),
+(2506, 1, 'Logged out', '2022-04-19 07:38:05'),
+(2507, 1, 'Logged in', '2022-04-19 07:39:32'),
+(2508, 1, 'On Step One', '2022-04-19 07:39:32'),
+(2509, 1, 'Campus clicked', '2022-04-19 07:39:32'),
+(2510, 1, 'On Step Two', '2022-04-19 07:39:32'),
+(2511, 1, 'Faculty clicked', '2022-04-19 07:39:35'),
+(2512, 1, 'On Step Three', '2022-04-19 07:39:35'),
+(2513, 1, 'Video played', '2022-04-19 07:39:42'),
+(2514, 1, 'Video played', '2022-04-19 07:39:43'),
+(2515, 1, 'On Step Four', '2022-04-19 07:39:51'),
+(2516, 1, 'On Step Four', '2022-04-19 07:40:01'),
+(2517, 1, 'On Step Five', '2022-04-19 07:40:10'),
+(2518, 1, 'Restared the Orientation', '2022-04-19 07:40:48'),
+(2519, 1, 'On Step One', '2022-04-19 07:54:22'),
+(2520, 1, 'On Step Two', '2022-04-19 07:54:26'),
+(2521, 1, 'Campus clicked', '2022-04-19 07:54:27'),
+(2522, 1, 'Campus clicked', '2022-04-19 07:54:28'),
+(2523, 1, 'On Step Two', '2022-04-19 07:54:29'),
+(2524, 1, 'Faculty clicked', '2022-04-19 07:54:30'),
+(2525, 1, 'On Step Three', '2022-04-19 07:54:31'),
+(2526, 1, 'Video played', '2022-04-19 07:54:41'),
+(2527, 1, 'Video played', '2022-04-19 07:54:44'),
+(2528, 1, 'On Step Four', '2022-04-19 07:55:00'),
+(2529, 1, 'On Step Five', '2022-04-19 07:55:13'),
+(2530, 1, 'On Step One', '2022-04-19 08:01:58'),
+(2531, 1, 'Campus clicked', '2022-04-19 08:01:58'),
+(2532, 1, 'On Step Two', '2022-04-19 08:02:05'),
+(2533, 1, 'Faculty clicked', '2022-04-19 08:02:06'),
+(2534, 1, 'On Step One', '2022-04-19 08:02:12'),
+(2535, 1, 'Campus clicked', '2022-04-19 08:02:13'),
+(2536, 1, 'On Step Two', '2022-04-19 08:02:13'),
+(2537, 1, 'Faculty clicked', '2022-04-19 08:02:14'),
+(2538, 1, 'On Step Three', '2022-04-19 08:02:14'),
+(2539, 1, 'Video played', '2022-04-19 08:02:15'),
+(2540, 1, 'Video played', '2022-04-19 08:02:16'),
+(2541, 1, 'On Step Four', '2022-04-19 08:02:16'),
+(2542, 1, 'On Step Five', '2022-04-19 08:02:21'),
+(2543, 1, 'On Step One', '2022-04-19 08:03:49'),
+(2544, 1, 'Campus clicked', '2022-04-19 08:03:50'),
+(2545, 1, 'On Step Two', '2022-04-19 08:03:50'),
+(2546, 1, 'Faculty clicked', '2022-04-19 08:03:50'),
+(2547, 1, 'On Step Three', '2022-04-19 08:03:50'),
+(2548, 1, 'Video played', '2022-04-19 08:03:50'),
+(2549, 1, 'Video played', '2022-04-19 08:03:50'),
+(2550, 1, 'On Step Four', '2022-04-19 08:03:50'),
+(2551, 1, 'On Step Five', '2022-04-19 08:03:51'),
+(2552, 1, 'On Step One', '2022-04-19 08:04:00'),
+(2553, 1, 'Campus clicked', '2022-04-19 08:04:00'),
+(2554, 1, 'On Step Two', '2022-04-19 08:04:00'),
+(2555, 1, 'Faculty clicked', '2022-04-19 08:04:00'),
+(2556, 1, 'Campus clicked', '2022-04-19 08:04:00'),
+(2557, 1, 'On Step Two', '2022-04-19 08:04:01'),
+(2558, 1, 'Faculty clicked', '2022-04-19 08:04:02'),
+(2559, 1, 'On Step One', '2022-04-19 08:04:05'),
+(2560, 1, 'Campus clicked', '2022-04-19 08:04:05'),
+(2561, 1, 'On Step Two', '2022-04-19 08:04:05'),
+(2562, 1, 'Faculty clicked', '2022-04-19 08:04:05'),
+(2563, 1, 'On Step One', '2022-04-19 08:04:05'),
+(2564, 1, 'Campus clicked', '2022-04-19 08:04:06'),
+(2565, 1, 'On Step Two', '2022-04-19 08:04:06'),
+(2566, 1, 'Faculty clicked', '2022-04-19 08:04:06'),
+(2567, 1, 'On Step Three', '2022-04-19 08:04:06'),
+(2568, 1, 'Video played', '2022-04-19 08:04:06'),
+(2569, 1, 'Video played', '2022-04-19 08:04:06'),
+(2570, 1, 'On Step Four', '2022-04-19 08:04:06'),
+(2571, 1, 'On Step Three', '2022-04-19 08:04:06'),
+(2572, 1, 'Video played', '2022-04-19 08:04:06'),
+(2573, 1, 'Video played', '2022-04-19 08:04:06'),
+(2574, 1, 'On Step Four', '2022-04-19 08:04:07'),
+(2575, 1, 'On Step Five', '2022-04-19 08:04:07'),
+(2576, 1, 'On Step Five', '2022-04-19 08:04:07'),
+(2577, 1, 'On Step One', '2022-04-19 08:06:27'),
+(2578, 1, 'Campus clicked', '2022-04-19 08:06:27'),
+(2579, 1, 'On Step Two', '2022-04-19 08:06:27'),
+(2580, 1, 'Faculty clicked', '2022-04-19 08:06:27'),
+(2581, 1, 'On Step Three', '2022-04-19 08:06:27'),
+(2582, 1, 'Video played', '2022-04-19 08:06:27'),
+(2583, 1, 'Video played', '2022-04-19 08:06:27'),
+(2584, 1, 'On Step Four', '2022-04-19 08:06:27'),
+(2585, 1, 'On Step Five', '2022-04-19 08:06:28'),
+(2586, 1, 'On Step One', '2022-04-19 08:07:08'),
+(2587, 1, 'Campus clicked', '2022-04-19 08:07:08'),
+(2588, 1, 'On Step Two', '2022-04-19 08:07:09'),
+(2589, 1, 'Faculty clicked', '2022-04-19 08:07:09'),
+(2590, 1, 'On Step Three', '2022-04-19 08:07:09'),
+(2591, 1, 'Video played', '2022-04-19 08:07:09'),
+(2592, 1, 'Video played', '2022-04-19 08:07:09'),
+(2593, 1, 'On Step Four', '2022-04-19 08:07:09'),
+(2594, 1, 'On Step Five', '2022-04-19 08:07:09'),
+(2595, 1, 'Restared the Orientation', '2022-04-19 08:07:14'),
+(2596, 1, 'On Step One', '2022-04-19 08:07:58'),
+(2597, 1, 'Campus clicked', '2022-04-19 08:08:01'),
+(2598, 1, 'Campus clicked', '2022-04-19 08:08:01'),
+(2599, 1, 'On Step Two', '2022-04-19 08:08:03'),
+(2600, 1, 'Faculty clicked', '2022-04-19 08:08:04'),
+(2601, 1, 'On Step Three', '2022-04-19 08:08:05'),
+(2602, 1, 'Video played', '2022-04-19 08:08:08'),
+(2603, 1, 'Video played', '2022-04-19 08:08:09'),
+(2604, 1, 'On Step Four', '2022-04-19 08:08:22'),
+(2605, 1, 'On Step Five', '2022-04-19 08:08:34'),
+(2606, 1, 'On Step One', '2022-04-19 08:08:58'),
+(2607, 1, 'Campus clicked', '2022-04-19 08:08:58'),
+(2608, 1, 'On Step Two', '2022-04-19 08:08:58'),
+(2609, 1, 'Faculty clicked', '2022-04-19 08:08:59'),
+(2610, 1, 'On Step Three', '2022-04-19 08:08:59'),
+(2611, 1, 'Video played', '2022-04-19 08:08:59'),
+(2612, 1, 'Video played', '2022-04-19 08:08:59'),
+(2613, 1, 'On Step Four', '2022-04-19 08:08:59'),
+(2614, 1, 'On Step Five', '2022-04-19 08:08:59'),
+(2615, 1, 'On Step Five', '2022-04-19 08:09:09'),
+(2616, 1, 'On Step One', '2022-04-19 08:11:07'),
+(2617, 1, 'Campus clicked', '2022-04-19 08:11:08'),
+(2618, 1, 'On Step Two', '2022-04-19 08:11:08'),
+(2619, 1, 'Faculty clicked', '2022-04-19 08:11:08'),
+(2620, 1, 'On Step Three', '2022-04-19 08:11:08'),
+(2621, 1, 'Video played', '2022-04-19 08:11:08'),
+(2622, 1, 'Video played', '2022-04-19 08:11:08'),
+(2623, 1, 'On Step Four', '2022-04-19 08:11:08'),
+(2624, 1, 'On Step Five', '2022-04-19 08:11:09'),
+(2625, 1, 'Logged out', '2022-04-19 08:13:07'),
+(2626, 1, 'Logged in', '2022-04-19 08:13:18'),
+(2627, 1, 'On Step One', '2022-04-19 08:13:19'),
+(2628, 1, 'Campus clicked', '2022-04-19 08:13:19'),
+(2629, 1, 'On Step Two', '2022-04-19 08:13:19'),
+(2630, 1, 'Faculty clicked', '2022-04-19 08:13:19'),
+(2631, 1, 'On Step Three', '2022-04-19 08:13:19'),
+(2632, 1, 'Video played', '2022-04-19 08:13:20'),
+(2633, 1, 'Video played', '2022-04-19 08:13:20'),
+(2634, 1, 'On Step Four', '2022-04-19 08:13:20'),
+(2635, 1, 'On Step Five', '2022-04-19 08:13:20'),
+(2636, 1, 'On Step One', '2022-04-19 08:16:29'),
+(2637, 1, 'Campus clicked', '2022-04-19 08:16:29'),
+(2638, 1, 'On Step Two', '2022-04-19 08:16:29'),
+(2639, 1, 'Faculty clicked', '2022-04-19 08:16:30'),
+(2640, 1, 'On Step Three', '2022-04-19 08:16:30'),
+(2641, 1, 'Video played', '2022-04-19 08:16:30'),
+(2642, 1, 'Video played', '2022-04-19 08:16:30'),
+(2643, 1, 'On Step Four', '2022-04-19 08:16:30'),
+(2644, 1, 'On Step Five', '2022-04-19 08:16:30'),
+(2645, 1, 'Logged out', '2022-04-19 08:16:33'),
+(2646, 1, 'Logged in', '2022-04-19 08:16:40'),
+(2647, 1, 'On Step One', '2022-04-19 08:16:40'),
+(2648, 1, 'Campus clicked', '2022-04-19 08:16:40'),
+(2649, 1, 'On Step Two', '2022-04-19 08:16:40'),
+(2650, 1, 'Faculty clicked', '2022-04-19 08:16:40'),
+(2651, 1, 'On Step Three', '2022-04-19 08:16:41'),
+(2652, 1, 'Video played', '2022-04-19 08:16:41'),
+(2653, 1, 'Video played', '2022-04-19 08:16:41'),
+(2654, 1, 'On Step Four', '2022-04-19 08:16:41'),
+(2655, 1, 'On Step Five', '2022-04-19 08:16:42'),
+(2656, 1, 'On Step One', '2022-04-19 08:20:47'),
+(2657, 1, 'Campus clicked', '2022-04-19 08:20:49'),
+(2658, 1, 'On Step Two', '2022-04-19 08:20:49'),
+(2659, 1, 'Faculty clicked', '2022-04-19 08:20:50'),
+(2660, 1, 'On Step Three', '2022-04-19 08:20:52'),
+(2661, 1, 'Video played', '2022-04-19 08:20:53'),
+(2662, 1, 'Video played', '2022-04-19 08:20:53'),
+(2663, 1, 'On Step Four', '2022-04-19 08:20:53'),
+(2664, 1, 'On Step Five', '2022-04-19 08:20:54'),
+(2665, 1, 'On Step One', '2022-04-19 08:21:06'),
+(2666, 1, 'Campus clicked', '2022-04-19 08:21:07'),
+(2667, 1, 'On Step Two', '2022-04-19 08:21:07'),
+(2668, 1, 'Faculty clicked', '2022-04-19 08:21:07'),
+(2669, 1, 'On Step Three', '2022-04-19 08:21:07'),
+(2670, 1, 'Video played', '2022-04-19 08:21:07'),
+(2671, 1, 'Video played', '2022-04-19 08:21:07'),
+(2672, 1, 'On Step Four', '2022-04-19 08:21:07'),
+(2673, 1, 'On Step Five', '2022-04-19 08:21:07'),
+(2674, 1, 'On Step One', '2022-04-19 08:21:23'),
+(2675, 1, 'Campus clicked', '2022-04-19 08:21:23'),
+(2676, 1, 'On Step One', '2022-04-19 08:21:24'),
+(2677, 1, 'Campus clicked', '2022-04-19 08:21:24'),
+(2678, 1, 'On Step Two', '2022-04-19 08:21:24'),
+(2679, 1, 'Faculty clicked', '2022-04-19 08:21:24'),
+(2680, 1, 'On Step Two', '2022-04-19 08:21:24'),
+(2681, 1, 'Faculty clicked', '2022-04-19 08:21:24'),
+(2682, 1, 'On Step Three', '2022-04-19 08:21:24'),
+(2683, 1, 'Video played', '2022-04-19 08:21:24'),
+(2684, 1, 'Video played', '2022-04-19 08:21:24'),
+(2685, 1, 'On Step Four', '2022-04-19 08:21:24'),
+(2686, 1, 'On Step Three', '2022-04-19 08:21:25'),
+(2687, 1, 'Video played', '2022-04-19 08:21:25'),
+(2688, 1, 'Video played', '2022-04-19 08:21:25'),
+(2689, 1, 'On Step Four', '2022-04-19 08:21:25'),
+(2690, 1, 'On Step Five', '2022-04-19 08:21:25'),
+(2691, 1, 'On Step Five', '2022-04-19 08:21:25'),
+(2692, 1, 'On Step One', '2022-04-19 08:23:58'),
+(2693, 1, 'Campus clicked', '2022-04-19 08:23:58'),
+(2694, 1, 'On Step Two', '2022-04-19 08:23:58'),
+(2695, 1, 'Faculty clicked', '2022-04-19 08:23:58'),
+(2696, 1, 'On Step One', '2022-04-19 08:23:58'),
+(2697, 1, 'Campus clicked', '2022-04-19 08:23:59'),
+(2698, 1, 'On Step Three', '2022-04-19 08:23:59'),
+(2699, 1, 'Video played', '2022-04-19 08:23:59'),
+(2700, 1, 'Video played', '2022-04-19 08:23:59'),
+(2701, 1, 'On Step Four', '2022-04-19 08:23:59'),
+(2702, 1, 'On Step Two', '2022-04-19 08:23:59'),
+(2703, 1, 'Faculty clicked', '2022-04-19 08:23:59'),
+(2704, 1, 'On Step Five', '2022-04-19 08:23:59'),
+(2705, 1, 'On Step Three', '2022-04-19 08:24:00'),
+(2706, 1, 'Video played', '2022-04-19 08:24:00'),
+(2707, 1, 'Video played', '2022-04-19 08:24:00'),
+(2708, 1, 'On Step Four', '2022-04-19 08:24:00'),
+(2709, 1, 'On Step Five', '2022-04-19 08:24:00'),
+(2710, 1, 'On Step One', '2022-04-19 08:25:02'),
+(2711, 1, 'Campus clicked', '2022-04-19 08:25:03'),
+(2712, 1, 'On Step Two', '2022-04-19 08:25:03'),
+(2713, 1, 'Faculty clicked', '2022-04-19 08:25:03'),
+(2714, 1, 'On Step Three', '2022-04-19 08:25:03'),
+(2715, 1, 'Video played', '2022-04-19 08:25:03'),
+(2716, 1, 'Video played', '2022-04-19 08:25:03'),
+(2717, 1, 'On Step Four', '2022-04-19 08:25:03'),
+(2718, 1, 'On Step Five', '2022-04-19 08:25:04'),
+(2719, 1, 'On Step One', '2022-04-19 08:25:06'),
+(2720, 1, 'Campus clicked', '2022-04-19 08:25:07'),
+(2721, 1, 'On Step Two', '2022-04-19 08:25:07'),
+(2722, 1, 'Faculty clicked', '2022-04-19 08:25:07'),
+(2723, 1, 'On Step Three', '2022-04-19 08:25:07'),
+(2724, 1, 'Video played', '2022-04-19 08:25:07'),
+(2725, 1, 'Video played', '2022-04-19 08:25:07'),
+(2726, 1, 'On Step Four', '2022-04-19 08:25:07'),
+(2727, 1, 'On Step Five', '2022-04-19 08:25:08'),
+(2728, 1, 'Logged out', '2022-04-19 08:25:53'),
+(2729, 1, 'Logged in', '2022-04-19 08:48:23'),
+(2730, 1, 'On Step One', '2022-04-19 08:48:24'),
+(2731, 1, 'Campus clicked', '2022-04-19 08:48:24'),
+(2732, 1, 'On Step Two', '2022-04-19 08:48:24'),
+(2733, 1, 'Faculty clicked', '2022-04-19 08:48:24'),
+(2734, 1, 'On Step Three', '2022-04-19 08:48:24'),
+(2735, 1, 'Video played', '2022-04-19 08:48:24'),
+(2736, 1, 'Video played', '2022-04-19 08:48:25'),
+(2737, 1, 'On Step Four', '2022-04-19 08:48:25'),
+(2738, 1, 'On Step Five', '2022-04-19 08:48:25'),
+(2739, 1, 'Blog clicked', '2022-04-19 08:50:27'),
+(2740, 1, 'On Step One', '2022-04-19 08:51:31'),
+(2741, 1, 'Campus clicked', '2022-04-19 08:51:32'),
+(2742, 1, 'On Step Two', '2022-04-19 08:51:32'),
+(2743, 1, 'Faculty clicked', '2022-04-19 08:51:32'),
+(2744, 1, 'On Step Three', '2022-04-19 08:51:32'),
+(2745, 1, 'Video played', '2022-04-19 08:51:32'),
+(2746, 1, 'Video played', '2022-04-19 08:51:32'),
+(2747, 1, 'On Step Four', '2022-04-19 08:51:32'),
+(2748, 1, 'On Step Five', '2022-04-19 08:51:32'),
+(2749, 1, 'On Step One', '2022-04-19 08:56:22'),
+(2750, 1, 'Campus clicked', '2022-04-19 08:56:22'),
+(2751, 1, 'On Step Two', '2022-04-19 08:56:22'),
+(2752, 1, 'Faculty clicked', '2022-04-19 08:56:22'),
+(2753, 1, 'On Step Three', '2022-04-19 08:56:23'),
+(2754, 1, 'Video played', '2022-04-19 08:56:23'),
+(2755, 1, 'Video played', '2022-04-19 08:56:23'),
+(2756, 1, 'On Step Four', '2022-04-19 08:56:23'),
+(2757, 1, 'On Step Five', '2022-04-19 08:56:23'),
+(2758, 1, 'Restared the Orientation', '2022-04-19 08:57:26'),
+(2759, 1, 'On Step One', '2022-04-19 08:57:28'),
+(2760, 1, 'Campus clicked', '2022-04-19 08:57:30'),
+(2761, 1, 'On Step Two', '2022-04-19 08:57:41'),
+(2762, 1, 'Faculty clicked', '2022-04-19 08:57:47'),
+(2763, 1, 'On Step Three', '2022-04-19 08:57:48'),
+(2764, 1, 'Video played', '2022-04-19 08:57:50'),
+(2765, 1, 'Video played', '2022-04-19 08:57:53'),
+(2766, 1, 'On Step Four', '2022-04-19 08:58:06'),
+(2767, 1, 'On Step Five', '2022-04-19 08:58:18'),
+(2768, 1, 'Logged in', '2022-04-19 09:11:26'),
+(2769, 1, 'On Step One', '2022-04-19 09:11:26'),
+(2770, 1, 'Campus clicked', '2022-04-19 09:11:27'),
+(2771, 1, 'On Step Two', '2022-04-19 09:11:27'),
+(2772, 1, 'Faculty clicked', '2022-04-19 09:11:27'),
+(2773, 1, 'On Step Three', '2022-04-19 09:11:29'),
+(2774, 1, 'Video played', '2022-04-19 09:11:29'),
+(2775, 1, 'Video played', '2022-04-19 09:11:29'),
+(2776, 1, 'On Step Four', '2022-04-19 09:11:29'),
+(2777, 1, 'On Step Five', '2022-04-19 09:11:30'),
+(2778, 1, 'Restared the Orientation', '2022-04-19 09:11:39'),
+(2779, 1, 'Logged out', '2022-04-19 09:11:42'),
+(2780, 1, 'On Step One', '2022-04-19 09:36:53'),
+(2781, 1, 'Campus clicked', '2022-04-19 09:37:30'),
+(2782, 1, 'On Step Two', '2022-04-19 09:37:32'),
+(2783, 1, 'Faculty clicked', '2022-04-19 09:37:37'),
+(2784, 1, 'On Step Three', '2022-04-19 09:37:39'),
+(2785, 1, 'On Step One', '2022-04-19 09:37:51'),
+(2786, 1, 'Campus clicked', '2022-04-19 09:37:52'),
+(2787, 1, 'On Step Two', '2022-04-19 09:37:52'),
+(2788, 1, 'Faculty clicked', '2022-04-19 09:37:52'),
+(2789, 1, 'On Step Three', '2022-04-19 09:37:52'),
+(2790, 1, 'Video played', '2022-04-19 09:38:10'),
+(2791, 1, 'Video played', '2022-04-19 09:38:17'),
+(2792, 1, 'Video played', '2022-04-19 09:38:24'),
+(2793, 1, 'On Step Four', '2022-04-19 09:38:32'),
+(2794, 1, 'On Step Four', '2022-04-19 09:38:57'),
+(2795, 1, 'On Step Five', '2022-04-19 09:39:45'),
+(2796, 1, 'Blog clicked', '2022-04-19 09:40:34'),
+(2797, 1, 'On Step One', '2022-04-19 09:40:59'),
+(2798, 1, 'Campus clicked', '2022-04-19 09:40:59'),
+(2799, 1, 'On Step Two', '2022-04-19 09:40:59'),
+(2800, 1, 'Faculty clicked', '2022-04-19 09:40:59'),
+(2801, 1, 'On Step Three', '2022-04-19 09:41:00'),
+(2802, 1, 'Video played', '2022-04-19 09:41:00'),
+(2803, 1, 'Video played', '2022-04-19 09:41:00'),
+(2804, 1, 'On Step Four', '2022-04-19 09:41:00'),
+(2805, 1, 'On Step Five', '2022-04-19 09:41:00'),
+(2806, 1, 'Logged out', '2022-04-19 09:41:37'),
+(2807, 1, 'Logged in', '2022-04-19 09:43:04'),
+(2808, 1, 'On Step One', '2022-04-19 09:43:05'),
+(2809, 1, 'Campus clicked', '2022-04-19 09:43:05'),
+(2810, 1, 'On Step Two', '2022-04-19 09:43:05'),
+(2811, 1, 'Faculty clicked', '2022-04-19 09:43:05'),
+(2812, 1, 'On Step Three', '2022-04-19 09:43:05'),
+(2813, 1, 'Video played', '2022-04-19 09:43:05'),
+(2814, 1, 'Video played', '2022-04-19 09:43:05'),
+(2815, 1, 'On Step Four', '2022-04-19 09:43:05'),
+(2816, 1, 'On Step Five', '2022-04-19 09:43:06'),
+(2817, 1, 'Restared the Orientation', '2022-04-19 09:43:42'),
+(2818, 1, 'Logged in', '2022-04-19 09:55:28'),
+(2819, 1, 'On Step One', '2022-04-19 09:55:31'),
+(2820, 1, 'Campus clicked', '2022-04-19 09:55:32'),
+(2821, 1, 'On Step Two', '2022-04-19 09:55:33'),
+(2822, 1, 'Faculty clicked', '2022-04-19 09:55:35'),
+(2823, 1, 'On Step Three', '2022-04-19 09:55:42'),
+(2824, 1, 'Blog clicked', '2022-04-19 10:03:41'),
+(2825, 1, 'Logged in', '2022-04-22 06:13:22'),
+(2826, 1, 'On Step One', '2022-04-22 06:13:22'),
+(2827, 1, 'Campus clicked', '2022-04-22 06:13:22'),
+(2828, 1, 'On Step Two', '2022-04-22 06:13:22'),
+(2829, 1, 'Faculty clicked', '2022-04-22 06:13:22'),
+(2830, 1, 'On Step Three', '2022-04-22 06:13:23'),
+(2831, 1, 'Campus clicked', '2022-04-22 06:13:29'),
+(2832, 1, 'On Step Two', '2022-04-22 06:13:30'),
+(2833, 1, 'Faculty clicked', '2022-04-22 06:13:31'),
+(2834, 1, 'On Step Three', '2022-04-22 06:13:32'),
+(2835, 1, 'Video played', '2022-04-22 06:13:40'),
+(2836, 1, 'On Step One', '2022-04-22 07:09:04'),
+(2837, 1, 'Campus clicked', '2022-04-22 07:09:04'),
+(2838, 1, 'On Step Two', '2022-04-22 07:09:04'),
+(2839, 1, 'Faculty clicked', '2022-04-22 07:09:04'),
+(2840, 1, 'On Step Three', '2022-04-22 07:09:05'),
+(2841, 1, 'On Step One', '2022-04-22 08:04:52'),
+(2842, 1, 'Campus clicked', '2022-04-22 08:04:52'),
+(2843, 1, 'On Step Two', '2022-04-22 08:04:53'),
+(2844, 1, 'Faculty clicked', '2022-04-22 08:04:53'),
+(2845, 1, 'On Step Three', '2022-04-22 08:04:53'),
+(2846, 1, 'On Step One', '2022-04-22 08:17:38'),
+(2847, 1, 'Campus clicked', '2022-04-22 08:17:38'),
+(2848, 1, 'On Step Two', '2022-04-22 08:17:38'),
+(2849, 1, 'Faculty clicked', '2022-04-22 08:17:39'),
+(2850, 1, 'On Step Three', '2022-04-22 08:17:39'),
+(2851, 1, 'On Step One', '2022-04-22 08:18:11'),
+(2852, 1, 'Campus clicked', '2022-04-22 08:18:11'),
+(2853, 1, 'On Step Two', '2022-04-22 08:18:11'),
+(2854, 1, 'Faculty clicked', '2022-04-22 08:18:11'),
+(2855, 1, 'On Step Three', '2022-04-22 08:18:11'),
+(2856, 1, 'On Step One', '2022-04-22 08:18:32'),
+(2857, 1, 'Campus clicked', '2022-04-22 08:18:32'),
+(2858, 1, 'On Step Two', '2022-04-22 08:18:32'),
+(2859, 1, 'Faculty clicked', '2022-04-22 08:18:32'),
+(2860, 1, 'On Step Three', '2022-04-22 08:18:32'),
+(2861, 1, 'On Step One', '2022-04-22 08:18:55'),
+(2862, 1, 'Campus clicked', '2022-04-22 08:18:55'),
+(2863, 1, 'On Step Two', '2022-04-22 08:18:55'),
+(2864, 1, 'Faculty clicked', '2022-04-22 08:18:55'),
+(2865, 1, 'On Step Three', '2022-04-22 08:18:55'),
+(2866, 1, 'On Step One', '2022-04-22 08:19:30'),
+(2867, 1, 'Campus clicked', '2022-04-22 08:19:30'),
+(2868, 1, 'On Step Two', '2022-04-22 08:19:30'),
+(2869, 1, 'Faculty clicked', '2022-04-22 08:19:30'),
+(2870, 1, 'On Step Three', '2022-04-22 08:19:30'),
+(2871, 1, 'On Step One', '2022-04-22 08:19:47'),
+(2872, 1, 'Campus clicked', '2022-04-22 08:19:47'),
+(2873, 1, 'On Step Two', '2022-04-22 08:19:47'),
+(2874, 1, 'Faculty clicked', '2022-04-22 08:19:47'),
+(2875, 1, 'On Step Three', '2022-04-22 08:19:47'),
+(2876, 1, 'On Step One', '2022-04-22 08:20:00'),
+(2877, 1, 'Campus clicked', '2022-04-22 08:20:00'),
+(2878, 1, 'On Step Two', '2022-04-22 08:20:00'),
+(2879, 1, 'Faculty clicked', '2022-04-22 08:20:00'),
+(2880, 1, 'On Step Three', '2022-04-22 08:20:00'),
+(2881, 1, 'On Step One', '2022-04-22 08:20:15'),
+(2882, 1, 'Campus clicked', '2022-04-22 08:20:15'),
+(2883, 1, 'On Step Two', '2022-04-22 08:20:15'),
+(2884, 1, 'Faculty clicked', '2022-04-22 08:20:15'),
+(2885, 1, 'On Step Three', '2022-04-22 08:20:15'),
+(2886, 1, 'On Step One', '2022-04-22 08:22:29'),
+(2887, 1, 'Campus clicked', '2022-04-22 08:22:29'),
+(2888, 1, 'On Step One', '2022-04-22 08:26:42'),
+(2889, 1, 'Campus clicked', '2022-04-22 08:26:42'),
+(2890, 1, 'On Step Two', '2022-04-22 08:26:42'),
+(2891, 1, 'Faculty clicked', '2022-04-22 08:26:42'),
+(2892, 1, 'On Step Three', '2022-04-22 08:26:42');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `videos`
+--
+
+CREATE TABLE `videos` (
+  `id` int(4) NOT NULL,
+  `tittle` varchar(45) DEFAULT NULL,
+  `category` varchar(30) NOT NULL,
+  `path` varchar(512) NOT NULL,
+  `type` varchar(15) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
+  `noOfViews` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `videos`
+--
+
+INSERT INTO `videos` (`id`, `tittle`, `category`, `path`, `type`, `createdAt`, `noOfViews`) VALUES
+(12, 'Prof Ben Van Wyk', 'Deputy Vice Chancellor', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Prof+Ben+van+Wyk.mp4', 'video', '2022-04-08 11:36:33', 0),
+(13, 'Brightspace', 'Learning Management System', 'https://dh2dlbjd2qx17.cloudfront.net/videos/general/Introduction+To+Brightspace.mp4', 'video', '2022-04-08 11:39:45', 0),
+(14, 'Library', 'Library and Information Servic', 'https://dh2dlbjd2qx17.cloudfront.net/videos/general/Library+%26+Information+Services%2C+an+introduction.mp4', 'video', '2022-04-08 11:42:48', 0),
+(15, 'Vaccination', 'Health and Wellness', 'https://dh2dlbjd2qx17.cloudfront.net/videos/iNew+Videos/Vaccination+_Vid.mp4', 'video', '2022-04-08 11:44:52', 0),
+(16, 'Induction & Orientation', 'Office of the Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Economics+and+Finance/Faculty+of+Economics+and+Finance+TUT+Orientation+2021_2.mp4', 'video', '2022-04-08 11:53:23', 0),
+(17, 'Student Development & Support', 'Campus and Support', 'https://dh2dlbjd2qx17.cloudfront.net/videos/campus-support/SDS+Orientation.mp4', 'video', '2022-04-08 11:56:44', 0),
+(18, 'Health & Wellness', 'Campus and Support', 'https://dh2dlbjd2qx17.cloudfront.net/videos/general/Health+%26+Wellness%2C+an+Introduction.mp4', 'video', '2022-04-08 11:57:42', 0),
+(19, 'MyTUTor, What is a Study Guide?', 'Campus and Support', 'https://dh2dlbjd2qx17.cloudfront.net/videos/general/What+is+a+study+guide.mp4', 'video', '2022-04-08 11:59:29', 0),
+(20, 'Student Ombudsman', 'Campus and Support', 'https://dh2dlbjd2qx17.cloudfront.net/videos/campus-support/OMBUDSMAN+INTERVIEW.mp4', 'video', '2022-04-11 07:02:48', 0),
+(21, 'Higher Health', 'Campus and Support', 'https://dh2dlbjd2qx17.cloudfront.net/videos/general/Welcome+Class+of+2021-+your+health+is+in+your+hands.mp4', 'video', '2022-04-11 07:04:20', 0),
+(22, 'SGLD', 'Campus and Support', 'https://dh2dlbjd2qx17.cloudfront.net/videos/campus-support/Student+Governance+%26+Leadership+Development.mp4', 'video', '2022-04-11 07:05:29', 0),
+(23, 'Extracurricular Development', 'Campus and Support', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Jack+Sibanyoni.mp4', 'video', '2022-04-11 07:06:16', 0),
+(24, 'Executive Dean', 'Office of the Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Engineering+and+the+Built+Environment/Dr+Grace+Kanakana+Katumba.mp4', 'video', '2022-04-11 07:16:35', 0),
+(25, NULL, 'Office of the Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/booklets/FEBE_2022+first+year+guide.pdf', 'document', '2022-04-11 07:18:06', 0),
+(26, 'Architecture and Industrial Design', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Engineering+and+the+Built+Environment/Mr+Mostert+van+Schoor.mp4', 'video', '2022-04-11 07:20:22', 0),
+(27, 'Building Sciences', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Engineering+and+the+Built+Environment/Mr+Nazeem+Ansary.mp4', 'video', '2022-04-11 07:21:22', 0),
+(28, 'Chemical, Metallurgical and Materials Enginee', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Engineering+and+the+Built+Environment/Dr+Mxolisi+Brendon+Shongwe.mp4', 'video', '2022-04-11 07:22:06', 0),
+(29, 'Civil Engineering', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Engineering+and+the+Built+Environment/Prof+Jacques+Snyman.mp4', 'video', '2022-04-11 07:24:15', 0),
+(30, 'Electrical Engineering', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Engineering+and+the+Built+Environment/Prof+Thomas+Olwal.mp4', 'video', '2022-04-11 07:26:40', 0),
+(31, 'Geomatics', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Engineering+and+the+Built+Environment/Mr+Kovilen+Reddy.mp4', 'video', '2022-04-11 07:27:23', 0),
+(32, 'Mechanical and Mechatronics Engineering', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Engineering+and+the+Built+Environment/Dr+Louis+Beneke+-+(HEAD+OF+DEPARTMENT+MECHANICAL+%26+MECHATRONICS+ENGINEERING%2CMAIN+CAMPUS).mp4', 'video', '2022-04-11 07:28:07', 0),
+(33, 'Industrial Engineering', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Dr+Tharaleko+Mokgokong.mp4', 'video', '2022-04-11 07:28:58', 0),
+(34, 'Executive Dean', 'Office of the Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Prof+Maserumule-+dean+video.mp4', 'video', '2022-04-11 10:14:51', 0),
+(35, 'Induction & Orientation', 'Office of the Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/HUMANITIES+OVERVIEW+2022.mp4', 'video', '2022-04-11 10:16:04', 0),
+(36, NULL, 'Office of the Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/booklets/Humanities+First+year+2022.pdf', 'document', '2022-04-11 10:16:39', 0),
+(37, 'Applied Languages', 'Departments', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Humanities/Dr+Gary+Collins.mp4', 'video', '2022-04-11 10:18:40', 0),
+(38, 'Law', 'Departments', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Humanities/Prof+Dane+Ally.mp4', 'video', '2022-04-11 10:20:13', 0),
+(39, 'Public Management', 'Departments', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Humanities/Dr+Mogotsi+Maleka.mp4', 'video', '2022-04-11 10:20:57', 0),
+(40, 'Safety & Secutiy Management', 'Departments', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Humanities/Prof+Jacob+Mofokeng.mp4', 'video', '2022-04-11 10:21:32', 0),
+(41, 'Educational Foundation', 'Departments', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Prof+Thelma+de+Jager.mp4', 'video', '2022-04-11 10:24:53', 0),
+(42, 'Journalism', 'Departments', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Humanities/Dr+Lizette+Odendaal-(HEAD+OF+DEPARMENT+JOURNALISM%2CNORTH+CAMPUS).mp4', 'video', '2022-04-11 10:25:45', 0),
+(43, 'Maths, Science & Business  Education', 'Departments', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Humanities/Dr+Thomas+Sedumedi+-+(HEAD+OF+DEPARMENT+MATHEMATICS%2CSCIENCE+AND+BUSINESS+EDUCATION%2CNORTH+CAMPUS+).mp4', 'video', '2022-04-11 10:26:29', 0),
+(44, 'Primary Education', 'Departments', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Humanities/Prof+Lydia+Mphahlele+-+(HEAD+OF+DEPARMENT+PRIMARY+EDUCATION%2CNORTH+CAMPUS).mp4', 'video', '2022-04-11 10:27:05', 0),
+(45, 'Technology & Vocational Education', 'Departments', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Humanities/Dr+Ndlelehle+Skosana.mp4', 'video', '2022-04-11 10:27:36', 0),
+(46, 'Integrated Communication', 'Departments', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Nilton+Bernardo.mp4', 'video', '2022-04-11 10:28:10', 0),
+(47, 'Executive Dean', 'Office of the Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/ict/Welcome+21+Dean+ICT.mp4', 'video', '2022-04-11 10:54:32', 0),
+(48, 'Induction & Orientation', 'Office of the Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/TUT+ICT+ORIENTATION+MASTER+22.mp4', 'video', '2022-04-11 10:55:19', 0),
+(49, NULL, 'Office of the Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/booklets/First+Year+Booklet_2022_2.pdf', 'document', '2022-04-11 10:55:57', 0),
+(50, 'First Year & Foundation', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/ict/Mr+Mashitishi+Phurutsi.mp4', 'video', '2022-04-11 10:56:52', 0),
+(51, 'Computer Science', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/ict/Computer+Scrience_ProfJoey_Final5.mp4', 'video', '2022-04-11 10:57:39', 0),
+(52, 'Computer Systems Engineering', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/ict/Prof+Pius+Owolawi.mp4', 'video', '2022-04-11 10:58:16', 0),
+(53, 'Informatics', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/ict/Miss+Refilwe+Mogase.mp4', 'video', '2022-04-11 10:58:49', 0),
+(54, 'Information Technology', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/ict/Dr+Topside+Mathonsi.mp4', 'video', '2022-04-11 10:59:22', 0),
+(55, 'Section Head: Computer Science', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/ict/Mr+Vuyusile+Memani.mp4', 'video', '2022-04-11 10:59:56', 0),
+(56, 'Registration', 'Campus and Support', 'https://dh2dlbjd2qx17.cloudfront.net/videos/campus-support/Registration_1(1).mp4', 'video', '2022-04-11 11:10:03', 0),
+(57, 'Residences', 'Campus and Support', 'https://dh2dlbjd2qx17.cloudfront.net/videos/campus-support/Residences.mp4', 'video', '2022-04-11 11:10:37', 0),
+(58, 'Executive Dean', 'Office of the Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Dr+Edgar+Nesamvuni.mp4', 'video', '2022-04-11 11:15:22', 0),
+(59, 'Induction & Orientation', 'Office of the Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Management+Sciences/TUT+2021+Orientation+Pretoria-West+campus_2.mp4', 'video', '2022-04-11 11:15:58', 0),
+(60, NULL, 'Office of the Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/booklets/Management+Sciences+First+year+orienation+booklet_2022.pdf', 'document', '2022-04-11 11:16:23', 0),
+(61, 'Tourism Management', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Prof+Ndivhuwo+Tshipala.mp4', 'video', '2022-04-11 11:17:12', 0),
+(62, 'Hospitality Management', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Dr+Malome+Shai.mp4', 'video', '2022-04-11 11:17:36', 0),
+(63, 'Management and Entrepreneurship ', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Dr+Patrick+Ebewo.mp4', 'video', '2022-04-11 11:18:26', 0),
+(64, 'Business and Information and Management Servi', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Management+Sciences/Dr+Estelle+Bruhns-(HEAD+OF+DEPARMENT+BUSINESS+%26+INFORMATION+MANAGEMENT+SERVICES).mp4', 'video', '2022-04-11 11:18:59', 0),
+(65, 'Operations Management', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Dr+Thomas+Munyai.mp4', 'video', '2022-04-11 11:19:48', 0),
+(66, 'People Management and Development', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Dr+Leigh+Anne+Paul+Dachapalli.mp4', 'video', '2022-04-11 11:20:36', 0),
+(67, 'Marketing, Supply Chain Management and Sport ', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Dr+Elizma+Wannenburg.mp4', 'video', '2022-04-11 11:21:00', 0),
+(68, 'Adventure Tourism', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Diploma+in+Adventure+Tourism+Management.mp4', 'video', '2022-04-11 11:24:37', 0),
+(69, 'Ecotourism', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Diploma+in+Ecotourism+Management.mp4', 'video', '2022-04-11 11:25:29', 0),
+(70, 'Academic Excellence', 'Campus and Support', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Management+Sciences/campus-support/Academic+Excellence+Office.mp4', 'video', '2022-04-11 11:25:48', 0),
+(71, 'Executive Dean', 'Office of the Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Science+/Prof+Prince+Ngobeni+Dean+Science.mp4', 'video', '2022-04-11 11:34:12', 0),
+(72, NULL, 'Office of the Dean', 'https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg', 'document', '2022-04-11 11:34:37', 0),
+(73, 'Biomedical Sciences', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Dr+Carin+Boshoff+22.mp4', 'video', '2022-04-11 11:36:27', 0),
+(74, 'Biotechnology and Food Technology', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Science+/Dr+Mathoto+Thaoge+-(HEAD+OF+DEPARMENT+BIOTECHNOLOGY+%26+FOOD+TECHNOLOGY%2CARCADIA).mp4', 'video', '2022-04-11 11:37:01', 0),
+(75, 'Chemistry', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Science+/Dr+Jacqueline+Tembu+-+(+ACTING+HEAD+OF+DEPARMENT+CHEMISTRY%2CARCADIA).mp4', 'video', '2022-04-11 11:37:42', 0),
+(76, 'Environmental, Water and Earth Sciences', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Science+/Dr+Lizzy+Monyatsi-(HEAD+OF+DEPARMENT+ENVIRONMENT+%2CWATER+%26+EARTH+SCIENCES).mp4', 'video', '2022-04-11 11:38:12', 0),
+(77, 'Pharmaceutical Sciences', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Science+/Dr+Baatile+Komane-(HEAD+OF+DEPARMENT+PHARMACEUTICAL+SCIENCES).mp4', 'video', '2022-04-11 11:38:42', 0),
+(78, 'Fire Technology', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Science+/Prof+Joseph+Asante+Fire+Technology.mp4', 'video', '2022-04-11 11:39:07', 0),
+(79, 'Physics', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Science+/Prof+Joseph+Asante(DEPARTMENT+OF++Physics+MAIN+CAMPUS).mp4', 'video', '2022-04-11 11:39:59', 0),
+(80, 'Animal Sciences', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Science+/Prof+Khathu+Nephawe-(HEAD+OF+DEPARMENT+ANIMAL+SCIENCE%2CARCADIA+CAMPUS).mp4', 'video', '2022-04-11 11:40:57', 0),
+(81, 'Crop Sciences', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/y2mate.com+-+Prof+Puffy+Soundy_480p.mp4', 'video', '2022-04-11 11:41:27', 0),
+(82, 'Environmental Health', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Science+/Dr+Thabiso+Morodi+-(HEAD+OF+DEPARMENT+ENVIRONMENT+HEALTH%2CARCADIA).mp4', 'video', '2022-04-11 11:41:52', 0),
+(83, 'Sport, Rehabilitation and Dental Sciences', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Science+/Prof+Yvonne+Paul-HEAD+OF+DEPARMENT+SPORT%2CREHABILATION+AND+SCIENCE(MAIN+CAMPUS).mp4', 'video', '2022-04-11 11:42:31', 0),
+(84, 'Horticulture', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Science+/XiaoYing_Video_1614679296269.mp4', 'video', '2022-04-11 11:42:56', 0),
+(85, 'Adelaide Tambo School  of Nursing', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Science+/Dr+Yolanda+Havenga.mp4', 'video', '2022-04-11 11:43:29', 0),
+(86, 'Nature Conservation', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Science+/Prof+Brian+Reilly.mp4', 'video', '2022-04-11 11:44:56', 0),
+(87, 'Executive Dean', 'Office of the Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/TUT+DEans+Welcome+2022+V2+(1).mp4', 'video', '2022-04-12 05:49:52', 0),
+(88, NULL, 'Office of the Dean', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/booklets/1st+year+Arts+2022+FINAL.pdf', 'document', '2022-04-12 05:50:22', 0),
+(89, 'Design Studies', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Design+Studies+v2.mp4', 'video', '2022-04-12 05:52:10', 0),
+(90, 'Fine and Studio Arts', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Fine+and+Studio+Art.mp4', 'video', '2022-04-12 05:52:46', 0),
+(91, 'Interior Design', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/y2mate.com+-+Interior+Design+v2_360p.mp4', 'video', '2022-04-12 05:53:11', 0),
+(92, 'Performing Arts', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Performing+Arts.mp4', 'video', '2022-04-12 05:53:37', 0),
+(93, 'Visual Communication', 'Departments and Units', 'https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Visual+Communication.mp4', 'video', '2022-04-12 05:54:02', 0);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`email`);
+
+--
+-- Indexes for table `ans_que`
+--
+ALTER TABLE `ans_que`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_ansque_ans` (`ans_id`),
+  ADD KEY `FK_ansque_que` (`que_id`);
+
+--
+-- Indexes for table `blog`
+--
+ALTER TABLE `blog`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `campus`
+--
+ALTER TABLE `campus`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cam_fac`
+--
+ALTER TABLE `cam_fac`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_camFac_cam` (`cam_id`),
+  ADD KEY `FK_cam_Fac_fac` (`fac_id`);
+
+--
+-- Indexes for table `faculty`
+--
+ALTER TABLE `faculty`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fac_vid`
+--
+ALTER TABLE `fac_vid`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_facVid_fac` (`fac_id`),
+  ADD KEY `FK_facVid_vid` (`vid_id`);
+
+--
+-- Indexes for table `orientation`
+--
+ALTER TABLE `orientation`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_orie_stud` (`student_id`);
+
+--
+-- Indexes for table `que_fac`
+--
+ALTER TABLE `que_fac`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_quefac_fac` (`fac_id`),
+  ADD KEY `fk_quefac_que` (`que_id`);
+
+--
+-- Indexes for table `student`
+--
+ALTER TABLE `student`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indexes for table `survey`
+--
+ALTER TABLE `survey`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_stud_surv` (`student_id`),
+  ADD KEY `FK_que_answer` (`question_id`);
+
+--
+-- Indexes for table `surveyanswer`
+--
+ALTER TABLE `surveyanswer`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `answer` (`answer`);
+
+--
+-- Indexes for table `surveyquestion`
+--
+ALTER TABLE `surveyquestion`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tracking`
@@ -2131,18 +3798,149 @@ ALTER TABLE `tracking`
   ADD KEY `FK_track_student` (`user_id`);
 
 --
+-- Indexes for table `videos`
+--
+ALTER TABLE `videos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `ans_que`
+--
+ALTER TABLE `ans_que`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+
+--
+-- AUTO_INCREMENT for table `blog`
+--
+ALTER TABLE `blog`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `campus`
+--
+ALTER TABLE `campus`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `cam_fac`
+--
+ALTER TABLE `cam_fac`
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `faculty`
+--
+ALTER TABLE `faculty`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `fac_vid`
+--
+ALTER TABLE `fac_vid`
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+
+--
+-- AUTO_INCREMENT for table `orientation`
+--
+ALTER TABLE `orientation`
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2242;
+
+--
+-- AUTO_INCREMENT for table `que_fac`
+--
+ALTER TABLE `que_fac`
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `student`
+--
+ALTER TABLE `student`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `survey`
+--
+ALTER TABLE `survey`
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1197;
+
+--
+-- AUTO_INCREMENT for table `surveyanswer`
+--
+ALTER TABLE `surveyanswer`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+
+--
+-- AUTO_INCREMENT for table `surveyquestion`
+--
+ALTER TABLE `surveyquestion`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `tracking`
 --
 ALTER TABLE `tracking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2079;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2893;
+
+--
+-- AUTO_INCREMENT for table `videos`
+--
+ALTER TABLE `videos`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `ans_que`
+--
+ALTER TABLE `ans_que`
+  ADD CONSTRAINT `FK_ansque_ans` FOREIGN KEY (`ans_id`) REFERENCES `surveyanswer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_ansque_que` FOREIGN KEY (`que_id`) REFERENCES `surveyquestion` (`id`);
+
+--
+-- Constraints for table `cam_fac`
+--
+ALTER TABLE `cam_fac`
+  ADD CONSTRAINT `FK_camFac_cam` FOREIGN KEY (`cam_id`) REFERENCES `campus` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_cam_Fac_fac` FOREIGN KEY (`fac_id`) REFERENCES `faculty` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `fac_vid`
+--
+ALTER TABLE `fac_vid`
+  ADD CONSTRAINT `FK_facVid_fac` FOREIGN KEY (`fac_id`) REFERENCES `faculty` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_facVid_vid` FOREIGN KEY (`vid_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `orientation`
+--
+ALTER TABLE `orientation`
+  ADD CONSTRAINT `FK_orie_stud` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `que_fac`
+--
+ALTER TABLE `que_fac`
+  ADD CONSTRAINT `fk_quefac_fac` FOREIGN KEY (`fac_id`) REFERENCES `faculty` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_quefac_que` FOREIGN KEY (`que_id`) REFERENCES `surveyquestion` (`id`);
+
+--
+-- Constraints for table `survey`
+--
+ALTER TABLE `survey`
+  ADD CONSTRAINT `FK_que_answer` FOREIGN KEY (`question_id`) REFERENCES `surveyquestion` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_stud_surv` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `tracking`

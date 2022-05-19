@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2022 at 12:10 PM
+-- Generation Time: Apr 12, 2022 at 12:11 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -24,35 +24,47 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Table structure for table `faculty`
 --
 
-CREATE TABLE `admin` (
+CREATE TABLE `faculty` (
   `id` int(4) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `faculty_name` varchar(128) NOT NULL,
+  `noOfVideos` int(4) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `faculty`
+--
+
+INSERT INTO `faculty` (`id`, `faculty_name`, `noOfVideos`) VALUES
+(1, 'Faculty of Economics and Finance', 0),
+(2, 'Faculty of Engineering and the Built Environment', 0),
+(3, 'Faculty of Humanities', 0),
+(4, 'Faculty of Information and Communication Technology', 0),
+(5, 'Faculty of Management Sciences', 0),
+(6, 'Faculty of Science', 0),
+(7, 'Faculty of Arts and Design', 0);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admin`
+-- Indexes for table `faculty`
 --
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`email`);
+ALTER TABLE `faculty`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `admin`
+-- AUTO_INCREMENT for table `faculty`
 --
-ALTER TABLE `admin`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `faculty`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

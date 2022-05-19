@@ -72,19 +72,10 @@ Router.post('/', (req, res, next) => {
                         })
                         return
                     } else {
-                        // if (!rows[0].isVerified) {
-                        //     res.send({
-                        //         "error": true,
-                        //         "code": "L006",
-                        //         "message": "Admin is not verified",
-                        //     })
-                        //     return
-                        // }
                         res.send({
                             "error": false,
                             "data": rows,
                         });
-                        console.log(new Date() + " -  A admin logged in " + rows[0].email)
                     }
                 }
             });
