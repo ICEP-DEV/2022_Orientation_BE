@@ -102,6 +102,7 @@ var socketIO = socket(server,{
     allowEIO3: true,
    cors: {
     origin: "*:*",
+    methods: ["GET", "POST"],
     allowedHeaders: ["X-Requested-With","Content-Type"],
     credentials: false
   },
