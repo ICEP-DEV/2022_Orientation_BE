@@ -101,9 +101,9 @@ const server = app.listen(PORT, (e) => {
 var socketIO = socket(server,{
     allowEIO3: true,
    cors: {
-    origin: ["https://master.dj4hobg2ew465.amplifyapp.com", "http://localhost:4200"],
+    origin: "*:*",
     allowedHeaders: ["X-Requested-With","Content-Type"],
-    credentials: true
+    credentials: false
   },
   allowRequest: (req, callback) => {
     const isOriginValid = check(req);
