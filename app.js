@@ -83,6 +83,7 @@ const videoUpload = multer({
 // For Single image upload
 app.post('/uploadImage', imageUpload.single('image'), (req, res) => {
 
+
       const img = req.file.filename;  
       const title = req.body.title;
       const description = req.body.description;;
@@ -99,11 +100,13 @@ app.post('/uploadImage', imageUpload.single('image'), (req, res) => {
           
       return
 
+
 },handleErr)
 
 app.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
    
    const vid = req.file.filename;
+
    
    
    if(req.body.type == 'blog')
@@ -143,6 +146,8 @@ app.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
         })
     }
     return
+
+
 },handleErr) 
 
 

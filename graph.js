@@ -147,6 +147,7 @@ socketIO.on('connection', (socket) => {
     //Login Users Stats
     socket.on('LoggedInUsers_soc',(st_stream)=>{
         connection.query(`SELECT loggedin FROM stats`,(err,rows,field)=>{
+            console.log(rows)
             connection.query(`UPDATE stats SET loggedin = ${rows[0].loggedin + 1} `,(inerr,inrows,infields)=>{
                 if(inerr || err)
                 {
