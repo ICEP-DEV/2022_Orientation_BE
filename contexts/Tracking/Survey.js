@@ -5,6 +5,46 @@ const mariadb = require('../../connection');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+Router.get('/admin',(req, res, next) => {
+
+    let surveyUser = [];
+
+    mariadb.query(`SELECT student.id, studNum as StudentNo, firstname as Firstname, lastname as Lastname, email as Email FROM student ,survey WHERE student.id = survey.student_id GROUP BY student.id`,async (err,outer_rows,fields)=>{
+
+        if(err || outer_rows.length < 1)
+        {
+            res.send({
+                error:true,
+                message:"Error sql statement couldn't execute successfully",    
+                code:"O001_POST_SQL",
+                sqlMessage:err        
+            })
+            return;
+        }
+        for (let index = 0; index < outer_rows.length; index++) {
+            await mariadb.promise().query(`SELECT  survey.answer,surveyquestion.question FROM survey,surveyquestion WHERE survey.question_id = surveyquestion.id AND survey.student_id = ${outer_rows[index].id}`)
+            .then((data)=>{
+                if(data[0][0])
+                {
+                    surveyUser[index] = 
+                        {
+                            Id : index,
+                            Firstname : outer_rows[index].Firstname,
+                            Lastname :  outer_rows[index].Lastname,
+                            StudentNo : outer_rows[index].StudentNo,
+                            Email : outer_rows[index].Email,
+                            Survey : data[0]
+                        }
+                    
+                }
+                
+            })  
+        }
+
+        res.send(surveyUser)
+        
+    })
+})
 
 Router.get('/',(req, res, next) => {
 

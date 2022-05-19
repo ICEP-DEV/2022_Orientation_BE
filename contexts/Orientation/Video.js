@@ -36,7 +36,7 @@ app.use(bodyParser.json());
     mariadb.query(`SELECT videos.category FROM fac_vid,videos WHERE fac_vid.vid_id = videos.id AND fac_vid.fac_id = ${req.query.fac_id} GROUP BY videos.category ORDER BY videos.id ASC;`, async (err, rows, fields) => {
         if (!err) {
             for (let index = 0; index < rows.length; index++) {
-                await mariadb.promise().query(`SELECT  videos.id,videos.tittle,videos.path,videos.type FROM fac_vid,videos WHERE fac_vid.vid_id = videos.id AND videos.category = "${rows[index].category}" AND fac_vid.fac_id = ${req.query.fac_id} ORDER BY videos.id ASC;`)
+                await mariadb.promise().query(`SELECT  videos.id,videos.tittle,videos.path,videos.type,videos.createdAt FROM fac_vid,videos WHERE fac_vid.vid_id = videos.id AND videos.category = "${rows[index].category}" AND fac_vid.fac_id = ${req.query.fac_id} ORDER BY videos.id ASC;`)
                 .then((data)=>{    
                     fullVideosObj[index] = {
                         category : rows[index].category,

@@ -1,9 +1,25 @@
+const HOSTNAME = "localhost"
+//localhost
+//ec2-3-80-224-126.compute-1.amazonaws.com"
 const express = require('express');
 const path = require('path');
 const app = express()
 const multer = require('multer');
 const mariadb = require('./connection');
+const cors = require('cors');
 const port = process.env.PORT || 3007
+
+app.use(cors({origin: '*'}));
+
+
+app.use(function(req, res, next) {
+    //Header allowences of METHODS
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
 
 
 app.get('/', (req, res) => { 
@@ -12,7 +28,8 @@ app.get('/', (req, res) => {
 
 
 const handleErr = (error, req, res, next) => {
-    res.status(400).send({ error: error.message })
+    res.status(400).send(error.message)
+    return
 }
 
 const imageStorage = multer.diskStorage({
@@ -37,10 +54,10 @@ const videoStorage = multer.diskStorage({
 const imageUpload = multer({
     storage: imageStorage,
     limits: {
-      fileSize: 1000000 // 1000000 Bytes = 1 MB
+      fileSize: 10000000 // 1000000 Bytes = 1 MB
     },
     fileFilter(req, file, cb) {
-      if (!file.originalname.match(/\.(png|jpg)$/)) { 
+      if (!file.originalname.match(/\.(png|jpg|PNG|JPG|JPEG|GIF|gif|jpeg)$/)) { 
          // upload only png and jpg format
          return cb(new Error('Please upload a Image'))
        }
@@ -51,7 +68,7 @@ const imageUpload = multer({
 const videoUpload = multer({
     storage: videoStorage,
     limits: {
-    fileSize: 10000000 // 10000000 Bytes = 10 MB
+    fileSize: 150000000 // 50000000 Bytes = 50 MB
     },
     fileFilter(req, file, cb) {
       // upload only mp4 and mkv format
@@ -66,39 +83,71 @@ const videoUpload = multer({
 // For Single image upload
 app.post('/uploadImage', imageUpload.single('image'), (req, res) => {
 
-  res.send(req.file)
-  
-    const title = req.body.title;
-    const description = req.body.description;;
-    const img = req.file.filename;
-    const author = req.body.author;
-    const link = req.body.link;
-    const subtittle = req.body.subtittle;
 
- mariadb.query(`INSERT INTO blog(path, author, title, description, created_on, link, subtittle) VALUES('${img}','${author}','${title}', '${description}', DEFAULT,'${link}', '${subtittle}')`, (err,result) => {
-   if(err) throw err
-   console.log("Image uploaded");
-    
- })
+      const img = req.file.filename;  
+      const title = req.body.title;
+      const description = req.body.description;;
+      const author = req.body.author;
+      const subTittle = req.body.sub;
+      const link = req.body.link;
+       
+        //Adding a blog post with a image
+        mariadb.query(`INSERT INTO blog(path, author, title, description, created_on,link,subTittle) VALUES('http://${HOSTNAME}:6900/images/${img}','${author}','${title}', '${description}', DEFAULT,'${link}','${subTittle}')`, (err,result) => {
+            if(err) throw err
+            res.send('Image uploaded')
+            return
+        })
+          
+      return
+
 
 },handleErr)
 
 app.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
-   res.send(req.file)
-
+   
    const vid = req.file.filename;
-   const title = req.body.title;
-   const description = req.body.description;
-   const author = req.body.author;
-   const link = req.body.link;
-   const subtittle = req.body.subtittle;
 
-   mariadb.query(`INSERT INTO blog(path, author, title, description, created_on, link, subtittle) VALUES('${vid}','${author}','${title}', '${description}', DEFAULT, '${link}', '${subtittle}')`, (err,result) => {
-     if(err) throw err
-     console.log("Video uploaded");
-     res.send('Video uploaded')
-   })
-   return
+   
+   
+   if(req.body.type == 'blog')
+   {
+    const title = req.body.title;
+    const description = req.body.description;
+    const author = req.body.author;
+    const subTittle = req.body.sub;
+    const link = req.body.link;
+    
+    //Adding a blog post with a video
+      mariadb.query(`INSERT INTO blog(path, author, title, description, created_on,link,subTittle) VALUES('http://${HOSTNAME}:6900/videos/${vid}','${author}','${title}', '${description}', DEFAULT,'${link}','${subTittle}')`, (err,result) => {
+        if(err) throw err
+        res.send('Video uploaded for blog')
+      })
+    }
+    else if(req.body.type == 'orientation')
+    {
+        const faculty = req.body.fac
+        const title = req.body.title
+        const category = req.body.category
+        const fileType = req.body.fileType
+      
+
+        //Adding a video post with a image
+        mariadb.query(`INSERT INTO videos(path, tittle, createdAt,category,type,noOfViews) VALUES('http://${HOSTNAME}:6900/videos/${vid}','${title}', DEFAULT,'${category}','${fileType}',0)`, (err,result) => {
+            if(err) throw err
+          
+            if(result.insertId)
+            {
+              mariadb.query(`INSERT INTO fac_vid VALUES(DEFAULT,${faculty},${result.insertId})`,(err,result)=>{
+                if(err) throw err
+                res.send("video for orientation was added")
+              })
+            }
+            return
+        })
+    }
+    return
+
+
 },handleErr) 
 
 

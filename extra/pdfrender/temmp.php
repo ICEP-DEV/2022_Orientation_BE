@@ -14,10 +14,12 @@ class PdfEncode extends FPDF{
 		
 	   
         $this->Image('Certificate-min.jpg',0,0,297,210);
-        $this->SetFont('Arial','B',30);
+        $this->SetFont('Courier','B',33);
+		$this->SetTextColor(13, 71, 148);
         $this->Cell(276,235,$results["firstname"]." ".$results["lastname"],2,0,'C');
         $this->Ln(60.5);
-        $this->SetFont('Arial','B',15);
+        $this->SetFont('Arial','B',13);
+		$this->SetTextColor(13, 71, 148);
         $this->Cell(299,235,date("Y/m/d"),0,0,'C');
         $this->Ln(20);
    }

@@ -7,6 +7,16 @@ var CryptoJS = require("crypto-js");
 
 app.use(bodyParser.json());
 
+Router.get('/',(req,res,next)=>{
+
+    mariadb.query(`SELECT COUNT(field) as campusStudents, value FROM orientation WHERE field = 'campus' GROUP BY value ORDER BY COUNT(field) DESC`,(err,rows,fields)=>{
+        res.send({
+            error: false,
+            data:rows.slice(0,3)
+        })
+    })
+
+})
 
 
 Router.post('/', (req, res, next) => {
