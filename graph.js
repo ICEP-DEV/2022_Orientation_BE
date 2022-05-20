@@ -99,7 +99,8 @@ app.use('/Blog/blog', Blog_cnxt);
 app.use(express.static('public')); 
 app.use('/images', express.static('bin/images'));
 app.use('/videos', express.static('bin/videos'));
-
+app.use('/.well-known/pki-validation/5CE187811A93DD5A4B66C3F939204264.txt', express.static('public/5CE187811A93DD5A4B66C3F939204264.txt'));
+app.use('/.well-known/pki-validation/07506DE85A020E1285594579687A8AC6.txt', express.static('public/07506DE85A020E1285594579687A8AC6.txt'));
 
 app.listen(GRAPH_PORT, (e) => {
     console.log("********************************************************");
