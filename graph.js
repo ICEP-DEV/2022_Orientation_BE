@@ -44,6 +44,8 @@ const AllCampus_cnxt = require("./contexts/Orientation/AllCampus")
 const Faculty_cnxt = require("./contexts/Orientation/Faculty")
 const Videos_cnxt = require("./contexts/Orientation/Video")
 const SurvQuestion_cnxt = require("./contexts/Orientation/Questions")
+//Send Email NodeMailer
+const SendEmail_cnxt = require('./contexts/nodemailer')
 
 
 //-----------------------------------------------------------------------------------Custome Libraries
@@ -87,6 +89,7 @@ app.use('/Track/Survey',Track_Survey_cnxt)
 app.use('/Track/Orientation',Track_Orientation_cnxt)
 app.use('/Orientation/Campus', AllCampus_cnxt)
 app.use('/Orientation/Question',SurvQuestion_cnxt)
+app.use('/NodeMailer',SendEmail_cnxt)
 
 //context to blog entities
 app.use('/Blog/blog', Blog_cnxt);
@@ -95,6 +98,8 @@ app.use('/Blog/blog', Blog_cnxt);
 app.use(express.static('public')); 
 app.use('/images', express.static('bin/images'));
 app.use('/videos', express.static('bin/videos'));
+//Send
+
 
 
 app.listen(GRAPH_PORT, (e) => {
