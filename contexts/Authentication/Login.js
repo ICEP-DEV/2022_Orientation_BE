@@ -22,7 +22,7 @@ Router.post('/', (req, res, next) => {
             res.send({
                 "error": true,
                 "code": "L003",
-                "message": "Error student email not supplied",
+                "message": "Error student number not supplied",
             })
             return
         }
@@ -54,7 +54,7 @@ Router.post('/', (req, res, next) => {
                 res.send({
                     "error": true,
                     "code": "L004",
-                    "message": "Email doesn't exist on the system",
+                    "message": "Student number doesn't exist on the system",
                 })
                 return
             }
