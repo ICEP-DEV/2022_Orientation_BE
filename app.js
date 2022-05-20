@@ -1,7 +1,7 @@
 //PORT FOR THE API ENDPOINT________________________
 const { APP_PORT,DATABASE } = require('./globals');
 //_________________________________________________
-const HOSTNAME = "localhost"
+const HOSTNAME = "ec2-18-234-218-224.compute-1.amazonaws.com"
 
 const express = require('express');
 const path = require('path');
@@ -24,8 +24,13 @@ app.use(function(req, res, next) {
 });
 
 
+//Publisize a folder
+app.use(express.static('public')); 
+app.use('/images', express.static('bin/images'));
+app.use('/videos', express.static('bin/videos'));
+
 app.get('/', (req, res) => { 
-    res.send('Not a accessbled Address'); 
+    res.send('Not a accessbled Address app'); 
 });
 
 
