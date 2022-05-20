@@ -73,7 +73,7 @@ Router.post('/', (req, res, next) => {
                     error: false,
                     data: rows
                 });
-                console.log(new Date() + " - A student successfully registered " + req.body.email)
+            
                 return
             } else {
                 if (err.code == 'ER_DUP_ENTRY') {

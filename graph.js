@@ -63,6 +63,10 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.get('/', (req, res) => { 
+    res.send('Not a accessbled Address graph'); 
+});
+
 //context channelling Student
 app.use('/Test/TestQuery', TestQuery_cnxt);
 app.use('/Auth/Registration', Registration_cnxt);
@@ -98,8 +102,6 @@ app.use('/Blog/blog', Blog_cnxt);
 app.use(express.static('public')); 
 app.use('/images', express.static('bin/images'));
 app.use('/videos', express.static('bin/videos'));
-//Send
-
 
 
 app.listen(GRAPH_PORT, (e) => {

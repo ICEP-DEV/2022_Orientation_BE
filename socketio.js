@@ -9,7 +9,7 @@ const http = require('http').Server(app);
 
 const socketIO = require('socket.io')(http,{
  cors: {
-    origin: '*',
+    origin: '*:*',
  }
 })
 
@@ -21,8 +21,6 @@ var studentSessions = 0;
 
 //Connection of IOSocket
 socketIO.on('connection', (socket) => {
-    
-   
     //------>Registered Users
     socket.on('RegisteredUsers_soc',(st_stream)=>{
         connection.query(`SELECT countUsers,survey FROM stats`,(err,rows,fields)=>{
@@ -55,7 +53,6 @@ socketIO.on('connection', (socket) => {
     //Login Users Stats
     socket.on('LoggedInUsers_soc',(st_stream)=>{
         connection.query(`SELECT loggedin FROM stats`,(err,rows,field)=>{
-            console.log(rows)
             connection.query(`UPDATE stats SET loggedin = ${rows[0].loggedin + 1} `,(inerr,inrows,infields)=>{
                 if(inerr || err)
                 {
