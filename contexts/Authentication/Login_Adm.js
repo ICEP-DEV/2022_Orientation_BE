@@ -81,6 +81,7 @@ Router.post('/', (req, res, next) => {
             });
         } else {
             console.log(err);
+		return;
         }
     })
 });
