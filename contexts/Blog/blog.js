@@ -3,61 +3,9 @@ const app = express();
 const Router = express.Router();
 const mariadb = require('../../connection');
 const bodyParser = require('body-parser');
-var CryptoJS = require("crypto-js");
-const multer = require('multer');
+
 
 app.use(bodyParser.json());
-
-
-
-const imageStorage = multer.diskStorage({
-    // Destination to store image     
-    destination: 'bin/images', 
-      filename: (req, file, cb) => {
-          cb(null, file.fieldname + '_' + Date.now() 
-             + path.extname(file.originalname))
-            // file.fieldname is name of the field (image)
-            // path.extname get the uploaded file extension
-    }
-}); 
-
-const videoStorage = multer.diskStorage({
-    destination: 'bin/videos', // Destination to store video 
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '_' + Date.now() 
-         + path.extname(file.originalname))
-    }
-});
-
-const imageUpload = multer({
-    storage: imageStorage,
-    limits: {
-      fileSize: 1000000 // 1000000 Bytes = 1 MB
-    },
-    fileFilter(req, file, cb) {
-      if (!file.originalname.match(/\.(png|jpg)$/)) { 
-         // upload only png and jpg format
-         return cb(new Error('Please upload a Image'))
-       }
-     cb(undefined, true)
-  }
-})
-
-const videoUpload = multer({
-    storage: videoStorage,
-    limits: {
-    fileSize: 10000000 // 10000000 Bytes = 10 MB
-    },
-    fileFilter(req, file, cb) {
-      // upload only mp4 and mkv format
-      if (!file.originalname.match(/\.(mp4|MPEG-4|mkv)$/)) { 
-         return cb(new Error('Please upload a video'))
-      }
-      cb(undefined, true)
-   }
-})
-
-
 
 
 Router.get('/', (req, res, next) => {
@@ -140,13 +88,15 @@ Router.put('/', (req, res) => {
         return
     }
 
-    const { title, description,author, path, link, subtittle, id } = req.body
 
-    mariadb.query(`UPDATE blog SET ${req.body.field} = '${req.body.updateValue}' WHERE id = ${req.body.id}`, (err, rows) => {
+
+    const { title, description,author, link, subtittle, id } = req.body
+
+    mariadb.query(`UPDATE blog SET title = '${title}',subTittle = '${subtittle}',description = '${description}',author = '${author}', link = '${link}'  WHERE id = ${id}`, (err, rows) => {
         if (!err) {
             res.send({
                 error: false,
-                data: `one column has been deleted.`
+                data: `one row was updated`
             })
             return
         } else {
