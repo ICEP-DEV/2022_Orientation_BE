@@ -114,18 +114,18 @@ Router.delete('/', (req, res, next) => {
 
     let field;
 
-    if (Object.keys(req.body).length == 0) {
+    if (Object.keys(req.query).length == 0) {
         res.send({
             error: true,
             code: "S001",
-            message: "body parameters were not found"
+            message: "query parameters were not found"
         })
         return
     }
 
 
-    if (req.body.id) {
-        if (req.body.id == "*") {
+    if (req.query.id) {
+        if (req.query.id == "*") {
             mariadb.query('DELETE * from blog', (err, rows) => {
                 if (!err) {
                     res.send({
@@ -143,7 +143,7 @@ Router.delete('/', (req, res, next) => {
             })
         }
         else {
-            mariadb.query(`DELETE FROM blog WHERE id = ${req.body.id}`, (err, rows, fields) => {
+            mariadb.query(`DELETE FROM blog WHERE id = ${req.query.id}`, (err, rows, fields) => {
                 if (!err) {
                     res.send({
                         error: false,
@@ -167,7 +167,7 @@ Router.delete('/', (req, res, next) => {
         res.send({
             error: true,
             code: "S002",
-            message: "field element was not found as a body element"
+            message: "field element was not found as a query element"
         })
         return
     }
