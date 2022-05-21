@@ -8,7 +8,7 @@ const app = express()
 const multer = require('multer');
 const mariadb = require('./connection');
 const cors = require('cors');
-
+const fs = require('fs');
 
 app.use(cors({origin: '*'}));
 
@@ -85,6 +85,93 @@ const videoUpload = multer({
    }
 })
 
+//Delete Video
+app.delete('/deleteVideo', (req, res, next) => {
+
+  if(Object.keys(req.query).length == 0)
+  {
+      res.send({
+          error: true,
+          code: "DV001",
+          message: "No element was found on the query elements"
+      })
+      return
+  }
+
+  if(!req.query.id)
+  {
+      res.send({
+          error: true,
+          code: "DV002",
+          message: "No id element was found on the query"
+      })
+      return
+  }
+
+
+  mariadb.query(`SELECT path FROM videos WHERE id = ${req.query.id}`,(outer_err, outer_rows,outer_fields)=>{
+      if(outer_rows.length)
+          mariadb.query(`DELETE FROM videos WHERE id = ${req.query.id}`, (err, rows, fields) => {
+
+          fs.unlink("bin"+outer_rows[0].path.replace(HOSTNAME, ""),(inner_err)=>{
+
+              if (err == null) 
+              {
+                  if(outer_err == null)
+                  {
+                      if(inner_err == null)
+                      {
+                          res.send({
+                              error: false,
+                              data: rows,
+                          })
+                          return
+                      }
+                      else
+                      {
+                          res.send({
+                              error: true,
+                              code: "UV001_SQL-inner_err",
+                              message: "Couldn't complete the whole delete cycle",
+                              sqlMessage:err,
+                              sqlMessageOuter:inner_err,
+                          })
+                          return 
+                      }
+                  }
+                  else
+                  {
+                      res.send({
+                          error: true,
+                          code: "UV001_SQL-outter_err",
+                          message: "Couldn't complete the whole delete cycle",
+                          sqlMessageOuter:outer_err,
+                      })
+                      return 
+                  }    
+              } else {
+                  res.send({
+                      error: true,
+                      code: "UV001_SQL-err",
+                      message: "Couldn't complete the whole delete cycle",
+                      sqlMessage:err,
+                  })
+                  return
+              }
+          })
+
+          });
+      else
+          res.send({
+              error: true,
+              code: "DV003",
+              message: "Video wasn't found from the database",
+          
+          })
+      return
+
+  })
+});
 
 // For Single image upload
 app.post('/uploadImage', imageUpload.single('image'), (req, res) => {
