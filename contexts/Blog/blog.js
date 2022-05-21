@@ -77,7 +77,7 @@ Router.get('/', (req, res, next) => {
 
     if (req.query.id) {
         if (req.query.id == "*") {
-            mariadb.query('SELECT title, description, author, created_on, path, link,subTittle from blog', (err, rows) => {
+            mariadb.query('SELECT id, title, description, author, created_on, path, link,subTittle from blog', (err, rows) => {
 
                 if (!err) {
                     res.send({
