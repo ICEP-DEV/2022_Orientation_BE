@@ -131,7 +131,7 @@ app.delete('/deleteVideo', (req, res, next) => {
                       {
                           res.send({
                               error: true,
-                              code: "UV001_SQL-inner_err",
+                              code: "DV001_SQL-inner_err",
                               message: "Couldn't complete the whole delete cycle",
                               sqlMessage:err,
                               sqlMessageOuter:inner_err,
@@ -143,7 +143,7 @@ app.delete('/deleteVideo', (req, res, next) => {
                   {
                       res.send({
                           error: true,
-                          code: "UV001_SQL-outter_err",
+                          code: "DV001_SQL-outter_err",
                           message: "Couldn't complete the whole delete cycle",
                           sqlMessageOuter:outer_err,
                       })
@@ -152,7 +152,7 @@ app.delete('/deleteVideo', (req, res, next) => {
               } else {
                   res.send({
                       error: true,
-                      code: "UV001_SQL-err",
+                      code: "DV001_SQL-err",
                       message: "Couldn't complete the whole delete cycle",
                       sqlMessage:err,
                   })
@@ -171,6 +171,84 @@ app.delete('/deleteVideo', (req, res, next) => {
       return
 
   })
+});
+
+Router.delete('/', (req, res, next) => {
+
+  let field;
+
+  if (Object.keys(req.query).length == 0) {
+      res.send({
+          error: true,
+          code: "S001",
+          message: "query parameters were not found"
+      })
+      return
+  }
+
+
+  if (req.query.id) {
+    mariadb.query(`SELECT path FROM blog WHERE id = ${req.query.id}`, (outer_err, outer_rows,outer_fields) => {
+      if(outer_rows.length)
+      mariadb.query(`DELETE FROM blog WHERE id = ${req.query.id}`, (err, rows, fields) => {
+        fs.unlink("bin"+outer_rows[0].path.replace(HOSTNAME, ""),(inner_err)=>{
+
+          if (err == null) 
+          {
+              if(outer_err == null)
+              {
+                  if(inner_err == null)
+                  {
+                      res.send({
+                          error: false,
+                          data: rows,
+                      })
+                      return
+                  }
+                  else
+                  {
+                      res.send({
+                          error: true,
+                          code: "DV001_SQL-inner_err",
+                          message: "Couldn't complete the whole delete cycle",
+                          sqlMessage:err,
+                          sqlMessageOuter:inner_err,
+                      })
+                      return 
+                  }
+              }
+              else
+              {
+                  res.send({
+                      error: true,
+                      code: "DV001_SQL-outter_err",
+                      message: "Couldn't complete the whole delete cycle",
+                      sqlMessageOuter:outer_err,
+                  })
+                  return 
+              }    
+          } else {
+              res.send({
+                  error: true,
+                  code: "DV001_SQL-err",
+                  message: "Couldn't complete the whole delete cycle",
+                  sqlMessage:err,
+              })
+              return
+          }
+      })
+              
+      });
+    })
+
+  }else {
+      res.send({
+          error: true,
+          code: "S002",
+          message: "id field element was not found as a query element"
+      })
+      return
+  }
 });
 
 // For Single image upload
