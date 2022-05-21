@@ -1,7 +1,6 @@
 //PORT FOR THE API ENDPOINT________________________
-const { APP_PORT,DATABASE } = require('./globals');
+const { APP_PORT,DATABASE,HOSTNAME } = require('./globals');
 //_________________________________________________
-const HOSTNAME = "ec2-18-234-218-224.compute-1.amazonaws.com"
 
 const express = require('express');
 const path = require('path');
@@ -99,7 +98,7 @@ app.post('/uploadImage', imageUpload.single('image'), (req, res) => {
       const link = req.body.link;
        
         //Adding a blog post with a image
-        mariadb.query(`INSERT INTO blog(path, author, title, description, created_on,link,subTittle) VALUES('http://${HOSTNAME}/images/${img}','${author}','${title}', '${description}', DEFAULT,'${link}','${subTittle}')`, (err,result) => {
+        mariadb.query(`INSERT INTO blog(path, author, title, description, created_on,link,subTittle) VALUES('${HOSTNAME}/images/${img}','${author}','${title}', '${description}', DEFAULT,'${link}','${subTittle}')`, (err,result) => {
             if(err) throw err
             res.send('Image uploaded')
             return
@@ -125,7 +124,7 @@ app.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
     const link = req.body.link;
     
     //Adding a blog post with a video
-      mariadb.query(`INSERT INTO blog(path, author, title, description, created_on,link,subTittle) VALUES('http://${HOSTNAME}/videos/${vid}','${author}','${title}', '${description}', DEFAULT,'${link}','${subTittle}')`, (err,result) => {
+      mariadb.query(`INSERT INTO blog(path, author, title, description, created_on,link,subTittle) VALUES('${HOSTNAME}/videos/${vid}','${author}','${title}', '${description}', DEFAULT,'${link}','${subTittle}')`, (err,result) => {
         if(err) throw err
         res.send('Video uploaded for blog')
       })
@@ -139,7 +138,7 @@ app.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
       
 
         //Adding a video post with a image
-        mariadb.query(`INSERT INTO videos(path, tittle, createdAt,category,type,noOfViews) VALUES('http://${HOSTNAME}/videos/${vid}','${title}', DEFAULT,'${category}','${fileType}',0)`, (err,result) => {
+        mariadb.query(`INSERT INTO videos(path, tittle, createdAt,category,type,noOfViews) VALUES('${HOSTNAME}/videos/${vid}','${title}', DEFAULT,'${category}','${fileType}',0)`, (err,result) => {
             if(err) throw err
           
             if(result.insertId)

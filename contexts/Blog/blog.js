@@ -3,7 +3,7 @@ const app = express();
 const Router = express.Router();
 const mariadb = require('../../connection');
 const bodyParser = require('body-parser');
-
+const fs = require('fs');
 
 app.use(bodyParser.json());
 

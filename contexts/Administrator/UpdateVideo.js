@@ -4,6 +4,7 @@ const Router = express.Router();
 const mariadb = require('../../connection');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const { HOSTNAME } = require('./../../globals')
 
 app.use(bodyParser.json());
 
@@ -97,7 +98,7 @@ Router.delete('/', (req, res, next) => {
         if(outer_rows.length)
             mariadb.query(`DELETE FROM videos WHERE id = ${req.query.id}`, (err, rows, fields) => {
 
-            fs.unlink("bin"+outer_rows[0].path.replace("http://localhost:6900", ""),(inner_err)=>{
+            fs.unlink("bin"+outer_rows[0].path.replace(HOSTNAME, ""),(inner_err)=>{
 
                 if (err == null) 
                 {
