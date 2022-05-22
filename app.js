@@ -173,7 +173,7 @@ app.delete('/deleteVideo', (req, res, next) => {
   })
 });
 
-app.delete('/', (req, res, next) => {
+app.delete('/deleteBlog', (req, res, next) => {
 
   let field;
 
