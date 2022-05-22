@@ -173,7 +173,7 @@ app.delete('/deleteVideo', (req, res, next) => {
   })
 });
 
-Router.delete('/', (req, res, next) => {
+app.delete('/', (req, res, next) => {
 
   let field;
 
