@@ -14,6 +14,7 @@ Router.get('/',(req,res,next)=>{
             error: false,
             data:rows.slice(0,3)
         })
+	return;
     })
 
 })

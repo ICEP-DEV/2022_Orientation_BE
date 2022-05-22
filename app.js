@@ -1,7 +1,6 @@
 //PORT FOR THE API ENDPOINT________________________
-const { APP_PORT,DATABASE } = require('./globals');
+const { APP_PORT,DATABASE,HOSTNAME } = require('./globals');
 //_________________________________________________
-const HOSTNAME = "ec2-18-234-218-224.compute-1.amazonaws.com"
 
 const express = require('express');
 const path = require('path');
@@ -9,7 +8,7 @@ const app = express()
 const multer = require('multer');
 const mariadb = require('./connection');
 const cors = require('cors');
-
+const fs = require('fs');
 
 app.use(cors({origin: '*'}));
 
@@ -86,6 +85,171 @@ const videoUpload = multer({
    }
 })
 
+//Delete Video
+app.delete('/deleteVideo', (req, res, next) => {
+
+  if(Object.keys(req.query).length == 0)
+  {
+      res.send({
+          error: true,
+          code: "DV001",
+          message: "No element was found on the query elements"
+      })
+      return
+  }
+
+  if(!req.query.id)
+  {
+      res.send({
+          error: true,
+          code: "DV002",
+          message: "No id element was found on the query"
+      })
+      return
+  }
+
+
+  mariadb.query(`SELECT path FROM videos WHERE id = ${req.query.id}`,(outer_err, outer_rows,outer_fields)=>{
+      if(outer_rows.length)
+          mariadb.query(`DELETE FROM videos WHERE id = ${req.query.id}`, (err, rows, fields) => {
+
+          fs.unlink("bin"+outer_rows[0].path.replace(HOSTNAME, ""),(inner_err)=>{
+
+              if (err == null) 
+              {
+                  if(outer_err == null)
+                  {
+                      if(inner_err == null)
+                      {
+                          res.send({
+                              error: false,
+                              data: rows,
+                          })
+                          return
+                      }
+                      else
+                      {
+                          res.send({
+                              error: true,
+                              code: "DV001_SQL-inner_err",
+                              message: "Couldn't complete the whole delete cycle",
+                              sqlMessage:err,
+                              sqlMessageOuter:inner_err,
+                          })
+                          return 
+                      }
+                  }
+                  else
+                  {
+                      res.send({
+                          error: true,
+                          code: "DV001_SQL-outter_err",
+                          message: "Couldn't complete the whole delete cycle",
+                          sqlMessageOuter:outer_err,
+                      })
+                      return 
+                  }    
+              } else {
+                  res.send({
+                      error: true,
+                      code: "DV001_SQL-err",
+                      message: "Couldn't complete the whole delete cycle",
+                      sqlMessage:err,
+                  })
+                  return
+              }
+          })
+
+          });
+      else
+          res.send({
+              error: true,
+              code: "DV003",
+              message: "Video wasn't found from the database",
+          
+          })
+      return
+
+  })
+});
+
+app.delete('/deleteBlog', (req, res, next) => {
+
+  let field;
+
+  if (Object.keys(req.query).length == 0) {
+      res.send({
+          error: true,
+          code: "S001",
+          message: "query parameters were not found"
+      })
+      return
+  }
+
+
+  if (req.query.id) {
+    mariadb.query(`SELECT path FROM blog WHERE id = ${req.query.id}`, (outer_err, outer_rows,outer_fields) => {
+      if(outer_rows.length)
+      mariadb.query(`DELETE FROM blog WHERE id = ${req.query.id}`, (err, rows, fields) => {
+        fs.unlink("bin"+outer_rows[0].path.replace(HOSTNAME, ""),(inner_err)=>{
+
+          if (err == null) 
+          {
+              if(outer_err == null)
+              {
+                  if(inner_err == null)
+                  {
+                      res.send({
+                          error: false,
+                          data: rows,
+                      })
+                      return
+                  }
+                  else
+                  {
+                      res.send({
+                          error: true,
+                          code: "DV001_SQL-inner_err",
+                          message: "Couldn't complete the whole delete cycle",
+                          sqlMessage:err,
+                          sqlMessageOuter:inner_err,
+                      })
+                      return 
+                  }
+              }
+              else
+              {
+                  res.send({
+                      error: true,
+                      code: "DV001_SQL-outter_err",
+                      message: "Couldn't complete the whole delete cycle",
+                      sqlMessageOuter:outer_err,
+                  })
+                  return 
+              }    
+          } else {
+              res.send({
+                  error: true,
+                  code: "DV001_SQL-err",
+                  message: "Couldn't complete the whole delete cycle",
+                  sqlMessage:err,
+              })
+              return
+          }
+      })
+              
+      });
+    })
+
+  }else {
+      res.send({
+          error: true,
+          code: "S002",
+          message: "id field element was not found as a query element"
+      })
+      return
+  }
+});
 
 // For Single image upload
 app.post('/uploadImage', imageUpload.single('image'), (req, res) => {
@@ -99,7 +263,7 @@ app.post('/uploadImage', imageUpload.single('image'), (req, res) => {
       const link = req.body.link;
        
         //Adding a blog post with a image
-        mariadb.query(`INSERT INTO blog(path, author, title, description, created_on,link,subTittle) VALUES('http://${HOSTNAME}/images/${img}','${author}','${title}', '${description}', DEFAULT,'${link}','${subTittle}')`, (err,result) => {
+        mariadb.query(`INSERT INTO blog(path, author, title, description, created_on,link,subTittle) VALUES('${HOSTNAME}/images/${img}','${author}','${title}', '${description}', DEFAULT,'${link}','${subTittle}')`, (err,result) => {
             if(err) throw err
             res.send('Image uploaded')
             return
@@ -125,7 +289,7 @@ app.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
     const link = req.body.link;
     
     //Adding a blog post with a video
-      mariadb.query(`INSERT INTO blog(path, author, title, description, created_on,link,subTittle) VALUES('http://${HOSTNAME}/videos/${vid}','${author}','${title}', '${description}', DEFAULT,'${link}','${subTittle}')`, (err,result) => {
+      mariadb.query(`INSERT INTO blog(path, author, title, description, created_on,link,subTittle) VALUES('${HOSTNAME}/videos/${vid}','${author}','${title}', '${description}', DEFAULT,'${link}','${subTittle}')`, (err,result) => {
         if(err) throw err
         res.send('Video uploaded for blog')
       })
@@ -139,7 +303,7 @@ app.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
       
 
         //Adding a video post with a image
-        mariadb.query(`INSERT INTO videos(path, tittle, createdAt,category,type,noOfViews) VALUES('http://${HOSTNAME}/videos/${vid}','${title}', DEFAULT,'${category}','${fileType}',0)`, (err,result) => {
+        mariadb.query(`INSERT INTO videos(path, tittle, createdAt,category,type,noOfViews) VALUES('${HOSTNAME}/videos/${vid}','${title}', DEFAULT,'${category}','${fileType}',0)`, (err,result) => {
             if(err) throw err
           
             if(result.insertId)
